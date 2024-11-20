@@ -15,8 +15,8 @@ export function KanbanColumn({
   provided,
 }: KanbanColumnProps) {
   return (
-    <Card className="bg-gray-100 dark:bg-gray-900 relative !min-h-[48px] overflow-y-auto overflow-x-hidden max-h-[calc(100vh_-_8rem)]">
-      <div className="sticky shadow top-0 p-2 bg-gray-100 z-50 dark:bg-gray-900"><h3 className="font-bold text-sm">{column.name} ({column.tasks.length})</h3></div>
+    <Card className="bg-muted/50 relative !min-h-[48px] overflow-y-auto overflow-x-hidden max-h-[calc(100vh_-_8rem)]">
+      <div className="sticky shadow top-0 p-2 z-50 bg-muted/50"><h3 className="font-bold text-sm">{column.name} ({column.tasks.length})</h3></div>
       <div
         className="min-h-[10px] z-0 p-1"
         ref={provided.innerRef}

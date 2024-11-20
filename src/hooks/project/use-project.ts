@@ -1,59 +1,27 @@
-"use client"
-import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase/client";
+import { useQuery } from "@supabase-cache-helpers/postgrest-swr";
 import { Project } from "@/types/project";
 
-// Fetch function
-async function fetchProject(project_id: string) {
 
-    let { data: project, error } = await supabase
-        .from('projects')
-        .select('*')
-        .eq('id', project_id).single()
+type UseProjectResult = {
+    project: Project;
+    isLoading: boolean;
+    error: any;
+    refetch: any;
+};
 
-    if (error) {
-        throw error
-    }
-    return project
-}
+export function useProject(project_id: string): UseProjectResult {
 
-// Hook
-export function useProject(project_id: string) {
-    const [project, setProject] = useState<Project | null>(null);
-    const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [error, setError] = useState<Error | null>(null);
+    const { data: project, mutate, isLoading, error } = useQuery(
+        supabase
+            .from('projects')
+            .select('*')
+            .eq('id', project_id).single(),
+        {
+            revalidateOnFocus: false,
+            revalidateOnReconnect: false,
+        }
+    );
 
-    // Fetch data on mount or when project_id changes
-    useEffect(() => {
-        if (!project_id) return;
-
-        const getKanban = async () => {
-            try {
-                setIsLoading(true);
-                setError(null); // Reset error
-                const project = await fetchProject(project_id);
-                setProject(project);
-            } catch (error: any) {
-                setError(error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        getKanban();
-    }, [project_id]);
-
-    return {
-        project,
-        isLoading,
-        error,
-        refetch: () => {
-            setIsLoading(true);
-            setError(null);
-            fetchProject(project_id)
-                .then(setProject)
-                .catch(setError)
-                .finally(() => setIsLoading(false));
-        },
-    };
+    return { project, isLoading, refetch: mutate, error };
 }

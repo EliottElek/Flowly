@@ -7,8 +7,11 @@ import { createClient } from '@/lib/supabase/server'
 
 export async function signInWithGithub() {
     const supabase = await createClient()
-    const { data, error } = await supabase.auth.signInWithOAuth({
+    const { data } = await supabase.auth.signInWithOAuth({
         provider: 'github',
+        options: {
+            redirectTo: process.env.NEXT_PUBLIC_AUTH_REDIRECT ?? "http://localhost:3000/auth/callback",
+        },
     })
     if (data.url) {
         redirect(data.url)
@@ -25,7 +28,6 @@ export async function login(formData: FormData) {
         password: formData.get('password') as string,
     }
 
-    console.log(data)
     const { error } = await supabase.auth.signInWithPassword(data)
 
     if (error) {
@@ -50,7 +52,6 @@ export async function signup(formData: FormData) {
     const { error } = await supabase.auth.signUp(data)
 
     if (error) {
-        console.log(error)
         redirect('/error')
     }
 

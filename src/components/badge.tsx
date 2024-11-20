@@ -1,6 +1,6 @@
 
 
-export default function PriorityBadge({ priority }: { priority: string }) {
+export default function PriorityBadge({ priority }: { priority: string | undefined }) {
 
     function renderBadge() {
         switch (priority) {

@@ -1,42 +1,28 @@
-import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase/client";
+import { useQuery } from "@supabase-cache-helpers/postgrest-swr";
 import { Task } from "@/types/kanban";
 
+
 type UseTasksResult = {
-    tasks: Task[] | null;
+    tasks: Task[] | Partial<Task>[] | null | undefined;
     isLoading: boolean;
-    error: string | null;
+    count: number | null,
+    error: any;
+    refetch: any;
 };
 
-export function useTasks(): UseTasksResult {
-    const [tasks, setTasks] = useState<Task[] | null>(null);
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
 
-    useEffect(() => {
-        const fetchTasks = async () => {
-            setIsLoading(true);
-            setError(null);
+export function useTasks(project_id: string): UseTasksResult {
 
-            try {
-                const { data, error } = await supabase
-                    .from("tasks")
-                    .select("id, title, description, content, createdAt, column_id, priority, project_id");
+    const { data: tasks, count, mutate, isLoading, error } = useQuery(
+        supabase
+            .from("tasks")
+            .select("*").eq("project_id", project_id),
+        {
+            revalidateOnFocus: false,
+            revalidateOnReconnect: false,
+        }
+    );
 
-                if (error) {
-                    throw error;
-                }
-
-                setTasks(data || []);
-            } catch (err: any) {
-                setError(err.message || "An error occurred while fetching tasks.");
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchTasks();
-    }, []);
-
-    return { tasks, isLoading, error };
+    return { tasks, count, isLoading, refetch: mutate, error };
 }

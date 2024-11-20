@@ -6,33 +6,30 @@ import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/ca
 import { useEffect, useState } from "react"
 import { memo } from 'react'
 import Link from "next/link"
-import { useParams } from "next/navigation"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { MoreHorizontal, Folder, Forward, Trash2 } from "lucide-react"
+import { MoreHorizontal, Trash2 } from "lucide-react"
 import { SidebarMenuAction } from "../ui/sidebar"
 import PriorityBadge from "../badge"
 
 
 interface KanbanTaskProps {
-  task: Task
+  task: Task | Partial<Task>
   index: number
 }
 
 export const KanbanTask = memo(function KanbanTask({ task, index }: KanbanTaskProps) {
   const [mounted, setMounted] = useState(false)
-  const { project_id } = useParams()
 
   useEffect(() => {
     setMounted(true)
   }, [])
 
-  if (!mounted) {
+  if (!mounted || !task.id) {
     return null
   }
 
@@ -45,7 +42,7 @@ export const KanbanTask = memo(function KanbanTask({ task, index }: KanbanTaskPr
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <Link href={`/dashboard/project/${project_id}?task_id=${task.id}`}>
+          <Link href={`/dashboard/task/${task.id}`}>
             <Card className="group relative bg-background">
               <CardHeader className="p-3">
                 <div className="flex items-center justify-between">
@@ -60,15 +57,6 @@ export const KanbanTask = memo(function KanbanTask({ task, index }: KanbanTaskPr
                     <DropdownMenuContent
                       className="w-48 rounded-lg"
                     >
-                      {/* <DropdownMenuItem>
-                        <Folder className="text-muted-foreground" />
-                        <span>View Project</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Forward className="text-muted-foreground" />
-                        <span>Share Project</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuSeparator /> */}
                       <DropdownMenuItem>
                         <Trash2 className="text-muted-foreground" />
                         <span>Delete</span>

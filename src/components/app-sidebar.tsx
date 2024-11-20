@@ -11,7 +11,6 @@ import {
   Map,
   PieChart,
   Settings2,
-  SquareTerminal,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -132,7 +131,7 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
   }), [])
 
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <Sidebar collapsible="icon" {...props} className="bg-muted/50">
       <SidebarHeader>
         <TeamSwitcher teams={data.teams} />
       </SidebarHeader>

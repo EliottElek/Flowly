@@ -1,47 +1,28 @@
-import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase/client";
+import { useQuery } from "@supabase-cache-helpers/postgrest-swr";
+import { Column } from "@/types/kanban";
 
-type Column = {
-    id: string;
-    name: string;
-    [key: string]: any; // Add other properties if needed
-};
 
 type UseColumnsResult = {
-    columns: Column[] | null;
+    columns: Column[] | null | undefined;
     isLoading: boolean;
-    error: string | null;
+    count: number | null,
+    error: any;
+    refetch: any;
 };
 
+
 export function useColumns(project_id: string): UseColumnsResult {
-    const [columns, setColumns] = useState<Column[] | null>(null);
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
 
-    useEffect(() => {
-        const fetchColumns = async () => {
-            setIsLoading(true);
-            setError(null);
+    const { data: columns, count, mutate, isLoading, error } = useQuery(
+        supabase
+            .from("columns")
+            .select("*").eq("project_id", project_id),
+        {
+            revalidateOnFocus: false,
+            revalidateOnReconnect: false,
+        }
+    );
 
-            try {
-                const { data, error } = await supabase
-                    .from("columns")
-                    .select("*").eq("project_id", project_id);
-
-                if (error) {
-                    throw error;
-                }
-
-                setColumns(data || []);
-            } catch (err: any) {
-                setError(err.message || "An error occurred while fetching columns.");
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchColumns();
-    }, []);
-
-    return { columns, isLoading, error };
+    return { columns, count, isLoading, refetch: mutate, error };
 }

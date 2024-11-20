@@ -3,9 +3,9 @@ import { getProject } from '@/lib/actions/project'
 import { redirect } from 'next/navigation'
 import { KanbanBoard } from '@/components/kanban/kanban-board';
 
-interface Params {
+type Params = Promise<{
     project_id: string;
-}
+}>
 
 const page = async ({ params }: { params: Params }) => {
     const { project_id } = await params

@@ -1,7 +1,5 @@
 'use client'
 import '@/app/globals.css'
-import Document from '@tiptap/extension-document'
-import Placeholder from '@tiptap/extension-placeholder'
 import {
     EditorContent, JSONContent, useEditor, BubbleMenu,
 } from '@tiptap/react'
@@ -14,16 +12,13 @@ import html from 'highlight.js/lib/languages/xml'
 import { all, createLowlight } from 'lowlight'
 import StarterKit from '@tiptap/starter-kit'
 import React, { useEffect } from 'react'
-import { Bold, Italic, Underline, ImagePlus } from "lucide-react"
+import { Bold, Italic, Underline } from "lucide-react"
 
 import {
     ToggleGroup,
     ToggleGroupItem,
 } from "@/components/ui/toggle-group"
-
-const CustomDocument = Document.extend({
-    content: 'heading paragraph block*',
-})
+import Placeholder from '@tiptap/extension-placeholder'
 
 const lowlight = createLowlight(all)
 
@@ -42,36 +37,22 @@ export default ({ content, setContent }: EditorProps) => {
 
     const editor = useEditor({
         immediatelyRender: false,
-
         extensions: [
-            CustomDocument,
             StarterKit.configure({
-                document: false,
-            }),
-            Placeholder.configure({
-                placeholder: ({ node }) => {
-                    if (node.type.name === 'heading') {
-                        return 'What’s the title?'
-                    }
-                    return 'Can you add some further context?'
-                },
+                codeBlock: false,
             }),
             CodeBlockLowlight.configure({ lowlight }),
             Image,
+            Placeholder.configure({
+                // Use a placeholder:
+                placeholder: 'Write some comments...',
+            })
         ],
         content,
         onUpdate: ({ editor }) => {
             setContent(editor.getJSON()); // Synchronize the editor content with the React state
         },
     });
-
-    const addImage = () => {
-        const url = window.prompt('URL')
-
-        if (url) {
-            editor?.chain().focus().setImage({ src: url }).run()
-        }
-    }
 
     useEffect(() => {
         if (!editor) return;
@@ -101,10 +82,30 @@ export default ({ content, setContent }: EditorProps) => {
                     </ToggleGroupItem>
                 </ToggleGroup>
             </BubbleMenu>}
-            {/* <div className="mb-12">
-                <Button variant={"secondary"} size={"icon"} onClick={addImage}><ImagePlus /></Button>
-            </div> */}
             <EditorContent autoFocus editor={editor} />
         </div>
     );
 };
+
+
+export const CommentContent = ({ content }: { content: JSONContent }) => {
+    const editor = useEditor({
+        editable: false,
+        immediatelyRender: false,
+        content: content,
+        extensions: [
+            StarterKit.configure({
+                codeBlock: false,
+            }),
+            CodeBlockLowlight.configure({ lowlight }),
+            Image,
+        ],
+    });
+
+    return (
+        <div className='prose dark:prose-invert max-w-none'>
+            <EditorContent editor={editor} />
+        </div>
+    );
+};
+

@@ -4,23 +4,19 @@ import { DragDropContext, Droppable, DropResult } from "@hello-pangea/dnd"
 import { KanbanColumn } from "./kanban-column"
 import { NewTask } from "./new-task"
 import { useKanban } from "@/hooks/kanban/use-kanban"
-import { useSearchParams } from 'next/navigation'
-import TaskDialog from "./task-dialog"
 import { useUpdateTask } from "@/hooks/kanban/use-update-task";
 import KanbanSkeleton from "./kanban-skeleton"
 import NewColumn from "./new-column"
+import { Column } from "@/types/kanban"
 
 export function KanbanBoard({ project_id }: { project_id: string }) {
 
   const { columns, isLoading, refetch } = useKanban(project_id);
   const { updateTask } = useUpdateTask();
 
-  const searchParams = useSearchParams()
-  const task_id = searchParams.get('task_id') || null
-
-
-
   const onDragEnd = async (result: DropResult) => {
+
+    if (!Array.isArray(columns)) return
     const { destination, source } = result
 
     if (!destination ||
@@ -50,7 +46,7 @@ export function KanbanBoard({ project_id }: { project_id: string }) {
       <div className="w-full overflow-auto p-4 flex h-full">
         <DragDropContext onDragEnd={onDragEnd}>
           <div className="flex flex-row gap-4">
-            {columns.map((column) => (
+            {columns && columns.map((column: Column) => (
               <div key={column.id} className="w-full md:w-[300px] min-[40px]">
                 <Droppable droppableId={column.id}>
                   {(provided) => (
@@ -66,7 +62,6 @@ export function KanbanBoard({ project_id }: { project_id: string }) {
           </div>
         </DragDropContext>
       </div>
-      <TaskDialog task_id={task_id} project_id={project_id} refetch={refetch} />
     </>
   )
 } 
