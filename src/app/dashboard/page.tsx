@@ -9,6 +9,7 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import { createClient } from "@/lib/supabase/server"
+import { Skeleton } from "@/components/ui/skeleton"
 export default async function Home() {
     const supabase = await createClient()
 

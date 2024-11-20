@@ -47,7 +47,7 @@ export function KanbanBoard({ project_id }: { project_id: string }) {
         <DragDropContext onDragEnd={onDragEnd}>
           <div className="flex flex-row gap-4">
             {columns && columns.map((column: Column) => (
-              <div key={column.id} className="w-full md:w-[300px] min-[40px]">
+              <div key={column.id} className="w-full !w-[300px]">
                 <Droppable droppableId={column.id}>
                   {(provided) => (
                     <KanbanColumn
