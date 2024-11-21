@@ -18,11 +18,13 @@ export function useUpdateTask(): UseUpdateTaskResult {
         setUpdateError(null);
 
         try {
-            if (!updates.content) return
-            const { title, description } = extractTitleAndDescription(updates.content)
+            if (updates.content) {
+                const { title, description } = extractTitleAndDescription(updates.content)
+                updates = { ...updates, title, description }
+            }
             const { error } = await supabase
                 .from("tasks")
-                .update({ ...updates, title, description })
+                .update({ ...updates })
                 .eq("id", task_id);
 
             if (error) {
