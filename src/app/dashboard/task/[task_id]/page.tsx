@@ -7,13 +7,14 @@ import { JSONContent } from '@tiptap/react'
 import { useUpdateTask } from '@/hooks/kanban/use-update-task'
 import { toast } from '@/hooks/use-toast'
 import Editor from '@/components/editor'
+import { PriorityBadgeSelect } from '@/components/badge'
 
 const TaskDialog = () => {
 
     const router = useRouter()
     const { task_id }: { task_id: string } = useParams()
 
-    const { task } = useTask(task_id)
+    const { task, refetch } = useTask(task_id)
     const { updateTask } = useUpdateTask();
     const [content, setContent] = React.useState<JSONContent>({})
 
@@ -40,11 +41,14 @@ const TaskDialog = () => {
     };
 
     return (
-        <div className='p-4 pt-12'>
-            <Editor content={content} setContent={setContent} />
-            <div className='grow' />
-            <div className='flex justify-end'>
-                <Button onClick={handleSaveTask} className='text-white'>Save task</Button>
+        <div className='p-4'>
+            <PriorityBadgeSelect className='text-md my-6' task={task} refetch={refetch} />
+            <div>
+                <Editor content={content} setContent={setContent} />
+                <div className='grow' />
+                <div className='flex justify-end'>
+                    <Button onClick={handleSaveTask} className='text-white'>Save task</Button>
+                </div>
             </div>
         </div>
     )

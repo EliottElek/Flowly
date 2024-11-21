@@ -43,3 +43,5 @@ export function extractTitleAndDescription(json: JSONContent) {
   }
   return { title, description };
 }
+
+export const priorities = ["low", "medium", "high"]

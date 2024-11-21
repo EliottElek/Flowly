@@ -24,8 +24,7 @@ import { ToastAction } from "@/components/ui/toast"
 import Editor from "../editor"
 import { JSONContent } from "@tiptap/react"
 import defaultContent from '@/components/editor/default-content.json'
-
-const priorities = ["low", "medium", "high"]
+import { priorities } from "@/lib/utils";
 
 export function NewTask({ refetch, project_id }: { refetch: () => void, project_id: string }) {
   const [open, setOpen] = useState(false)
@@ -56,7 +55,6 @@ export function NewTask({ refetch, project_id }: { refetch: () => void, project_
   }, [open])
 
   const handleAddTask = async () => {
-    console.log(formData)
     const { error } = await createTask({ ...formData } as Task);
     if (!error) {
       refetch();
