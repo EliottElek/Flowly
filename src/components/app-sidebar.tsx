@@ -131,7 +131,7 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
   }), [])
 
   return (
-    <Sidebar collapsible="icon" {...props} className="bg-muted/50">
+    <Sidebar collapsible="icon" {...props} className="!bg-[#F8F9FB] dark:!bg-[#111829]">
       <SidebarHeader>
         <TeamSwitcher teams={data.teams} />
       </SidebarHeader>

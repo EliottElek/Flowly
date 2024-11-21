@@ -15,10 +15,10 @@ export function KanbanColumn({
   provided,
 }: KanbanColumnProps) {
   return (
-    <Card className="bg-muted/50 relative !min-h-[48px] overflow-y-auto overflow-x-hidden max-h-[calc(100vh_-_8rem)]">
-      <div className="sticky shadow top-0 p-2 z-50 bg-muted/50"><h3 className="font-bold text-sm">{column.name} ({column.tasks.length})</h3></div>
+    <Card className="bg-muted/50 relative !min-h-[48px] overflow-hidden ">
+      <div className="shadow p-2 z-50 bg-muted/50"><h3 className="font-bold text-sm">{column.name} ({column.tasks.length})</h3></div>
       <div
-        className="min-h-[10px] z-0 p-1"
+        className="min-h-[10px] z-0 p-1 overflow-y-auto max-h-[calc(100vh_-_11rem)]"
         ref={provided.innerRef}
         {...provided.droppableProps}
       >
