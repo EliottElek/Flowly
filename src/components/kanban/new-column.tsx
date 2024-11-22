@@ -48,12 +48,12 @@ export default function NewColumn({ refetch, project_id }: { refetch: () => void
     };
 
     return (
-        <>{!open ?
-            <Button variant="secondary" className="!w-72 bg-gray-100 dark:bg-gray-900  rounded-lg" onClick={() => setOpen(true)}>
+        <div className="p-2">{!open ?
+            <Button variant="secondary" className="!w-72 bg-gray-100 dark:bg-gray-900 rounded border" onClick={() => setOpen(true)}>
                 <PlusIcon /> New Column
             </Button>
             :
-            <Card className="!w-72 p-2 bg-gray-100 dark:bg-gray-900 flex flex-col h-fit rounded-lg">
+            <Card className="!w-72 p-2 bg-gray-100 dark:bg-gray-900 flex flex-col h-fit rounded border">
                 <form className="flex flex-col gap-2">
                     <Input
                         required
@@ -68,6 +68,6 @@ export default function NewColumn({ refetch, project_id }: { refetch: () => void
                 </form>
             </Card>
         }
-        </>
+        </div>
     )
 } 

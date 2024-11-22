@@ -16,7 +16,8 @@ export interface Column {
   name: string
   description: string
   tasks: Task[] | Partial<Task>[]
-  project_id: string
+  project_id: string,
+  index: number
 }
 export type Comment = {
   id: string;

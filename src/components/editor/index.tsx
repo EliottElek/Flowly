@@ -7,6 +7,7 @@ import {
 } from '@tiptap/react'
 import Image from '@tiptap/extension-image'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
+import Link from '@tiptap/extension-link'
 import css from 'highlight.js/lib/languages/css'
 import js from 'highlight.js/lib/languages/javascript'
 import ts from 'highlight.js/lib/languages/typescript'
@@ -58,6 +59,9 @@ export default ({ content, setContent }: EditorProps) => {
             }),
             CodeBlockLowlight.configure({ lowlight }),
             Image,
+            Link.configure({
+                defaultProtocol: 'https',
+            })
         ],
         content,
         onUpdate: ({ editor }) => {

@@ -13,6 +13,8 @@ import { all, createLowlight } from 'lowlight'
 import StarterKit from '@tiptap/starter-kit'
 import React, { useEffect } from 'react'
 import { Bold, Italic, Underline } from "lucide-react"
+import Link from '@tiptap/extension-link'
+
 
 import {
     ToggleGroup,
@@ -46,6 +48,9 @@ export default ({ content, setContent }: EditorProps) => {
             Placeholder.configure({
                 // Use a placeholder:
                 placeholder: 'Write some comments...',
+            }),
+            Link.configure({
+                defaultProtocol: 'https',
             })
         ],
         content,
@@ -99,6 +104,9 @@ export const CommentContent = ({ content }: { content: JSONContent }) => {
             }),
             CodeBlockLowlight.configure({ lowlight }),
             Image,
+            Link.configure({
+                defaultProtocol: 'https',
+            })
         ],
     });
 

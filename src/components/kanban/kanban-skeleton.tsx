@@ -7,7 +7,7 @@ const KanbanSkeleton = () => {
             <div className="flex items-center justify-end"><Skeleton className="h-10 w-[120px]" />
             </div>
             <div className='flex gap-4 h-auto'>
-                <Skeleton className="w-[300px] p-4 h-fit items-center flex-col space-y-3 rounded-md">
+                <Skeleton className="w-[380px] p-4 h-fit items-center flex-col space-y-3 rounded-md">
                     <Skeleton className="h-[105px] p-4 w-full rounded-md">
                         <Skeleton className="h-8 w-full" />
                     </Skeleton>
@@ -18,7 +18,7 @@ const KanbanSkeleton = () => {
                         <Skeleton className="h-8 w-full" />
                     </Skeleton>
                 </Skeleton>
-                <Skeleton className="flex w-[300px] p-4 h-fit items-center flex-col space-y-3 rounded-md">
+                <Skeleton className="flex w-[380px] p-4 h-fit items-center flex-col space-y-3 rounded-md">
                     <Skeleton className="h-[215px] p-4 w-full rounded-md">
                         <Skeleton className="h-8 w-full" />
                     </Skeleton>
@@ -26,7 +26,7 @@ const KanbanSkeleton = () => {
                         <Skeleton className="h-8 w-full" />
                     </Skeleton>
                 </Skeleton>
-                <Skeleton className="flex w-[300px] p-4 h-fit items-center flex-col space-y-3 rounded-md">
+                <Skeleton className="flex w-[380px] p-4 h-fit items-center flex-col space-y-3 rounded-md">
                     <Skeleton className="h-[145px] p-4 w-full rounded-md">
                         <Skeleton className="h-8 w-full" />
                     </Skeleton>

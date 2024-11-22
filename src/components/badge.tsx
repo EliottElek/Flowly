@@ -1,10 +1,6 @@
 "use client"
-
 import { cn, priorities } from "@/lib/utils";
-
 import * as React from "react"
-
-import { Button } from "@/components/ui/button"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -17,26 +13,27 @@ import {
 import { Task } from "@/types/kanban";
 import { useUpdateTask } from "@/hooks/kanban/use-update-task";
 import { toast } from "@/hooks/use-toast";
+import { ChevronDown } from "lucide-react";
 
-export default function PriorityBadge({ priority, className }: { priority: string | undefined, className?: string | undefined }) {
+export default function PriorityBadge({ priority, className, children }: { priority: string | undefined, className?: string | undefined, children?: React.ReactNode }) {
 
     function renderBadge() {
         switch (priority) {
             case 'low':
-                return <span className={cn("inline-flex items-center rounded-full bg-green-400/20 px-2 py-.5 text-xs font-medium text-green-600", className)}>
-                    {priority}
+                return <span className={cn("flex items-center gap-1 rounded-full bg-green-400/20 px-2 py-.5 text-xs font-medium text-green-600", className)}>
+                    {priority}{children}
                 </span>;
             case 'medium':
-                return <span className={cn("inline-flex items-center rounded-full bg-orange-400/20 px-2 py-.5 text-xs font-medium text-orange-400", className)}>
-                    {priority}
+                return <span className={cn("flex items-center gap-1 rounded-full bg-orange-400/20 px-2 py-.5 text-xs font-medium text-orange-400", className)}>
+                    {priority}{children}
                 </span>
             case 'high':
-                return <span className={cn("inline-flex items-center rounded-full bg-red-400/20 px-2 py-.5 text-xs font-medium text-red-700", className)}>
-                    {priority}
+                return <span className={cn("flex items-center gap-1 rounded-full bg-red-400/20 px-2 py-.5 text-xs font-medium text-red-700", className)}>
+                    {priority}{children}
                 </span>
             default:
-                return <span className={cn("inline-flex items-center rounded-full bg-gray-400/20 px-2 py-.5 text-xs font-medium text-gray-600", className)}>
-                    {priority}
+                return <span className={cn("flex items-center gap-1 rounded-full bg-gray-400/20 px-2 py-.5 text-xs font-medium text-gray-600", className)}>
+                    {priority}{children}
                 </span>;
         }
     }
@@ -64,7 +61,7 @@ export const PriorityBadgeSelect = ({ task, className, refetch }: { task: Task, 
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <button><PriorityBadge className={className} priority={task.priority} /></button>
+                <button className="p-0 outline-none"><PriorityBadge className={className} priority={task.priority}><ChevronDown className="h-4 w-4"/></PriorityBadge></button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">
                 <DropdownMenuLabel>Priority</DropdownMenuLabel>

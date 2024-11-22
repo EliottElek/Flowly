@@ -2,7 +2,6 @@ import { supabase } from "@/lib/supabase/client";
 import { useQuery } from "@supabase-cache-helpers/postgrest-swr";
 import { Task } from "@/types/kanban";
 
-
 type UseTasksResult = {
     tasks: Task[] | Partial<Task>[] | null | undefined;
     isLoading: boolean;

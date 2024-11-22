@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster"
+import { ConfirmContextProvider } from "@/components/use-confirm-dialog";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -34,7 +35,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <ConfirmContextProvider>
+            {children}
+          </ConfirmContextProvider>
           <Toaster />
         </ThemeProvider>
       </body>

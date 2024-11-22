@@ -6,8 +6,10 @@ export function useKanban(project_id: string) {
     const { data: columns, count, mutate, isLoading, error } = useQuery(
         supabase
             .from("columns")
-            .select("id, name, description, project_id, tasks(id, title, description, column_id, priority)")
-            .eq("project_id", project_id),
+            .select("id, name, description, project_id, index, tasks(id, title, description, column_id, priority)")
+            .eq("project_id", project_id)
+            .order("index", { ascending: true }),
+
         {
             revalidateOnFocus: false,
             revalidateOnReconnect: false,

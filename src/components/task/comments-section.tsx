@@ -8,6 +8,7 @@ import { toast } from '@/hooks/use-toast'
 import { submitComment } from '@/lib/actions/comments'
 import { useTask } from '@/hooks/kanban/use-task'
 import CommentsList from './comments-list'
+import { MessagesSquare } from 'lucide-react'
 
 const CommentsSection = ({ task_id }: { task_id: string }) => {
     const [content, setContent] = useState<JSONContent>({})
@@ -31,7 +32,8 @@ const CommentsSection = ({ task_id }: { task_id: string }) => {
     return (
         <div className='flex flex-col w-full h-[80vh]'>
             <div className='grow p-4'>
-                {comments && <CommentsList comments={comments} />}
+                {Array.isArray(comments) && comments.length > 0 ? <CommentsList comments={comments} /> :
+                    <EmptyCommentState />}
             </div>
             <div className='border-t p-2 sticky bg-background bottom-0 mt-0'>
                 <Editor content={content} setContent={setContent} />
@@ -43,4 +45,10 @@ const CommentsSection = ({ task_id }: { task_id: string }) => {
     )
 }
 
+const EmptyCommentState = () => (
+    <div className='grow flex items-center opacity-30 dark:opacity-60 flex-col h-full justify-center'>
+        <MessagesSquare className='h-24 w-24 stroke-[.6px]' />
+        <p className='italic'>There are no comments on this task yet.</p>
+    </div>
+)
 export default CommentsSection

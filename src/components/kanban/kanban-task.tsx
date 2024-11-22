@@ -10,11 +10,15 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { MoreHorizontal, Trash2 } from "lucide-react"
 import { SidebarMenuAction } from "../ui/sidebar"
 import PriorityBadge from "../badge"
+import { useDeleteTask } from "@/hooks/kanban/use-delete-task"
+import { useConfirm } from "../use-confirm-dialog"
+import { toast } from "@/hooks/use-toast"
 
 
 interface KanbanTaskProps {
@@ -24,6 +28,8 @@ interface KanbanTaskProps {
 
 export const KanbanTask = memo(function KanbanTask({ task, index }: KanbanTaskProps) {
   const [mounted, setMounted] = useState(false)
+  const { confirm } = useConfirm()
+  const { deleteTask } = useDeleteTask()
 
   useEffect(() => {
     setMounted(true)
@@ -32,6 +38,17 @@ export const KanbanTask = memo(function KanbanTask({ task, index }: KanbanTaskPr
   if (!mounted || !task.id) {
     return null
   }
+
+  const handleDeleteTask = async (e: { stopPropagation: () => void }) => {
+    e.stopPropagation()
+    if (await confirm({ title: "Are you sure ?", message: "You're about to delete this task. This action is irreversable." })) {
+      await deleteTask(task.id as string);
+      toast({
+        title: "Your task has been deleted.",
+        description: "Your task has been successfully deleted.",
+      })
+    }
+  };
 
   return (
     <Draggable draggableId={task.id} index={index}>
@@ -55,10 +72,20 @@ export const KanbanTask = memo(function KanbanTask({ task, index }: KanbanTaskPr
                       </SidebarMenuAction>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
-                      className="w-48 rounded-lg"
+                      className="w-48 rounded"
                     >
-                      <DropdownMenuItem>
-                        <Trash2 className="text-muted-foreground" />
+                      <DropdownMenuItem className="cursor-pointer">
+
+                        <Link href={`/dashboard/task/${task.id}`}><span>View and edit</span></Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem className="cursor-pointer">
+                        <Link href={`/dashboard/task/${task.id}/comments`}><span>Comments</span></Link>
+                      </DropdownMenuItem><DropdownMenuItem className="cursor-pointer">
+                        <Link href={`/dashboard/task/${task.id}/settings`}><span>Settings</span></Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem className="cursor-pointer" onClick={handleDeleteTask}>
+                        {/* <Trash2 className="text-muted-foreground" /> */}
                         <span>Delete</span>
                       </DropdownMenuItem>
                     </DropdownMenuContent>

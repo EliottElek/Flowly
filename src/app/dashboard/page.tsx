@@ -25,7 +25,7 @@ export default async function Home() {
 
     const ProjectCard = ({ project }: { project: Project }) => {
         return (
-            <Link className="hover:underline group hover:text-primary duration-75" href={`/dashboard/project/${project.id}`}>
+            <Link className="hover:underline group hover:text-primary duration-100" href={`/dashboard/project/${project.id}`}>
                 <Card>
                     <CardHeader>
                         <CardTitle className="group-hover:text-primary">{project.name}</CardTitle>
