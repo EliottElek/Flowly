@@ -9,6 +9,7 @@ export interface Task {
   column_id: string,
   project_id: string,
   priority: string,
+  comments?: Comment[] | Partial<Comment>[]
 }
 
 export interface Column {

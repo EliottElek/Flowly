@@ -36,7 +36,7 @@ export default async function Home() {
         )
     }
     return (
-        <div className="container mx-auto">
+        <div className="p-6">
             <div className="flex items-center justify-between mb-8">
                 <h1 className="text-3xl font-bold">ReconOps</h1>
             </div>

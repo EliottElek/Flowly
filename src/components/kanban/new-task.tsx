@@ -47,7 +47,7 @@ export function NewTask({ refetch, project_id }: { refetch: () => void, project_
       title: '',
       description: '',
       priority: "low",
-      column_id: '',
+      column_id: columns?.[0].id ?? "",
       content: content,
       project_id: project_id
 
@@ -76,7 +76,7 @@ export function NewTask({ refetch, project_id }: { refetch: () => void, project_
 
   return (
     <>
-      <Button onClick={() => setOpen(true)}>
+      <Button className="font-bold" onClick={() => setOpen(true)}>
         <PlusIcon /> New Task
       </Button>
       <Dialog
@@ -93,10 +93,10 @@ export function NewTask({ refetch, project_id }: { refetch: () => void, project_
             <div>
               <Editor content={content} setContent={setContent} />
             </div>
-            <div>
-              <label className="text-sm font-medium">Status</label>
+            <div className="space-y-4">
               {columnsLoading && <p>Loading...</p>}
               <Select
+                defaultValue=""
                 value={formData.column_id}
                 onValueChange={(value: any) => setFormData({ ...formData, column_id: value })}
               >

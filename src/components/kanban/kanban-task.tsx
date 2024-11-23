@@ -13,7 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { MoreHorizontal, Trash2 } from "lucide-react"
+import { MessagesSquare, MoreHorizontal } from "lucide-react"
 import { SidebarMenuAction } from "../ui/sidebar"
 import PriorityBadge from "../badge"
 import { useDeleteTask } from "@/hooks/kanban/use-delete-task"
@@ -99,6 +99,11 @@ export const KanbanTask = memo(function KanbanTask({ task, index }: KanbanTaskPr
                   {task.description}
                 </CardDescription>
               </CardHeader>
+              {task?.comments && task?.comments?.length > 0 &&
+                <div className="flex items-center justify-end p-2">
+                  <span className="flex gap-1 items-center text-sm opacity-60">{task?.comments?.length}<MessagesSquare className="h-4 w-4" /></span>
+                </div>
+              }
             </Card>
           </Link>
         </div>

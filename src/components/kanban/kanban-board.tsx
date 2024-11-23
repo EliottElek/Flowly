@@ -13,7 +13,7 @@ import { useState, useEffect } from "react";
 
 export function KanbanBoard({ project_id }: { project_id: string }) {
   const { columns: initialColumns, isLoading, refetch } = useKanban(project_id);
-  const [columns, setColumns] = useState(initialColumns || []); // Manage local state for immediate updates
+  const [columns, setColumns] = useState(initialColumns || []);
   const { updateTask } = useUpdateTask();
   const { updateColumnsIndexes } = useUpdateColumnIndexes();
 
@@ -77,12 +77,12 @@ export function KanbanBoard({ project_id }: { project_id: string }) {
       <div className="px-4 flex items-center justify-end">
         <NewTask refetch={refetch} project_id={project_id} />
       </div>
-      <div className="w-full overflow-auto p-4 flex h-full">
+      <div className="w-full overflow-auto snap-mandatory md:snap-none flex h-full">
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="all-columns" direction="horizontal" type="column">
             {(provided) => (
               <div
-                className="flex flex-row px-2"
+                className="flex flex-row px-2 snap-center"
                 ref={provided.innerRef}
                 {...provided.droppableProps}
               >
@@ -90,7 +90,7 @@ export function KanbanBoard({ project_id }: { project_id: string }) {
                   <Draggable draggableId={column.id} index={i} key={column.id}>
                     {(draggableProvided) => (
                       <div
-                        className="w-full !w-[380px] p-2"
+                        className="w-[90vw] md:w-[380px] p-2"
                         ref={draggableProvided.innerRef}
                         {...draggableProvided.draggableProps}
                         {...draggableProvided.dragHandleProps}

@@ -49,16 +49,20 @@ export default function NewColumn({ refetch, project_id }: { refetch: () => void
 
     return (
         <div className="p-2">{!open ?
-            <Button variant="secondary" className="!w-72 bg-gray-100 dark:bg-gray-900 rounded border" onClick={() => setOpen(true)}>
+            <Button variant="secondary" className="!w-72 bg-muted/50 rounded border" onClick={() => setOpen(true)}>
                 <PlusIcon /> New Column
             </Button>
             :
-            <Card className="!w-72 p-2 bg-gray-100 dark:bg-gray-900 flex flex-col h-fit rounded border">
+            <Card className="!w-72 p-2 bg-muted/50 flex flex-col h-fit rounded">
                 <form className="flex flex-col gap-2">
                     <Input
                         required
                         autoFocus
-                        onBlur={((e) => e.target.value === "" && setOpen(false))}
+                        onBlur={(e) => {
+                            if (!e.relatedTarget?.matches("button")) {
+                                setOpen(false);
+                            }
+                        }}
                         className="bg-background"
                         placeholder="Column Name"
                         value={formData.name}
