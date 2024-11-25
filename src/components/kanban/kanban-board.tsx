@@ -74,9 +74,9 @@ export function KanbanBoard({ project_id }: { project_id: string }) {
 
   return (
     <>
-      <div className="px-4 flex items-center justify-end">
+      {/* <div className="px-4 flex items-center justify-end">
         <NewTask refetch={refetch} project_id={project_id} />
-      </div>
+      </div> */}
       <div className="w-full overflow-auto snap-mandatory md:snap-none flex h-full">
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="all-columns" direction="horizontal" type="column">

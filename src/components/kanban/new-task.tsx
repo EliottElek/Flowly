@@ -55,6 +55,7 @@ export function NewTask({ refetch, project_id }: { refetch: () => void, project_
   }, [open])
 
   const handleAddTask = async () => {
+    if (formData.column_id === "") return
     const { error } = await createTask({ ...formData } as Task);
     if (!error) {
       refetch();
@@ -76,7 +77,7 @@ export function NewTask({ refetch, project_id }: { refetch: () => void, project_
 
   return (
     <>
-      <Button className="font-bold" onClick={() => setOpen(true)}>
+      <Button disabled={columns?.length === 0} className="font-bold" onClick={() => setOpen(true)}>
         <PlusIcon /> New Task
       </Button>
       <Dialog
