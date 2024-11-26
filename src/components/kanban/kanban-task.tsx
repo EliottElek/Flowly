@@ -24,9 +24,10 @@ import { toast } from "@/hooks/use-toast"
 interface KanbanTaskProps {
   task: Task | Partial<Task>
   index: number
+  refetch: () => void
 }
 
-export const KanbanTask = memo(function KanbanTask({ task, index }: KanbanTaskProps) {
+export const KanbanTask = memo(function KanbanTask({ task, index, refetch }: KanbanTaskProps) {
   const [mounted, setMounted] = useState(false)
   const { confirm } = useConfirm()
   const { deleteTask } = useDeleteTask()
@@ -47,6 +48,7 @@ export const KanbanTask = memo(function KanbanTask({ task, index }: KanbanTaskPr
         title: "Your task has been deleted.",
         description: "Your task has been successfully deleted.",
       })
+      refetch()
     }
   };
 

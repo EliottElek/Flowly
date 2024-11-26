@@ -22,6 +22,7 @@ export interface Column {
 }
 export type Comment = {
   id: string;
+  created_at: string;
   content: JSONContent;
   task_id: string;
   project_id: string;
@@ -39,6 +40,7 @@ export type NestedComment = {
   content: JSONContent;
   parent_id: string | null;
   task_id: string;
+  created_at: string;
   project_id: string;
   user: {
     id: string;

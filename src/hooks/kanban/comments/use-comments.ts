@@ -46,6 +46,7 @@ export function useComments(task_id: string): UseCommentsResult {
                     project_id,
                     parent_id,
                     user_id,
+                    created_at,
                     user:users!user_id(id, username, email, avatar_url)
                 `)
             .eq("task_id", task_id),

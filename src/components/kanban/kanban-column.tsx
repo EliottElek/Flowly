@@ -11,6 +11,7 @@ import { Input } from "../ui/input"
 import { useUpdateColumn } from "@/hooks/kanban/use-update-column"
 import { toast } from "@/hooks/use-toast"
 import SlotCounter from 'react-slot-counter';
+import { NewTask } from "./new-task"
 
 interface KanbanColumnProps {
   column: Column
@@ -51,7 +52,7 @@ export function KanbanColumn({
   }
   return (
     <Card className="bg-muted/50 relative !min-h-[48px] overflow-hidden ">
-      <div className="shadow px-3 z-50 group bg-muted/50 flex items-center gap-1 justify-between">
+      <div className="shadow p-1 px-3 z-50 group bg-muted/50 flex items-center gap-1 justify-between">
         {edit ? <>
           <Input
             className="font-bold text-sm focus:outline-none !h-auto p-1"
@@ -92,9 +93,11 @@ export function KanbanColumn({
             key={task.id}
             task={task}
             index={index}
+            refetch={refetch}
           />
         ))}
         {provided.placeholder}
+        <div className="p-1"> <NewTask refetch={refetch} project_id={column.project_id} column_id={column.id} /></div>
       </div>
     </Card>
   )

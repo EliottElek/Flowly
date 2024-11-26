@@ -320,3 +320,7 @@ body {
   background: rgba(165, 164, 164, 0.16);
   border-radius: 20px;
 }
+
+.prose p {
+  @apply mb-0
+}

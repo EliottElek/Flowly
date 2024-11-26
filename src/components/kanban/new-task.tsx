@@ -26,7 +26,7 @@ import { JSONContent } from "@tiptap/react"
 import defaultContent from '@/components/editor/default-content.json'
 import { priorities } from "@/lib/utils";
 
-export function NewTask({ refetch, project_id }: { refetch: () => void, project_id: string }) {
+export function NewTask({ refetch, project_id, column_id }: { refetch: () => void, project_id: string, column_id: string }) {
   const [open, setOpen] = useState(false)
   const { toast } = useToast()
   const { columns, isLoading: columnsLoading } = useColumns(project_id);
@@ -36,7 +36,7 @@ export function NewTask({ refetch, project_id }: { refetch: () => void, project_
   const [formData, setFormData] = useState<Partial<Task>>({
     title: '',
     description: '',
-    column_id: "",
+    column_id: column_id,
     priority: "low",
     content: content,
     project_id: project_id
@@ -47,7 +47,7 @@ export function NewTask({ refetch, project_id }: { refetch: () => void, project_
       title: '',
       description: '',
       priority: "low",
-      column_id: columns?.[0].id ?? "",
+      column_id: column_id,
       content: content,
       project_id: project_id
 
@@ -77,7 +77,7 @@ export function NewTask({ refetch, project_id }: { refetch: () => void, project_
 
   return (
     <>
-      <Button disabled={columns?.length === 0} className="font-bold" onClick={() => setOpen(true)}>
+      <Button disabled={columns?.length === 0} className="font-bold w-full" variant={"ghost"} onClick={() => setOpen(true)}>
         <PlusIcon /> New Task
       </Button>
       <Dialog

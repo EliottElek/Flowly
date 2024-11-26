@@ -25,6 +25,8 @@ import {
 import Link from 'next/link'
 import { useTaskContext } from "@/components/task/task-context";
 import PeriodPicker from '@/components/task/period-picker'
+import { Button } from '@/components/ui/button'
+import { PriorityBadgeSelect } from '@/components/badge'
 const data = {
     nav: [
         { name: "Overview", icon: Menu, href: "/" },
@@ -34,7 +36,7 @@ const data = {
 
 const TaskDialog = ({ children }: { children: React.ReactNode }) => {
 
-    const { handleClose, task, currentPath } = useTaskContext()
+    const { handleClose, task, currentPath, handleUpdateTask, refetch } = useTaskContext()
     return (
         <Dialog onOpenChange={handleClose} open={Boolean(task)}>
             <DialogContent className="p-0 h-[90vh] max-w-[75vw] overflow-hidden outline-none">
@@ -46,7 +48,7 @@ const TaskDialog = ({ children }: { children: React.ReactNode }) => {
                     <Sidebar collapsible="none" className="hidden md:flex bg-muted/50 border-r">
                         <SidebarContent>
                             <SidebarGroup>
-                                <SidebarGroupContent>
+                                <SidebarGroupContent className='h-[87vh] flex flex-col gap-3'>
                                     <SidebarMenu className='pt-3'>
                                         <SidebarMenuItem>
                                             <SidebarMenuButton
@@ -72,18 +74,14 @@ const TaskDialog = ({ children }: { children: React.ReactNode }) => {
                                         ))}
                                     </SidebarMenu>
                                     <div><PeriodPicker /></div>
+                                    <PriorityBadgeSelect className='text-md my-6' task={task} refetch={refetch} />
+                                    <div className='grow' />
+                                    <div><Button onClick={handleUpdateTask} className='font-bold w-full'>Save changes</Button></div>
                                 </SidebarGroupContent>
                             </SidebarGroup>
                         </SidebarContent>
                     </Sidebar>
                     <main className="flex flex-1 grow flex-col overflow-auto h-[90vh] gap-4">
-                        {/* <header className='sticky flex items-center justify-between p-2 z-50 top-0 w-full h-12 border-b bg-muted/50'>
-                            <PriorityBadgeSelect className='text-md my-6' task={task} refetch={refetch} />
-                            <div className='flex items-center gap-2'>
-                                <Button onClick={handleUpdateTask} disabled={JSON.stringify(content) === JSON.stringify(task?.content)} className='font-bold'>Save task</Button>
-                                <Button variant={"destructive"} size={"icon"} onClick={handleDeleteTask} className='font-bold'><Trash /></Button>
-                            </div>
-                        </header> */}
                         {children}
                     </main>
                 </SidebarProvider>

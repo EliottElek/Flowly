@@ -4,9 +4,6 @@ import { Skeleton } from "@/components/ui/skeleton"
 const KanbanSkeleton = () => {
     return (
         <div className="px-4">
-            <div className="flex py-4 items-center justify-end">
-                <Skeleton className="h-10 w-[120px]" />
-            </div>
             <div className='flex gap-4 h-auto overflow-hidden'>
                 <Skeleton className="w-[380px] p-4 h-fit items-center flex-col space-y-3 rounded-md">
                     <Skeleton className="h-[105px] p-4 w-full rounded-md">

@@ -14,6 +14,7 @@ import { Task } from "@/types/kanban";
 import { useUpdateTask } from "@/hooks/kanban/use-update-task";
 import { toast } from "@/hooks/use-toast";
 import { ChevronDown } from "lucide-react";
+import { Button } from "./ui/button";
 
 export default function PriorityBadge({ priority, className, children }: { priority: string | undefined, className?: string | undefined, children?: React.ReactNode }) {
 
@@ -59,20 +60,23 @@ export const PriorityBadgeSelect = ({ task, className, refetch }: { task: Task, 
     }
 
     return (
-        <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <button className="p-0 outline-none"><PriorityBadge className={className} priority={task.priority}><ChevronDown className="h-4 w-4"/></PriorityBadge></button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56">
-                <DropdownMenuLabel>Priority</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuRadioGroup value={selectedPriority} onValueChange={handleUpdateStatus}>
-                    {priorities.map((priority) =>
-                    (
-                        <DropdownMenuRadioItem key={priority} value={priority}>{priority}</DropdownMenuRadioItem>)
-                    )}
-                </DropdownMenuRadioGroup>
-            </DropdownMenuContent>
-        </DropdownMenu>
+        <div className={"grid gap-2"}>
+            <span>Priority</span>
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button variant={"outline"}>{task.priority}</Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56">
+                    <DropdownMenuLabel>Priority</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuRadioGroup value={selectedPriority} onValueChange={handleUpdateStatus}>
+                        {priorities.map((priority) =>
+                        (
+                            <DropdownMenuRadioItem key={priority} value={priority}>{priority}</DropdownMenuRadioItem>)
+                        )}
+                    </DropdownMenuRadioGroup>
+                </DropdownMenuContent>
+            </DropdownMenu>
+        </div>
     )
 }

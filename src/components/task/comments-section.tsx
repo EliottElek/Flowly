@@ -35,11 +35,13 @@ const CommentsSection = ({ task_id }: { task_id: string }) => {
                 {Array.isArray(comments) && comments.length > 0 ? <CommentsList comments={comments} /> :
                     <EmptyCommentState />}
             </div>
-            <div className='border-t p-2 sticky bg-background bottom-0 mt-0'>
-                <Editor content={content} setContent={setContent} />
-                <form className='flex justify-end'>
-                    <Button disabled={JSON.stringify(content) === JSON.stringify({})} className='font-bold' formAction={handleSubmitComment}>Add comment</Button>
-                </form>
+            <div className='sticky p-2 bg-background bottom-0 mt-0'>
+                <div className='border rounded-md p-2'>
+                    <Editor content={content} setContent={setContent} />
+                    <form className='flex justify-end'>
+                        <Button disabled={JSON.stringify(content) === JSON.stringify({})} className='font-bold' formAction={handleSubmitComment}>Add comment</Button>
+                    </form>
+                </div>
             </div>
         </div>
     )
