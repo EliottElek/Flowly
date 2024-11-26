@@ -1,6 +1,7 @@
 import { supabase } from "@/lib/supabase/client";
 import { useQuery } from "@supabase-cache-helpers/postgrest-swr";
 import { Task } from "@/types/kanban";
+import { redirect } from "next/navigation";
 
 
 type UseTasksResult = {
@@ -23,6 +24,7 @@ export function useTask(task_id: string): UseTasksResult {
             revalidateOnReconnect: false,
         }
     );
+    if (error) return redirect("/404")
 
     return { task, count, isLoading, refetch: mutate, error };
 }

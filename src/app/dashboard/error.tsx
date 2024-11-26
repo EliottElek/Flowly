@@ -11,7 +11,6 @@ const error = ({ error }: { error: Error & { digest?: string } }) => {
             <h1 className='font-semibold text-2xl'>An error occured. It's probably our fault.</h1>
             <p>Please move back to safe place now.</p>
             <Link href="/dashboard"><Button>Go back to dashboard</Button></Link>
-            {JSON.stringify(error)}
         </div>
     )
 }

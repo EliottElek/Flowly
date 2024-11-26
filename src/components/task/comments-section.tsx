@@ -15,8 +15,8 @@ const CommentsSection = ({ task_id }: { task_id: string }) => {
     const { task } = useTask(task_id)
     const { comments, refetch } = useComments(task_id)
 
-    const handleSubmitComment = useCallback(async () => {
-        const error = await submitComment({ content: content, task_id: task?.id, project_id: task?.project_id, parent_id: null });
+    const handleSubmitComment = useCallback(async (content: JSONContent, parent_id?: string | null) => {
+        const error = await submitComment({ content: content, task_id: task?.id, project_id: task?.project_id, parent_id: parent_id });
         if (error) {
             toast({
                 title: "An error occured",
@@ -32,14 +32,14 @@ const CommentsSection = ({ task_id }: { task_id: string }) => {
     return (
         <div className='flex flex-col w-full h-[80vh]'>
             <div className='grow p-4'>
-                {Array.isArray(comments) && comments.length > 0 ? <CommentsList comments={comments} /> :
+                {Array.isArray(comments) && comments.length > 0 ? <CommentsList comments={comments} handleSubmitComment={handleSubmitComment as any} /> :
                     <EmptyCommentState />}
             </div>
             <div className='sticky p-2 bg-background bottom-0 mt-0'>
                 <div className='border rounded-md p-2'>
                     <Editor content={content} setContent={setContent} />
                     <form className='flex justify-end'>
-                        <Button disabled={JSON.stringify(content) === JSON.stringify({})} className='font-bold' formAction={handleSubmitComment}>Add comment</Button>
+                        <Button disabled={JSON.stringify(content) === JSON.stringify({})} className='font-bold' formAction={() => handleSubmitComment(content, null)}>Add comment</Button>
                     </form>
                 </div>
             </div>

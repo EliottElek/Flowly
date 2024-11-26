@@ -1,6 +1,7 @@
 import { supabase } from "@/lib/supabase/client";
 import { useQuery } from "@supabase-cache-helpers/postgrest-swr";
 import { Project } from "@/types/project";
+import { redirect } from "next/navigation";
 
 
 type UseProjectResult = {
@@ -22,6 +23,7 @@ export function useProject(project_id: string): UseProjectResult {
             revalidateOnReconnect: false,
         }
     );
+    if (error) return redirect("/404")
 
     return { project, isLoading, refetch: mutate, error };
 }
