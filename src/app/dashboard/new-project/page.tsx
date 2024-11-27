@@ -27,6 +27,7 @@ import { toast } from "@/hooks/use-toast"
 import { useRouter } from "next/navigation"
 import { createProject } from "@/lib/actions/project"
 import { UseOrganizations } from "@/hooks/organizations/use-organizations"
+import { Card } from "@/components/ui/card"
 
 const formSchema = z.object({
     name: z.string(),
@@ -60,11 +61,12 @@ export default function CreateProjectForm() {
     }
 
     return (
-        <div className="p-4">
+        <Card className="max-w-5xl mx-auto">
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 max-w-3xl mx-auto py-10">
-                    <div className="flex items-center justify-between mb-8">
-                        <h1 className="text-2xl font-bold">New project</h1>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 py-10 px-8">
+                    <div className="">
+                        <h1 className="text-2xl mb-2 font-bold">New project</h1>
+                        <p className="opacity-60">Create a new project here.</p>
                     </div>
                     <div className="grid lg:grid-cols-12 gap-4">
                         <div className="col-span-6">
@@ -134,6 +136,6 @@ export default function CreateProjectForm() {
                     <Button type="submit">Submit</Button>
                 </form>
             </Form>
-        </div >
+        </Card >
     )
 }

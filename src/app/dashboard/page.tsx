@@ -11,6 +11,7 @@ import {
 import { createClient } from "@/lib/supabase/server"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Button } from "@/components/ui/button"
+import KanbanPlaceholder from "@/components/rand-svg"
 export default async function Home() {
     const supabase = await createClient()
 
@@ -27,10 +28,11 @@ export default async function Home() {
     const ProjectCard = ({ project }: { project: Project }) => {
         return (
             <Link className="group hover:text-primary duration-100" href={`/dashboard/project/${project.id}`}>
-                <Card className="h-32">
-                    <CardHeader>
+                <Card className="p-1 h-44">
+                    <KanbanPlaceholder/>
+                    <CardHeader className="p-1 pt-4">
                         <CardTitle className="group-hover:text-primary">{project.name}</CardTitle>
-                        <CardDescription className="group-hover:text-primary">{project.description}</CardDescription>
+                        <CardDescription className="group-hover:text-primary line-clamp-2">{project.description}</CardDescription>
                     </CardHeader>
                 </Card>
             </Link>
@@ -42,7 +44,7 @@ export default async function Home() {
                 <Link href="/dashboard/new-project"><Button className="h-8 font-bold">New project</Button></Link><Button disabled className="h-8 font-bold" variant={"secondary"}>New organization</Button>
             </div>
             <h2 className="text-xl mt-6 mb-3 font-bold">Eliott's Org</h2>
-            <div className="grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-2">
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-2">
                 {projects.length === 0 && <p className="italic">No project yet.</p>}
                 {projects.map((project) => (
                     <ProjectCard key={project.id} project={project} />

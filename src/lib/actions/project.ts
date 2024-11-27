@@ -41,3 +41,4 @@ export async function createProject(values: { name: string, description: string,
     if (!project) redirect("/error")
     return project
 }
+
