@@ -83,7 +83,7 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
           },
           {
             title: "Authentication",
-            url: "/authentication",
+            url: "/docs/authentication",
           },
         ],
       },

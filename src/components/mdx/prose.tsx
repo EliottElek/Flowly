@@ -14,7 +14,7 @@ export function Prose<T extends React.ElementType = 'div'>({
     <Component
       className={clsx(
         className,
-        'prose dark:prose-invert max-w-none p-12',
+        'prose dark:prose-invert max-w-none p-4 md:p-12',
       )}
       {...props}
     />

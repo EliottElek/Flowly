@@ -100,75 +100,158 @@ ALTER TABLE public.project_members ENABLE ROW LEVEL SECURITY;
 ```
 
 ### Policies for `projects`
+
 ```sql
-CREATE POLICY "Allow access to projects for members" ON public.projects
+CREATE POLICY "Authenticated users can delete projects they own" on "public"."projects"
+AS PERMISSIVE FOR DELETE
+TO authenticated
+USING ((( SELECT auth.uid() AS uid) = owner_id));
+
+CREATE POLICY "Authenticated users can insert projects" on "public"."projects"
+AS PERMISSIVE FOR INSERT
+TO authenticated
+
+WITH CHECK ((( SELECT auth.uid() AS uid) = owner_id));
+
+CREATE POLICY "Authenticated users can update projects they own or are members" on "public"."projects"
+AS PERMISSIVE FOR UPDATE
+TO authenticated
+USING (((( SELECT auth.uid() AS uid) = owner_id) OR (( SELECT auth.uid() AS uid) IN ( SELECT project_members.user_id
+   FROM project_members
+  WHERE (project_members.project_id = projects.id)))))
+WITH CHECK (((( SELECT auth.uid() AS uid) = owner_id) OR (( SELECT auth.uid() AS uid) IN ( SELECT project_members.user_id
+   FROM project_members
+  WHERE (project_members.project_id = projects.id)))));
+
+CREATE POLICY "Authenticated users can view projects they own or are members o" on "public"."projects"
 AS PERMISSIVE FOR SELECT
 TO authenticated
-USING (
-  EXISTS (
-    SELECT 1
-    FROM public.project_members
-    WHERE project_members.project_id = projects.id
-      AND project_members.user_id = auth.uid()
-  )
-);
+USING (((( SELECT auth.uid() AS uid) = owner_id) OR (( SELECT auth.uid() AS uid) IN ( SELECT project_members.user_id
+   FROM project_members
+  WHERE (project_members.project_id = projects.id)))));
+```
+
+### Policies for `columns`
+
+```sql
+CREATE POLICY "Allow access to columns in accessible projects" on "public"."columns"
+AS PERMISSIVE FOR SELECT
+TO authenticated
+USING ((EXISTS ( SELECT 1
+   FROM project_members
+  WHERE ((project_members.project_id = columns.project_id) AND (project_members.user_id = auth.uid())))));
+
+CREATE POLICY "Allow delete from columns in accessible projects" on "public"."columns"
+AS PERMISSIVE FOR DELETE
+TO authenticated
+USING ((( SELECT auth.uid() AS uid) IN ( SELECT project_members.user_id
+   FROM project_members
+  WHERE (project_members.project_id = columns.project_id))));
+
+CREATE POLICY "Allow insert to columns in accessible projects" on "public"."columns"
+AS PERMISSIVE FOR INSERT
+TO authenticated
+
+WITH CHECK ((( SELECT auth.uid() AS uid) IN ( SELECT project_members.user_id
+   FROM project_members
+  WHERE (project_members.project_id = columns.project_id))));
+
+CREATE POLICY "Allow update to columns in accessible projects" on "public"."columns"
+AS PERMISSIVE FOR UPDATE
+TO authenticated
+USING ((( SELECT auth.uid() AS uid) IN ( SELECT project_members.user_id
+   FROM project_members
+  WHERE (project_members.project_id = columns.project_id))))
+WITH CHECK ((( SELECT auth.uid() AS uid) IN ( SELECT project_members.user_id
+   FROM project_members
+  WHERE (project_members.project_id = columns.project_id))));
 ```
 
 ### Policies for `tasks`
+
 ```sql
-CREATE POLICY "Allow access to tasks in accessible projects" ON public.tasks
+CREATE POLICY "Allow access to tasks in accessible projects" on "public"."tasks"
 AS PERMISSIVE FOR SELECT
 TO authenticated
-USING (
-  EXISTS (
-    SELECT 1
-    FROM public.project_members
-    WHERE project_members.project_id = tasks.project_id
-      AND project_members.user_id = auth.uid()
-  )
-);
+USING ((EXISTS ( SELECT 1
+   FROM project_members
+  WHERE ((project_members.project_id = tasks.project_id) AND (project_members.user_id = ( SELECT auth.uid() AS uid))))));
+
+CREATE POLICY "Allow delete from tasks in accessible projects" on "public"."tasks"
+AS PERMISSIVE FOR DELETE
+TO authenticated
+USING ((EXISTS ( SELECT 1
+   FROM project_members
+  WHERE ((project_members.project_id = tasks.project_id) AND (project_members.user_id = ( SELECT auth.uid() AS uid))))));
+
+CREATE POLICY "Allow insert to tasks in accessible projects" on "public"."tasks"
+AS PERMISSIVE FOR INSERT
+TO authenticated
+
+WITH CHECK ((EXISTS ( SELECT 1
+   FROM project_members
+  WHERE ((project_members.project_id = tasks.project_id) AND (project_members.user_id = ( SELECT auth.uid() AS uid))))));
+
+CREATE POLICY "Allow update to tasks in accessible projects" on "public"."tasks"
+AS PERMISSIVE FOR UPDATE
+TO authenticated
+USING ((EXISTS ( SELECT 1
+   FROM project_members
+  WHERE ((project_members.project_id = tasks.project_id) AND (project_members.user_id = ( SELECT auth.uid() AS uid))))))
+WITH CHECK ((EXISTS ( SELECT 1
+   FROM project_members
+  WHERE ((project_members.project_id = tasks.project_id) AND (project_members.user_id = ( SELECT auth.uid() AS uid))))));
 ```
 
 ### Policies for `comments`
+
 ```sql
--- Select: Users can view all comments in accessible tasks
-CREATE POLICY "Allow access to comments in accessible projects" ON public.comments
+CREATE POLICY "Allow access to comments in accessible tasks" on "public"."comments"
 AS PERMISSIVE FOR SELECT
 TO authenticated
-USING (
-  EXISTS (
-    SELECT 1
-    FROM public.project_members
-    WHERE project_members.project_id = comments.project_id
-      AND project_members.user_id = auth.uid()
-  )
-);
+USING ((EXISTS ( SELECT 1
+   FROM project_members
+  WHERE ((project_members.project_id = comments.project_id) AND (project_members.user_id = ( SELECT auth.uid() AS uid))))));
 
--- Insert: Users can comment on tasks in accessible projects
-CREATE POLICY "Allow commenting on tasks in accessible projects" ON public.comments
-AS PERMISSIVE FOR INSERT
-TO authenticated
-WITH CHECK (
-  EXISTS (
-    SELECT 1
-    FROM public.project_members
-    WHERE project_members.project_id = comments.project_id
-      AND project_members.user_id = auth.uid()
-  )
-);
-
--- Update: Users can update their own comments
-CREATE POLICY "Allow editing own comments" ON public.comments
-AS PERMISSIVE FOR UPDATE
-TO authenticated
-USING (user_id = auth.uid());
-
--- Delete: Users can delete their own comments
-CREATE POLICY "Allow deleting own comments" ON public.comments
+CREATE POLICY "Allow delete from comments in accessible tasks" on "public"."comments"
 AS PERMISSIVE FOR DELETE
 TO authenticated
-USING (user_id = auth.uid());
+USING ((user_id = auth.uid()));
+
+CREATE POLICY "Allow insert to comments in accessible tasks" on "public"."comments"
+AS PERMISSIVE FOR INSERT
+TO authenticated
+
+WITH CHECK ((EXISTS ( SELECT 1
+   FROM project_members
+  WHERE ((project_members.project_id = comments.project_id) AND (project_members.user_id = ( SELECT auth.uid() AS uid))))));
+
+CREATE POLICY "Allow update to comments in accessible tasks" on "public"."comments"
+AS PERMISSIVE FOR UPDATE
+TO authenticated
+USING ((user_id = auth.uid()))
+WITH CHECK ((user_id = auth.uid()));
 ```
+### Handle project creating trigger
+
+```sql
+-- Create the function to insert into project_members
+CREATE OR REPLACE FUNCTION handle_new_project()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO project_members (project_id, user_id)
+  VALUES (NEW.id, auth.uid()); -- auth.uid() gets the authenticated user's ID.
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Attach the trigger to the projects table
+CREATE TRIGGER add_project_member
+AFTER INSERT ON projects
+FOR EACH ROW
+EXECUTE FUNCTION handle_new_project();
+```
+
 
 ---
 

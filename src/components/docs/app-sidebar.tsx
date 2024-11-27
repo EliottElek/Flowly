@@ -1,143 +1,149 @@
-import * as React from "react"
-import { GalleryVerticalEnd, Minus, Plus } from "lucide-react"
 
-import { SearchForm } from "./search-form"
+"use client"
+
+import * as React from "react"
 import {
-    Collapsible,
-    CollapsibleContent,
-    CollapsibleTrigger,
-} from "@/components/ui/collapsible"
+    AudioWaveform,
+    BookOpen,
+    Bot,
+    Command,
+    Frame,
+    GalleryVerticalEnd,
+    Map,
+    PieChart,
+    Settings2,
+} from "lucide-react"
+
+import { NavMain } from "@/components/nav-main"
+import { NavProjects } from "@/components/nav-projects"
+import { NavUser } from "@/components/nav-user"
+import { TeamSwitcher } from "@/components/team-switcher"
 import {
     Sidebar,
     SidebarContent,
     SidebarFooter,
-    SidebarGroup,
     SidebarHeader,
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
-    SidebarMenuSub,
-    SidebarMenuSubButton,
-    SidebarMenuSubItem,
     SidebarRail,
 } from "@/components/ui/sidebar"
-import Link from "next/link"
-import { ThemeToggle } from "../theme-toggle"
+import { Project } from "@/types/project"
 
 // This is sample data.
-const data = {
-    navMain: [
-        {
-            title: "Getting Started",
-            url: "/docs",
-            items: [
-                {
-                    title: "Overview",
-                    url: "/docs",
-                },
-                {
-                    title: "Installation",
-                    url: "/docs/installation",
-                },
-                {
-                    title: "Self host supabase",
-                    url: "/docs/supabase-setup",
-                },
-                {
-                    title: "Authentication",
-                    url: "/docs/authentication",
-                },
-            ],
-        },
-        {
-            title: "PostgreSQL migrations",
-            url: "/docs",
-            items: [
-                {
-                    title: "Why migrate",
-                    url: "/docs/migrations",
-                },
-                {
-                    title: "Make migrations",
-                    url: "/docs/migrations",
-                },
-                {
-                    title: "Backups",
-                    url: "/docs/migrations",
-                },
-                {
-                    title: "Row Level Security (RLS)",
-                    url: "/docs/migrations",
-                },
-            ],
-        }
-    ],
+interface AppSidebarProps {
+    user: any
+    projects: Project[]
+
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+
+export function AppSidebar({ ...props }: AppSidebarProps) {
+    const data = React.useMemo(() => ({
+        user: props.user,
+        teams: [
+            {
+                name: "Acme Inc",
+                logo: GalleryVerticalEnd,
+                plan: "Enterprise",
+            },
+            {
+                name: "Acme Corp.",
+                logo: AudioWaveform,
+                plan: "Startup",
+            },
+            {
+                name: "Evil Corp.",
+                logo: Command,
+                plan: "Free",
+            },
+        ],
+        navMain: [
+            {
+                title: "Projects",
+                url: "#",
+                icon: Bot,
+                items: props.projects.map((project) => ({
+                    title: project.name,
+                    url: `/project/${project.id}`,
+                })),
+            },
+            {
+                title: "Documentation",
+                url: "#",
+                icon: BookOpen,
+                items: [
+                    {
+                        title: "Overview",
+                        url: "/docs",
+                    },
+                    {
+                        title: "Installation",
+                        url: "/docs/installation",
+                    },
+                    {
+                        title: "Self host",
+                        url: "/docs/supabase-setup",
+                    },
+                    {
+                        title: "Authentication",
+                        url: "/docs/authentication",
+                    },
+                ],
+            },
+            {
+                title: "Settings",
+                url: "#",
+                icon: Settings2,
+                items: [
+                    {
+                        title: "General",
+                        url: "#",
+                    },
+                    {
+                        title: "Team",
+                        url: "#",
+                    },
+                    {
+                        title: "Billing",
+                        url: "#",
+                    },
+                    {
+                        title: "Limits",
+                        url: "#",
+                    },
+                ],
+            },
+        ],
+        projects: [
+            {
+                name: "Design Engineering",
+                url: "#",
+                icon: Frame,
+            },
+            {
+                name: "Sales & Marketing",
+                url: "#",
+                icon: PieChart,
+            },
+            {
+                name: "Travel",
+                url: "#",
+                icon: Map,
+            },
+        ],
+    }), [])
+
     return (
-        <Sidebar {...props}>
+        <Sidebar collapsible="icon" {...props} className="!bg-muted/50">
             <SidebarHeader>
-                <SidebarMenu>
-                    <SidebarMenuItem>
-                        <SidebarMenuButton size="lg" asChild>
-                            <a href="#">
-                                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                                    <GalleryVerticalEnd className="size-4" />
-                                </div>
-                                <div className="flex flex-col gap-0.5 leading-none">
-                                    <span className="font-semibold">Documentation</span>
-                                    <span className="">v1.0.0</span>
-                                </div>
-                            </a>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-                </SidebarMenu>
-                <SearchForm />
+                <TeamSwitcher teams={data.teams} />
             </SidebarHeader>
             <SidebarContent>
-                <SidebarGroup>
-                    <SidebarMenu>
-                        {data.navMain.map((item, index) => (
-                            <Collapsible
-                                key={item.title}
-                                defaultOpen={index === 1}
-                                className="group/collapsible"
-                            >
-                                <SidebarMenuItem>
-                                    <CollapsibleTrigger asChild>
-                                        <SidebarMenuButton>
-                                            {item.title}{" "}
-                                            <Plus className="ml-auto group-data-[state=open]/collapsible:hidden" />
-                                            <Minus className="ml-auto group-data-[state=closed]/collapsible:hidden" />
-                                        </SidebarMenuButton>
-                                    </CollapsibleTrigger>
-                                    {item.items?.length ? (
-                                        <CollapsibleContent>
-                                            <SidebarMenuSub>
-                                                {item.items.map((item) => (
-                                                    <SidebarMenuSubItem key={item.title}>
-                                                        <SidebarMenuSubButton
-                                                            asChild
-                                                        >
-                                                            <Link href={item.url}>{item.title}</Link>
-                                                        </SidebarMenuSubButton>
-                                                    </SidebarMenuSubItem>
-                                                ))}
-                                            </SidebarMenuSub>
-                                        </CollapsibleContent>
-                                    ) : null}
-                                </SidebarMenuItem>
-                            </Collapsible>
-                        ))}
-                    </SidebarMenu>
-                </SidebarGroup>
+                <NavMain items={data.navMain} />
+                <NavProjects projects={data.projects} />
             </SidebarContent>
-            <SidebarRail />
             <SidebarFooter>
-                <ThemeToggle /> 
-                <span className="text-xs opacity-70 text-center">ReconOps 2024 All rights reserved.</span>
+                <NavUser user={data.user} />
             </SidebarFooter>
+            <SidebarRail />
         </Sidebar>
     )
 }

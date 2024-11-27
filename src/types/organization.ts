@@ -1,6 +1,5 @@
-export interface Project {
+export interface Organization {
     id: string
     name: string
-    org_id: string
     description: string
 } 

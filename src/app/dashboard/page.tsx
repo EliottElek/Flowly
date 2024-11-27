@@ -39,7 +39,7 @@ export default async function Home() {
     return (
         <div className="p-6">
             <div className="flex items-center mb-8 gap-3">
-                <Button>New project</Button><Button variant={"secondary"}>New organization</Button>
+                <Link href="/dashboard/new-project"><Button className="h-8 font-bold">New project</Button></Link><Button disabled className="h-8 font-bold" variant={"secondary"}>New organization</Button>
             </div>
             <h2 className="text-xl mt-6 mb-3 font-bold">Eliott's Org</h2>
             <div className="grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-2">
@@ -48,6 +48,6 @@ export default async function Home() {
                     <ProjectCard key={project.id} project={project} />
                 ))}
             </div>
-        </div >
+        </div>
     )
 }
