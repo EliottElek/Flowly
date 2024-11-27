@@ -1,0 +1,149 @@
+# **Authentication**
+
+ReconOps leverages Supabase to provide secure and scalable authentication, allowing developers to integrate and manage various authentication methods. This guide explains the available auth mechanisms, their implementation, and how they integrate into ReconOps.
+
+---
+
+## **Supported Authentication Methods**
+
+ReconOps uses **Supabase Auth** to support the following authentication methods:
+
+1. **Email/Password Authentication**  
+   Standard sign-up and login mechanism with email and password.
+   
+2. **OAuth Providers**  
+   - Google  
+   - GitHub  
+   - Other providers can be configured in Supabase's authentication settings.
+
+3. **Magic Links**  
+   Passwordless login via email.
+
+4. **Third-Party Logins** (if configured):  
+   Add support for external identity providers.
+
+---
+
+## 🛠 **Configuring Authentication on Supabase**
+
+1. **Go to Supabase Dashboard**:  
+   Access your Supabase project.
+
+2. **Navigate to Authentication**:  
+   - Go to the **Authentication** tab in the dashboard.  
+   - Configure **Settings** for each auth provider you want to enable.
+
+3. **Enable Email/Password**:  
+   - Turn on **Email Auth** under **Provider Settings**.  
+   - Optional: Customize the verification email.
+
+4. **Enable OAuth Providers**:  
+   - Under **External OAuth**, configure providers like Google and GitHub.  
+   - Add required keys and secrets for each provider.  
+   - Example for Google:  
+     - Add your **Client ID** and **Client Secret** from the [Google Cloud Console](https://console.cloud.google.com/).
+
+5. **Optional: Magic Links**  
+   - Enable **Magic Link Login** in the dashboard for passwordless access.
+
+---
+
+## 🔗 **Frontend Implementation**
+
+In ReconOps, the authentication workflow is integrated using Supabase’s JavaScript SDK.
+
+### **Install Supabase Client**
+
+```bash
+npm install @supabase/supabase-js
+```
+
+### **Supabase Client Setup**
+
+```typescript
+import { createClient } from '@supabase/supabase-js';
+
+export const supabase = createClient(
+  'https://your-project-ref.supabase.co',
+  'your-anon-key'
+);
+```
+
+### **Email/Password Sign-Up**
+
+```typescript
+const { user, error } = await supabase.auth.signUp({
+  email: 'user@example.com',
+  password: 'securePassword123',
+});
+
+if (error) console.error('Error signing up:', error);
+else console.log('User created:', user);
+```
+
+### **Email/Password Log-In**
+
+```typescript
+const { user, error } = await supabase.auth.signInWithPassword({
+  email: 'user@example.com',
+  password: 'securePassword123',
+});
+
+if (error) console.error('Error logging in:', error);
+else console.log('Logged in as:', user);
+```
+
+### **OAuth Login Example**
+
+```typescript
+const { user, error } = await supabase.auth.signInWithOAuth({
+  provider: 'google',
+});
+
+if (error) console.error('Error with Google OAuth:', error);
+else console.log('Logged in with Google:', user);
+```
+
+---
+
+## **Handling Auth State**
+
+Monitor user session changes to manage state across your app.
+
+```typescript
+supabase.auth.onAuthStateChange((event, session) => {
+  if (session) {
+    console.log('User signed in:', session.user);
+  } else {
+    console.log('User signed out');
+  }
+});
+```
+
+---
+
+## **Securing APIs with RLS**
+
+Supabase enforces **Row-Level Security (RLS)** to ensure only authorized users can access data. ReconOps policies:
+
+- Users can only access projects they belong to.
+- Comments can only be edited/deleted by their creators.  
+
+Ensure RLS is enabled and policies are written for your tables.
+
+---
+
+## **Extending Authentication**
+
+Supabase Auth is flexible and supports additional features:
+- **Custom Auth Functions**: Extend with your logic.
+- **SSO**: Set up enterprise Single Sign-On.
+
+---
+
+## **Need Help?**
+
+- [Supabase Auth Documentation](https://supabase.com/docs/guides/auth)
+- ReconOps Support: **support@reconops.com**  
+
+Make authentication a seamless part of your ReconOps experience! 🚀

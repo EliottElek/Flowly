@@ -70,20 +70,20 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
         icon: BookOpen,
         items: [
           {
-            title: "Introduction",
-            url: "#",
+            title: "Overview",
+            url: "/docs",
           },
           {
-            title: "Get Started",
-            url: "#",
+            title: "Installation",
+            url: "/docs/installation",
           },
           {
-            title: "Tutorials",
-            url: "#",
+            title: "Self host",
+            url: "/docs/supabase-setup",
           },
           {
-            title: "Changelog",
-            url: "#",
+            title: "Authentication",
+            url: "/authentication",
           },
         ],
       },

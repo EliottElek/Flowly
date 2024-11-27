@@ -1,0 +1,109 @@
+# **Next.js Project Setup**
+
+Here’s a sample documentation template for setting up an existing Next.js project. This assumes the project uses an `.env.local` file for configuration and optionally has a `docker-compose.yml` or `Dockerfile` for Docker setup.
+
+## Prerequisites
+
+Before setting up the project, ensure you have the following installed:
+
+- **Node.js** (LTS version recommended, e.g., >= 18.x)
+- **npm** or **yarn** (depending on the project)
+- **Docker** (if running the project using Docker)
+
+---
+
+## Setup Instructions
+
+### 1. Clone the Repository
+
+```bash
+git clone <REPOSITORY_URL>
+cd <PROJECT_NAME>
+```
+
+### 2. Configure Environment Variables
+
+Create an `.env.local` file in the root of the project if it doesn’t exist. Use the following template to set your values:
+
+```bash
+NEXT_PUBLIC_API_URL=<YOUR_API_URL>
+NEXT_PUBLIC_SUPABASE_URL=<YOUR_SUPABASE_URL>
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<YOUR_SUPABASE_ANON_KEY>
+```
+
+Replace `<YOUR_API_URL>`, `<YOUR_SUPABASE_URL>`, and `<YOUR_SUPABASE_ANON_KEY>` with the appropriate values.
+
+---
+
+## Running the Project
+
+### 3. Start in Development Mode
+
+Install dependencies and start the project in development mode:
+
+```bash
+npm install
+npm run dev
+```
+
+Access the project at [http://localhost:3000](http://localhost:3000).
+
+---
+
+### 4. Build and Start the Project
+
+To build the project for production:
+
+```bash
+npm run build
+```
+
+To start the production build:
+
+```bash
+npm start
+```
+
+---
+
+## Using Docker
+
+### 5. Build and Run with Docker
+
+If a `Dockerfile` is included in the project:
+
+1. Build the Docker image:
+
+   ```bash
+   docker build -t <image-name> .
+   ```
+
+2. Run the Docker container:
+
+   ```bash
+   docker run -p 3000:3000 --env-file .env.local <image-name>
+   ```
+
+### Using `docker-compose`
+
+If a `docker-compose.yml` is included:
+
+1. Start the services:
+
+   ```bash
+   docker-compose up --build
+   ```
+
+2. Access the project at [http://localhost:3000](http://localhost:3000).
+
+---
+
+## Additional Notes
+
+- Make sure all dependencies are up to date if you encounter issues:
+
+  ```bash
+  npm install
+  ```
+
+- If you're using a `yarn`-based setup, replace `npm` commands with `yarn`.

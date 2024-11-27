@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card"
 import { createClient } from "@/lib/supabase/server"
 import { Skeleton } from "@/components/ui/skeleton"
+import { Button } from "@/components/ui/button"
 export default async function Home() {
     const supabase = await createClient()
 
@@ -25,8 +26,8 @@ export default async function Home() {
 
     const ProjectCard = ({ project }: { project: Project }) => {
         return (
-            <Link className="hover:underline group hover:text-primary duration-100" href={`/dashboard/project/${project.id}`}>
-                <Card>
+            <Link className="group hover:text-primary duration-100" href={`/dashboard/project/${project.id}`}>
+                <Card className="h-32">
                     <CardHeader>
                         <CardTitle className="group-hover:text-primary">{project.name}</CardTitle>
                         <CardDescription className="group-hover:text-primary">{project.description}</CardDescription>
@@ -37,10 +38,12 @@ export default async function Home() {
     }
     return (
         <div className="p-6">
-            <div className="flex items-center justify-between mb-8">
-                <h1 className="text-3xl font-bold">ReconOps</h1>
+            <div className="flex items-center mb-8 gap-3">
+                <Button>New project</Button><Button variant={"secondary"}>New organization</Button>
             </div>
-            <div className="grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <h2 className="text-xl mt-6 mb-3 font-bold">Eliott's Org</h2>
+            <div className="grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-2">
+                {projects.length === 0 && <p className="italic">No project yet.</p>}
                 {projects.map((project) => (
                     <ProjectCard key={project.id} project={project} />
                 ))}
