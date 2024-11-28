@@ -37,12 +37,12 @@ export default async function Home() {
     const ProjectCard = ({ project }: { project: Project }) => {
         return (
             <Link className="group duration-100 md:bg-transparent bg-background" href={`/dashboard/project/${project.id}`}>
-                <Card className="h-full h-40 hover:ring-green-300/40 ring-1 ring-transparent duration-100">
+                <Card className="h-full h-40 hover:ring-primary/20 ring-1 ring-transparent duration-100">
                     <KanbanPlaceholder kanbanData={project?.columns}/>
                 </Card>
                 <CardHeader className="md:!p-2 md:!pt-4">
-                    <CardTitle className="group-hover:text-primary">{project.name}</CardTitle>
-                    <CardDescription className="group-hover:text-primary line-clamp-2">{project.description}</CardDescription>
+                    <CardTitle>{project.name}</CardTitle>
+                    <CardDescription className="line-clamp-2">{project.description}</CardDescription>
                 </CardHeader>
             </Link>
         )
@@ -71,7 +71,7 @@ export default async function Home() {
                             useMonospaceWidth
                         />
                     </div>
-                    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-2">
+                    <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-2">
                         {org?.projects.length === 0 && <p className="italic">No project yet.</p>}
                         {org?.projects.map((project) => (
                             <ProjectCard key={project.id} project={project} />

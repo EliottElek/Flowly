@@ -44,7 +44,7 @@ const KanbanPlaceholder = ({ kanbanData }: { kanbanData: Partial<Column>[] | und
                         />
                         {column.tasks?.map((_, cardIndex) => (
                             <rect
-                                className="rounded-md group-hover:fill-green-300/40 duration-100"
+                                className="rounded-md group-hover:fill-primary/40 duration-100"
                                 key={cardIndex}
                                 x="2%" // Slight padding inside the column
                                 y={`${2 + cardIndex * (cardHeightPercent + cardSpacingPercent)}%`} // Card position
