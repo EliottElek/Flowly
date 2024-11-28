@@ -18,7 +18,6 @@ export function useUpdateColumnIndexes(): UseUpdateColumnResult {
             const { data, error } = await supabase
                 .from("columns")
                 .upsert(columns, { onConflict: "id" });
-            console.log(data)
             if (error) {
                 throw error;
             }

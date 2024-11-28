@@ -34,8 +34,9 @@ export async function getOrgsAndProjects(): Promise<Organization[]> {
     const supabase = await createClient()
     let { data: orgs, error } = await supabase
         .from('organizations')
-        .select('id, name, description, projects!inner(id, name, description)')
-
+        .select('id, name, description, projects!inner(id, name, description, columns(id, tasks(id)))')
+        .limit(4, { foreignTable: 'projects.columns' })
+        .limit(6, { foreignTable: 'projects.columns.tasks' })
     if (error) {
         throw error
     }

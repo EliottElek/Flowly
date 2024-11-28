@@ -15,7 +15,6 @@ export function useKanban(project_id: string) {
             revalidateOnReconnect: false,
         }
     );
-    console.log(columns)
 
     return { columns, count, isLoading, refetch: mutate, error };
 }
