@@ -3,6 +3,7 @@ import { Project } from "@/types/project"
 import { createClient } from "../supabase/server"
 import { redirect } from "next/navigation"
 import { Description } from "@radix-ui/react-alert-dialog"
+import { Organization } from "@/types/organization"
 
 export async function getProject(project_id: string): Promise<Project> {
     const supabase = await createClient()
@@ -27,6 +28,18 @@ export async function getProjects(): Promise<Project[]> {
         throw error
     }
     return projects as Project[]
+}
+
+export async function getOrgsAndProjects(): Promise<Organization[]> {
+    const supabase = await createClient()
+    let { data: orgs, error } = await supabase
+        .from('organizations')
+        .select('id, name, description, projects!inner(id, name, description)')
+
+    if (error) {
+        throw error
+    }
+    return orgs as Organization[]
 }
 
 export async function createProject(values: { name: string, description: string, org_id: string }): Promise<Partial<Project>> {

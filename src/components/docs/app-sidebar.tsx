@@ -62,7 +62,7 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
                 icon: Bot,
                 items: props.projects.map((project) => ({
                     title: project.name,
-                    url: `/project/${project.id}`,
+                    url: `/dashboard/project/${project.id}`,
                 })),
             },
             {

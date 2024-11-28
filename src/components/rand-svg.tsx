@@ -30,8 +30,8 @@ const KanbanPlaceholder = ({ width = "100%", height = "100%" }) => {
                             y="0"
                             width={`${columnWidthPercent}%`}
                             height="100%"
-                            fill="rgba(165, 164, 164, 0.06)"
-                            stroke="rgba(165, 164, 164, 0.04)"
+                            fill="rgba(165, 164, 164, 0.08)"
+                            stroke="rgba(165, 164, 164, 0.06)"
                         />
                         {column.cards.map((_, cardIndex) => (
                             <rect
@@ -41,7 +41,7 @@ const KanbanPlaceholder = ({ width = "100%", height = "100%" }) => {
                                 y={`${2 + cardIndex * (cardHeightPercent + cardSpacingPercent)}%`} // Card position
                                 width={`${columnWidthPercent - 4}%`} // Card width with padding
                                 height={`${cardHeightPercent}%`} // Card height
-                                fill="rgba(165, 164, 164, 0.16)"
+                                fill="rgba(165, 164, 164, 0.20)"
                             />
                         ))}
                     </g>
