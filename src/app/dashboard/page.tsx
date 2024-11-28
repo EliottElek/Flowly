@@ -36,8 +36,8 @@ export default async function Home() {
 
     const ProjectCard = ({ project }: { project: Project }) => {
         return (
-            <Link className="group hover:text-primary duration-100 md:bg-transparent bg-background" href={`/dashboard/project/${project.id}`}>
-                <Card className="h-full h-40">
+            <Link className="group duration-100 md:bg-transparent bg-background" href={`/dashboard/project/${project.id}`}>
+                <Card className="h-full h-40 hover:ring-green-300/40 ring-1 ring-transparent duration-100">
                     <KanbanPlaceholder kanbanData={project?.columns}/>
                 </Card>
                 <CardHeader className="md:!p-2 md:!pt-4">
