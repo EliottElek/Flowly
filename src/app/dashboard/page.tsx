@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/tooltip"
 import SlotCounter from 'react-slot-counter';
 import { Organization } from "@/types/organization"
+import { SidebarTrigger } from "@/components/ui/sidebar"
 
 export default async function Home() {
     const supabase = await createClient()
@@ -38,7 +39,7 @@ export default async function Home() {
         return (
             <Link className="group duration-100 md:bg-transparent bg-background" href={`/dashboard/project/${project.id}`}>
                 <Card className="h-full h-40 hover:ring-primary/20 ring-1 ring-transparent duration-100">
-                    <KanbanPlaceholder kanbanData={project?.columns}/>
+                    <KanbanPlaceholder kanbanData={project?.columns} />
                 </Card>
                 <CardHeader className="md:!p-2 md:!pt-4">
                     <CardTitle>{project.name}</CardTitle>
@@ -48,38 +49,46 @@ export default async function Home() {
         )
     }
     return (
-        <div className="p-6 space-y-12">
-            <div className="flex items-center mb-8 gap-3">
-                <Link href="/dashboard/new-project"><Button className="h-8 font-bold">New project</Button></Link>
-                <Tooltip>
-                    <TooltipTrigger asChild>
-                        <Button disabled={!orgAbled} className="h-8 font-bold" variant={"secondary"}>New organization</Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                        {orgAbled ? <p>Create a new organization</p> : <p>You reached your max number of organizations.</p>}
-                    </TooltipContent>
-                </Tooltip>
-            </div>
-            {orgs.map((org: Organization) => (
-                <div key={org.id} className="">
-                    <div className="flex items-center gap-2 mt-6 mb-3"><h2 className="text-xl font-bold">{org.name}</h2>
-                        <SlotCounter
-                            charClassName="opacity-60"
-                            autoAnimationStart={true}
-                            value={org?.projects?.length ?? 0}
-                            sequentialAnimationMode
-                            useMonospaceWidth
-                        />
-                    </div>
-                    <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-2">
-                        {org?.projects.length === 0 && <p className="italic">No project yet.</p>}
-                        {org?.projects.map((project) => (
-                            <ProjectCard key={project.id} project={project} />
-                        ))}
+        <div>
+            <header className="flex sticky w-full top-0 h-16 shrink-0 items-center gap-2 px-4">
+                <div className="flex items-center w-full justify-between">
+                    <SidebarTrigger />
+                    <div className="flex items-center gap-3">
+                        <Link href="/dashboard/new-project"><Button className="h-8 font-bold bg-emerald-500 hover:bg-emerald-400 text-white">New project</Button></Link>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button disabled={!orgAbled} className="h-8 font-bold" variant={"secondary"}>New organization</Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                {orgAbled ? <p>Create a new organization</p> : <p>You reached your max number of organizations.</p>}
+                            </TooltipContent>
+                        </Tooltip>
                     </div>
                 </div>
-            ))}
-
+            </header>
+            <div className="flex grow flex-col grow-1 w-full h-full overflow-hidden">
+                <div className="p-6 space-y-12">
+                    {orgs.map((org: Organization) => (
+                        <div key={org.id} className="">
+                            <div className="flex items-center gap-2 mt-6 mb-3"><h2 className="text-xl font-bold">{org.name}</h2>
+                                <SlotCounter
+                                    charClassName="opacity-60"
+                                    autoAnimationStart={true}
+                                    value={org?.projects?.length ?? 0}
+                                    sequentialAnimationMode
+                                    useMonospaceWidth
+                                />
+                            </div>
+                            <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-2">
+                                {org?.projects.length === 0 && <p className="italic">No project yet.</p>}
+                                {org?.projects.map((project) => (
+                                    <ProjectCard key={project.id} project={project} />
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
         </div>
     )
 }

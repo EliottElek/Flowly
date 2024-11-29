@@ -2,21 +2,9 @@ import { Column } from "@/types/kanban";
 import React from "react";
 
 
-const getRandomNumber = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min;
-
-const generateKanbanData = (rows: any, minCardsPerRow: any, maxCardsPerRow: any) => {
-    const kanbanData = Array.from({ length: rows }, () => {
-        const numberOfCards = getRandomNumber(minCardsPerRow, maxCardsPerRow);
-        return { cards: Array.from({ length: numberOfCards }, () => null) };
-    });
-    return kanbanData;
-};
-
 const KanbanPlaceholder = ({ kanbanData }: { kanbanData: Partial<Column>[] | undefined }) => {
-    const rows = 4; // Number of rows
-    const minCardsPerRow = 1; // Minimum number of cards per row
-    const maxCardsPerRow = 5; // Maximum number of cards per row
-    const columnWidthPercent = 25; // Each column's width as a percentage
+    const columnWidthPercent = 22.5; // Each column's width as a percentage
+    const columnSpacingPercent = 3; // Card spacing as a percentage of viewBox height
     const cardHeightPercent = 13; // Card height as a percentage of viewBox height
     const cardSpacingPercent = 3; // Card spacing as a percentage of viewBox height
 
@@ -30,28 +18,64 @@ const KanbanPlaceholder = ({ kanbanData }: { kanbanData: Partial<Column>[] | und
                 {kanbanData?.map((column, colIndex) => (
                     <g
                         key={colIndex}
-                        transform={`translate(${colIndex * columnWidthPercent}, 0)`} // Translate columns horizontally
+                        transform={`translate(${colIndex * (columnWidthPercent + columnSpacingPercent)}, 0)`} // Translate columns horizontally
                     >
                         {/* Column Background */}
                         <rect
                             x="0"
+                            className="group-hover:fill-primary/5"
                             y="0"
                             width={`${columnWidthPercent}%`}
-                            height="100%"
+                            height={`100%`}
                             fill="rgba(165, 164, 164, 0.08)"
                             stroke="rgba(165, 164, 164, 0.06)"
-                            className=""
+                            rx="2"
+                            ry="2"
                         />
                         {column.tasks?.map((_, cardIndex) => (
-                            <rect
-                                className="rounded-md group-hover:fill-primary/40 duration-100"
-                                key={cardIndex}
-                                x="2%" // Slight padding inside the column
-                                y={`${2 + cardIndex * (cardHeightPercent + cardSpacingPercent)}%`} // Card position
-                                width={`${columnWidthPercent - 4}%`} // Card width with padding
-                                height={`${cardHeightPercent}%`} // Card height
-                                fill="rgba(165, 164, 164, 0.20)"
-                            />
+                            <g key={cardIndex}
+                            >
+                                <rect
+                                    className="rounded-md group-hover:fill-emerald-200/20 duration-100"
+                                    x="2%" // Slight padding inside the column
+                                    y={`${2 + cardIndex * (cardHeightPercent + cardSpacingPercent)}%`} // Card position
+                                    width={`${columnWidthPercent - 4}%`} // Card width with padding
+                                    height={`${cardHeightPercent}%`} // Card height
+                                    fill="rgba(165, 164, 164, 0.20)"
+                                    rx="1"
+                                    ry="1"
+                                />
+                                <rect
+                                    className="rounded-md opacity-0 translate-y-1 group-hover:translate-y-0 duration-300 group-hover:opacity-100 group-hover:fill-emerald-500/80 duration-100"
+                                    x="3%" // Slight padding inside the column
+                                    y={`${4 + cardIndex * (cardHeightPercent + cardSpacingPercent)}%`} // Card position
+                                    width={`${columnWidthPercent - 10}%`} // Card width with padding
+                                    height={`3`} // Card height
+                                    fill="rgba(165, 164, 164, 0.20)"
+                                    rx=".5"
+                                    ry=".5"
+                                />
+                                <rect
+                                    className="rounded-md opacity-0 translate-y-1 group-hover:translate-y-0 duration-300 group-hover:opacity-100 group-hover:fill-emerald-500/20 duration-100"
+                                    x="3%" // Slight padding inside the column
+                                    y={`${9 + cardIndex * (cardHeightPercent + cardSpacingPercent)}%`} // Card position
+                                    width={`${columnWidthPercent - 6}%`} // Card width with padding
+                                    height={`1`} // Card height
+                                    fill="rgba(165, 164, 164, 0.20)"
+                                    rx=".5"
+                                    ry=".5"
+                                />
+                                <rect
+                                    className="rounded-md opacity-0 translate-y-1 group-hover:translate-y-0 duration-300 group-hover:opacity-100 group-hover:fill-emerald-500/20 duration-100"
+                                    x="3%" // Slight padding inside the column
+                                    y={`${12 + cardIndex * (cardHeightPercent + cardSpacingPercent)}%`} // Card position
+                                    width={`${columnWidthPercent - 6}%`} // Card width with padding
+                                    height={`1`} // Card height
+                                    fill="rgba(165, 164, 164, 0.20)"
+                                    rx=".5"
+                                    ry=".5"
+                                />
+                            </g>
                         ))}
                     </g>
                 ))}
