@@ -39,9 +39,9 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
     user: props.user,
     teams: [
       {
-        name: "Acme Inc",
+        name: "ReconOps",
         logo: GalleryVerticalEnd,
-        plan: "Enterprise",
+        plan: "Free",
       },
       {
         name: "Acme Corp.",

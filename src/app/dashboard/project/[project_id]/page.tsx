@@ -11,7 +11,6 @@ const page = async ({ params }: { params: Params }) => {
 
     return (
         <KanbanBoard project_id={project_id} />
-
     )
 }
 

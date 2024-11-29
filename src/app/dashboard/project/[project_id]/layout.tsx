@@ -5,6 +5,8 @@ import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Separator } from '@/components/ui/separator';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 import Link from 'next/link';
+import AvatarList from '@/components/ui/avatar-list';
+import { NavActions } from '@/components/project/nav-actions';
 
 
 
@@ -23,7 +25,7 @@ export default async function ProjectLayout({
 
     return (
         <>
-            <header className="flex sticky top-0 h-16 shrink-0 items-center gap-2 border-b border-foreground/5 px-4">
+            <header className="flex sticky top-0 h-16 shrink-0 items-center justify-between gap-2 border-b border-foreground/5 px-4">
                 <div className="flex items-center gap-2">
                     <SidebarTrigger />
                     <Separator orientation="vertical" className="mr-2 h-4" />
@@ -38,6 +40,10 @@ export default async function ProjectLayout({
                             </BreadcrumbItem>
                         </BreadcrumbList>
                     </Breadcrumb>
+                </div>
+                <div className="flex items-center gap-2">
+                    <AvatarList users={project.members} />
+                    <NavActions />
                 </div>
             </header>
             <div className="flex grow flex-col grow-1 w-full h-full overflow-hidden pt-2">

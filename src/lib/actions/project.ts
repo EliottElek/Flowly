@@ -2,17 +2,25 @@
 import { Project } from "@/types/project"
 import { createClient } from "../supabase/server"
 import { redirect } from "next/navigation"
-import { Description } from "@radix-ui/react-alert-dialog"
 import { Organization } from "@/types/organization"
 
 export async function getProject(project_id: string): Promise<Project> {
     const supabase = await createClient()
     let { data: project, error } = await supabase
         .from('projects')
-        .select('*')
-        .eq('id', project_id).single()
+        .select(`
+        *,
+        members:project_members(
+            users(id, user_name, avatar_url)
+        )
+    `)
+        .eq('id', project_id)
+        .single();
+
+    project.members = project.members.map(({ users }: any) => users)
 
     if (error) {
+        console.log(error)
         return redirect("/404")
     }
     return project as Project
