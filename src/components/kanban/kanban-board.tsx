@@ -2,7 +2,6 @@
 
 import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd"
 import { KanbanColumn } from "./kanban-column"
-import { NewTask } from "./new-task"
 import { useKanban } from "@/hooks/kanban/use-kanban"
 import { useUpdateTask } from "@/hooks/kanban/use-update-task";
 import KanbanSkeleton from "./kanban-skeleton"
@@ -10,12 +9,23 @@ import NewColumn from "./new-column"
 import { Column } from "@/types/kanban"
 import { useUpdateColumnIndexes } from "@/hooks/kanban/use-update-columns-indexes"
 import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase/client";
 
 export function KanbanBoard({ project_id }: { project_id: string }) {
   const { columns: initialColumns, isLoading, refetch } = useKanban(project_id);
   const [columns, setColumns] = useState(initialColumns || []);
   const { updateTask } = useUpdateTask();
   const { updateColumnsIndexes } = useUpdateColumnIndexes();
+
+  const handleInserts = () => {
+    refetch()
+  }
+
+  // Listen to inserts
+  supabase
+    .channel('tasks')
+    .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'tasks' }, handleInserts)
+    .subscribe()
 
   useEffect(() => {
     if (initialColumns) setColumns(initialColumns);
