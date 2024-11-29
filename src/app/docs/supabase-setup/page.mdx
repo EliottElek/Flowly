@@ -48,20 +48,40 @@ Create the required tables using the following SQL scripts.
 ### Example Schema: Projects, Tasks, Comments
 
 ```sql
--- Table: projects
-CREATE TABLE public.projects (
+-- Table: organizations
+CREATE TABLE public.organizations (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name TEXT NOT NULL,
     description TEXT,
     created_at TIMESTAMP DEFAULT now()
 );
-
+-- Table: projects
+CREATE TABLE public.projects (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    org_id UUID REFERENCES public.organizations (id) ON DELETE CASCADE,
+    name TEXT NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT now()
+);
+-- Table: columns
+CREATE TABLE public.columns (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    project_id UUID REFERENCES public.projects (id) ON DELETE CASCADE,
+    name TEXT NOT NULL,
+    description TEXT,
+    index BIGINT,
+    created_at TIMESTAMP DEFAULT now()
+);
 -- Table: tasks
 CREATE TABLE public.tasks (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     project_id UUID REFERENCES public.projects (id) ON DELETE CASCADE,
+    column_id UUID REFERENCES public.columns (id) ON DELETE CASCADE,
+    priority TEXT,
     title TEXT NOT NULL,
+    content JSONB,
     description TEXT,
+    user_id UUID REFERENCES public.users (id) ON DELETE CASCADE,
     created_at TIMESTAMP DEFAULT now()
 );
 
@@ -80,6 +100,13 @@ CREATE TABLE public.comments (
 CREATE TABLE public.project_members (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     project_id UUID REFERENCES public.projects (id) ON DELETE CASCADE,
+    user_id UUID NOT NULL,
+    role TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT now()
+);
+CREATE TABLE public.organization_members (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    org_id UUID REFERENCES public.organizations (id) ON DELETE CASCADE,
     user_id UUID NOT NULL,
     role TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT now()

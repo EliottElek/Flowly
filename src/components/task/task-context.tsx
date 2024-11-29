@@ -8,7 +8,7 @@ import { useDeleteTask } from "@/hooks/kanban/use-delete-task";
 import { JSONContent } from "@tiptap/react";
 import { toast } from "@/hooks/use-toast";
 import { useConfirm } from "../use-confirm-dialog";
-
+import { usePathname } from "next/navigation";
 interface TaskContextProps {
     task: any;
     content: JSONContent;
@@ -25,6 +25,7 @@ const TaskContext = createContext<TaskContextProps | undefined>(undefined);
 export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
     const { task_id }: { task_id: string } = useParams()
     const router = useRouter()
+    const path = usePathname()
     const { confirm } = useConfirm()
     const { task, refetch } = useTask(task_id);
     const { updateTask } = useUpdateTask();
@@ -43,7 +44,8 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
 
     const handleClose = () => {
         if (!task) return
-        router.push(`/dashboard/project/${task?.project_id}`)
+        if (path.split("/").length > 4) router.back()
+        router.back()
     }
 
     const handleUpdateTask = async () => {
