@@ -24,7 +24,7 @@ export function KanbanBoard({ project_id }: { project_id: string }) {
   // Listen to inserts
   supabase
     .channel('tasks')
-    .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'tasks' }, handleInserts)
+    .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'tasks', filter: `project_id=eq.${project_id}` }, handleInserts)
     .subscribe()
 
   useEffect(() => {
