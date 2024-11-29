@@ -73,48 +73,43 @@ export function KanbanBoard({ project_id }: { project_id: string }) {
   if (isLoading) return <KanbanSkeleton />;
 
   return (
-    <>
-      {/* <div className="px-4 flex items-center justify-end">
-        <NewTask refetch={refetch} project_id={project_id} />
-      </div> */}
-      <div className="w-full overflow-auto snap-mandatory md:snap-none flex h-full">
-        <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId="all-columns" direction="horizontal" type="column">
-            {(provided) => (
-              <div
-                className="flex flex-row px-2 snap-center"
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-              >
-                {columns.map((column: Column, i: number) => (
-                  <Draggable draggableId={column.id} index={i} key={column.id}>
-                    {(draggableProvided) => (
-                      <div
-                        className="w-[90vw] md:w-[380px] p-2"
-                        ref={draggableProvided.innerRef}
-                        {...draggableProvided.draggableProps}
-                        {...draggableProvided.dragHandleProps}
-                      >
-                        <Droppable droppableId={column.id} type="task">
-                          {(taskProvided) => (
-                            <KanbanColumn
-                              column={column}
-                              provided={taskProvided}
-                              refetch={refetch}
-                            />
-                          )}
-                        </Droppable>
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-                <NewColumn project_id={project_id} refetch={refetch} />
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
-      </div>
-    </>
+    <div className="w-full overflow-auto snap-mandatory md:snap-none flex h-full">
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="all-columns" direction="horizontal" type="column">
+          {(provided) => (
+            <div
+              className="flex flex-row px-2 snap-center"
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              {columns.map((column: Column, i: number) => (
+                <Draggable draggableId={column.id} index={i} key={column.id}>
+                  {(draggableProvided) => (
+                    <div
+                      className="w-[90vw] md:w-[380px] p-2"
+                      ref={draggableProvided.innerRef}
+                      {...draggableProvided.draggableProps}
+                      {...draggableProvided.dragHandleProps}
+                    >
+                      <Droppable droppableId={column.id} type="task">
+                        {(taskProvided) => (
+                          <KanbanColumn
+                            column={column}
+                            provided={taskProvided}
+                            refetch={refetch}
+                          />
+                        )}
+                      </Droppable>
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+              <NewColumn project_id={project_id} refetch={refetch} />
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
+    </div>
   );
 }

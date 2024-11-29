@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 const KanbanSkeleton = () => {
     return (
-        <div className="px-4">
+        <div className="px-4 mt-3">
             <div className='flex gap-4 h-auto overflow-hidden'>
                 <Skeleton className="w-[380px] p-4 h-fit items-center flex-col space-y-3 rounded-md">
                     <Skeleton className="h-[105px] p-4 w-full rounded-md">

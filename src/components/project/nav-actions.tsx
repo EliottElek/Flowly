@@ -120,7 +120,7 @@ export function NavActions() {
                     </Button>
                 </PopoverTrigger>
                 <PopoverContent
-                    className="w-56 overflow-hidden rounded-lg p-0"
+                    className="w-56 z-50 overflow-hidden rounded-lg p-0"
                     align="end"
                 >
                     <Sidebar collapsible="none" className="bg-transparent">
@@ -131,7 +131,7 @@ export function NavActions() {
                                         <SidebarMenu>
                                             {group.map((item, index) => (
                                                 <SidebarMenuItem key={index}>
-                                                    <SidebarMenuButton>
+                                                    <SidebarMenuButton className="hover:bg-accent">
                                                         <item.icon /> <span>{item.label}</span>
                                                     </SidebarMenuButton>
                                                 </SidebarMenuItem>
