@@ -1,20 +1,19 @@
 import React from 'react'
 import { getProject } from '@/lib/actions/project'
 import { redirect } from 'next/navigation'
-import { KanbanBoard } from '@/components/kanban/kanban-board';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Separator } from '@/components/ui/separator';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 import Link from 'next/link';
 
-type Props = {
-    children: React.ReactNode;
-    params: {
-        project_id: string;
-    };
-};
 
-const Page = async ({ children, params }: Props) => {
+
+export default async function ProjectLayout({
+    params,
+    children
+}: {
+    params: Promise<{ project_id: string }>, children: React.ReactNode
+}) {
     const { project_id } = await params;
     const project = await getProject(project_id);
 
@@ -48,4 +47,3 @@ const Page = async ({ children, params }: Props) => {
     );
 };
 
-export default Page;
