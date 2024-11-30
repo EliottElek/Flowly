@@ -9,8 +9,9 @@ import { JSONContent } from "@tiptap/react";
 import { toast } from "@/hooks/use-toast";
 import { useConfirm } from "../use-confirm-dialog";
 import { usePathname } from "next/navigation";
+import { Task } from "@/types/kanban";
 interface TaskContextProps {
-    task: any;
+    task: Partial<Task>;
     content: JSONContent;
     currentPath: string,
     setContent: (content: JSONContent) => void;
@@ -37,7 +38,7 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
 
     useEffect(() => {
         if (task) {
-            setContent(task.content);
+            setContent(task.content ?? {});
         }
     }, [task]);
 

@@ -47,7 +47,7 @@ export function useComments(task_id: string): UseCommentsResult {
                     parent_id,
                     user_id,
                     created_at,
-                    user:users!user_id(id, username, email, avatar_url)
+                    user:users!user_id(id, user_name, email, avatar_url)
                 `)
             .eq("task_id", task_id),
         {
@@ -57,6 +57,7 @@ export function useComments(task_id: string): UseCommentsResult {
     );
     //@ts-ignore
     const nested = comments ? nestComments(comments) : [];
+    console.log(error)
 
     return { comments: nested, count, refetch: mutate, isLoading, error };
 }

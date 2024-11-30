@@ -84,7 +84,7 @@ export function KanbanColumn({
         }
       </div>
       <div
-        className="min-h-[10px] z-0 p-1 overflow-y-auto max-h-[calc(100vh_-_8.5rem)]"
+        className="min-h-[10px] overflow-x-hidden z-0 p-1 overflow-y-auto max-h-[calc(100vh_-_8.5rem)]"
         ref={provided.innerRef}
         {...provided.droppableProps}
       >

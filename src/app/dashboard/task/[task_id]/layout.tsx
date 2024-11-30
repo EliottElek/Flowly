@@ -27,6 +27,7 @@ import { useTaskContext } from "@/components/task/task-context";
 import PeriodPicker from '@/components/task/period-picker'
 import { Button } from '@/components/ui/button'
 import { PriorityBadgeSelect } from '@/components/badge'
+import { Task } from '@/types/kanban'
 const data = {
     nav: [
         { name: "Overview", icon: Menu, href: "/" },
@@ -74,7 +75,7 @@ const TaskDialog = ({ children }: { children: React.ReactNode }) => {
                                         ))}
                                     </SidebarMenu>
                                     <div><PeriodPicker /></div>
-                                    <PriorityBadgeSelect className='text-md my-6' task={task} refetch={refetch} />
+                                    <PriorityBadgeSelect className='text-md my-6' task={task as Task} refetch={refetch} />
                                     <div className='grow' />
                                     <div><Button onClick={handleUpdateTask} className='font-bold w-full'>Save changes</Button></div>
                                 </SidebarGroupContent>

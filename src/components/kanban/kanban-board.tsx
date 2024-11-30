@@ -92,11 +92,12 @@ export function KanbanBoard({ project_id }: { project_id: string }) {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {columns.map((column: Column, i: number) => (
+              {// @ts-ignore
+              columns.map((column: Column, i: number) => (
                 <Draggable draggableId={column.id} index={i} key={column.id}>
                   {(draggableProvided) => (
                     <div
-                      className="w-[90vw] md:w-[380px] p-2"
+                      className="w-[90vw] md:w-[350px] p-2"
                       ref={draggableProvided.innerRef}
                       {...draggableProvided.draggableProps}
                       {...draggableProvided.dragHandleProps}

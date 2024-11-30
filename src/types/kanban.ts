@@ -1,14 +1,17 @@
 import { JSONContent } from "@tiptap/react"
+import { User } from "./user"
 
 export interface Task {
   id: string,
   content: JSONContent,
   title: string,
-  description?: string,
-  createdAt: Date,
-  column_id: string,
-  project_id: string,
-  priority: string,
+  description: string,
+  created_at: Date,
+  column_id?: string,
+  project_id?: string,
+  priority?: string,
+  user_id?: string,
+  user?: User,
   comments?: Comment[] | Partial<Comment>[]
 }
 

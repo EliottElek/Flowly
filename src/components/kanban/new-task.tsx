@@ -56,16 +56,14 @@ export function NewTask({ refetch, project_id, column_id }: { refetch: () => voi
 
   const handleAddTask = async () => {
     if (formData.column_id === "") return
-    const { error } = await createTask({ ...formData } as Task);
+    const { error } = await createTask({ ...formData, content: content } as Task);
     if (!error) {
       refetch();
-      setOpen(false);
       toast({
         title: "Your task has been created.",
         description: "Your task has been successfully created.",
       })
     } else {
-      setOpen(false); // Close dialog on success
       toast({
         variant: "destructive",
         title: "Failed to create new task.",
@@ -73,6 +71,7 @@ export function NewTask({ refetch, project_id, column_id }: { refetch: () => voi
         action: <ToastAction altText="Try again">Try again</ToastAction>,
       })
     }
+    setOpen(false);
   };
 
   return (
