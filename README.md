@@ -1,7 +1,16 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Supabase + NextJS 15 + ShadcnUI
 
-## Getting Started
+This is (yet another) kanban app ! This project utilises [Shadcn UI](https://ui.shadcn.com/), [NextJS 15](https://nextjs.org/) and [supabase](https://supabase.com/).
 
+<img width="1440" alt="Capture d’écran 2024-12-01 à 15 19 25" src="https://github.com/user-attachments/assets/d0cdf8bc-53ca-4089-b9d1-f86adbf9cf67">
+<img width="1440" alt="Capture d’écran 2024-12-01 à 15 20 16" src="https://github.com/user-attachments/assets/b1cde091-29ab-4e91-85d0-d033dd0841ac">
+<img width="1440" alt="Capture d’écran 2024-12-01 à 15 20 09" src="https://github.com/user-attachments/assets/bf6419e8-79d9-409f-b766-e907af472ca9">
+<img width="1440" alt="Capture d’écran 2024-12-01 à 15 20 33" src="https://github.com/user-attachments/assets/4e0667e8-5881-4dd5-ac2a-82d5c6c5a1c1">
+<img width="1440" alt="Capture d’écran 2024-12-01 à 15 20 41" src="https://github.com/user-attachments/assets/32def1f6-ee06-4969-995d-654b1858878e">
+<img width="1439" alt="Capture d’écran 2024-12-01 à 15 20 48" src="https://github.com/user-attachments/assets/635de4ff-1087-4d45-b6fc-02f2eceb1c0e">
+
+
+## Get started
 First, run the development server:
 
 ```bash
