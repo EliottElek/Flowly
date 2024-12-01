@@ -1,10 +1,11 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect, Dispatch, SetStateAction } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useTask } from "@/hooks/kanban/use-task";
 import { useUpdateTask } from "@/hooks/kanban/use-update-task";
 import { useDeleteTask } from "@/hooks/kanban/use-delete-task";
+import { useUpdateTags } from "@/hooks/kanban/use-update-tags";
 import { JSONContent } from "@tiptap/react";
 import { toast } from "@/hooks/use-toast";
 import { useConfirm } from "../use-confirm-dialog";
@@ -14,11 +15,13 @@ interface TaskContextProps {
     task: Partial<Task>;
     content: JSONContent;
     currentPath: string,
+    selectedTags: string[],
     setContent: (content: JSONContent) => void;
     refetch: () => void;
     handleClose: () => void,
     handleUpdateTask: () => Promise<void>;
     handleDeleteTask: () => Promise<void>;
+    setSelectedTags: Dispatch<SetStateAction<string[]>>
 }
 
 const TaskContext = createContext<TaskContextProps | undefined>(undefined);
@@ -29,8 +32,10 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
     const path = usePathname()
     const { confirm } = useConfirm()
     const { task, refetch } = useTask(task_id);
+    const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const { updateTask } = useUpdateTask();
     const { deleteTask } = useDeleteTask();
+    const { updateTags } = useUpdateTags()
     const currentPath = `/dashboard/task/${task_id}`
 
 
@@ -39,6 +44,7 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
     useEffect(() => {
         if (task) {
             setContent(task.content ?? {});
+            setSelectedTags(task.tags?.map((tag) => tag.id) ?? []);
         }
     }, [task]);
 
@@ -52,6 +58,8 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
     const handleUpdateTask = async () => {
         if (!task) return
         await updateTask(task?.id, { content: content });
+        await updateTags(task?.id, selectedTags);
+
         handleClose()
         toast({
             title: "Your task has been created.",
@@ -81,7 +89,9 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
                 currentPath,
                 handleClose,
                 handleUpdateTask,
-                handleDeleteTask
+                handleDeleteTask,
+                selectedTags,
+                setSelectedTags,
             }}
         >
             {children}

@@ -26,6 +26,10 @@ export function KanbanBoard({ project_id }: { project_id: string }) {
     .channel('tasks')
     .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'tasks', filter: `project_id=eq.${project_id}` }, handleInserts)
     .subscribe()
+    supabase
+    .channel('columns')
+    .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'columns', filter: `project_id=eq.${project_id}` }, handleInserts)
+    .subscribe()
 
   useEffect(() => {
     if (initialColumns) setColumns(initialColumns);

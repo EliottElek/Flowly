@@ -279,6 +279,23 @@ FOR EACH ROW
 EXECUTE FUNCTION handle_new_project();
 ```
 
+### Policies for `tags` deletion
+
+
+```sql
+ALTER TABLE task_tags
+ADD CONSTRAINT fk_task
+FOREIGN KEY (task_id)
+REFERENCES tasks(id)
+ON DELETE CASCADE;
+
+ALTER TABLE task_tags
+ADD CONSTRAINT fk_tag
+FOREIGN KEY (tag_id)
+REFERENCES tags(id)
+ON DELETE CASCADE;
+
+```
 
 ---
 

@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useState } from 'react'
 import {
     Dialog,
     DialogContent,
@@ -26,8 +26,10 @@ import Link from 'next/link'
 import { useTaskContext } from "@/components/task/task-context";
 import PeriodPicker from '@/components/task/period-picker'
 import { Button } from '@/components/ui/button'
-import { PriorityBadgeSelect } from '@/components/badge'
+import { PriorityBadgeSelect } from '@/components/task/badge'
 import { Task } from '@/types/kanban'
+import { useTags } from '@/hooks/kanban/use-tags'
+import { MultiSelect } from '@/components/ui/multi-select'
 const data = {
     nav: [
         { name: "Overview", icon: Menu, href: "/" },
@@ -35,9 +37,11 @@ const data = {
     ],
 }
 
+
 const TaskDialog = ({ children }: { children: React.ReactNode }) => {
 
-    const { handleClose, task, currentPath, handleUpdateTask, refetch } = useTaskContext()
+    const { handleClose, task, currentPath, selectedTags, setSelectedTags, handleUpdateTask, refetch } = useTaskContext()
+    const { tags } = useTags(true)
     return (
         <Dialog onOpenChange={handleClose} open={Boolean(task)}>
             <DialogContent className="p-0 h-[90vh] max-w-[75vw] overflow-hidden outline-none">
@@ -76,6 +80,16 @@ const TaskDialog = ({ children }: { children: React.ReactNode }) => {
                                     </SidebarMenu>
                                     <div><PeriodPicker /></div>
                                     <PriorityBadgeSelect className='text-md my-6' task={task as Task} refetch={refetch} />
+                                    <MultiSelect
+                                        // @ts-ignore
+                                        options={tags}
+                                        onValueChange={setSelectedTags}
+                                        defaultValue={selectedTags}
+                                        placeholder="Select tags"
+                                        variant="inverted"
+                                        animation={2}
+                                        maxCount={3}
+                                    />
                                     <div className='grow' />
                                     <div><Button onClick={handleUpdateTask} className='font-bold w-full'>Save changes</Button></div>
                                 </SidebarGroupContent>

@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { MessagesSquare, MoreHorizontal } from "lucide-react"
 import { SidebarMenuAction } from "../ui/sidebar"
-import PriorityBadge from "../badge"
+import { Tags } from "../task/badge"
 import { useDeleteTask } from "@/hooks/kanban/use-delete-task"
 import { useConfirm } from "../use-confirm-dialog"
 import { toast } from "@/hooks/use-toast"
@@ -65,11 +65,11 @@ export const KanbanTask = memo(function KanbanTask({ task, index, refetch }: Kan
           {...provided.dragHandleProps}
         >
           <Link href={`/dashboard/task/${task.id}`}>
-            <Card className="group  relative bg-background">
+            <Card className="group rounded-xl relative bg-background">
               <CardHeader className="p-3">
                 <div className="flex items-center justify-between">
-                  {/* <PriorityBadge priority={task.priority} /> */}
-                  <div className="opacity-0 group-hover:opacity-100">
+                  <Tags tags={task?.tags ?? []} />
+                  <div className="opacity-0 -ml-2 group-hover:opacity-100">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <SidebarMenuAction>
@@ -112,7 +112,7 @@ export const KanbanTask = memo(function KanbanTask({ task, index, refetch }: Kan
                     <AvatarImage src={task.user?.avatar_url} alt={"user?.user_name"} />
                     <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                   </Avatar>
-                  <span className="opacity-60 text-xs">{task.user?.user_name}, <span className="font-thin">{formatDistanceToNow(task?.created_at ?? "", { addSuffix: true })}</span></span>
+                  <span className="opacity-60 text-xs">{task.user?.user_name}, <span className="opacity-75">{formatDistanceToNow(task?.created_at ?? "", { addSuffix: true })}</span></span>
                 </div>
                 {task?.comments && task?.comments?.length > 0 &&
                   <span className="flex gap-1 items-center text-sm opacity-60">{task?.comments?.length}<MessagesSquare className="h-4 w-4" /></span>

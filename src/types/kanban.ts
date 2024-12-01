@@ -12,6 +12,7 @@ export interface Task {
   priority?: string,
   user_id?: string,
   user?: User,
+  tags?: Tag[],
   comments?: Comment[] | Partial<Comment>[]
 }
 
@@ -53,3 +54,8 @@ export type NestedComment = {
   };
   children: NestedComment[];
 };
+export type Tag = {
+  id: string,
+  name: string,
+  color?: string
+}

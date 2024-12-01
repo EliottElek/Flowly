@@ -1,12 +1,12 @@
 # **Authentication**
 
-ReconOps leverages Supabase to provide secure and scalable authentication, allowing developers to integrate and manage various authentication methods. This guide explains the available auth mechanisms, their implementation, and how they integrate into ReconOps.
+Flowly leverages Supabase to provide secure and scalable authentication, allowing developers to integrate and manage various authentication methods. This guide explains the available auth mechanisms, their implementation, and how they integrate into Flowly.
 
 ---
 
 ## **Supported Authentication Methods**
 
-ReconOps uses **Supabase Auth** to support the following authentication methods:
+Flowly uses **Supabase Auth** to support the following authentication methods:
 
 1. **Email/Password Authentication**  
    Standard sign-up and login mechanism with email and password.
@@ -50,7 +50,7 @@ ReconOps uses **Supabase Auth** to support the following authentication methods:
 
 ## 🔗 **Frontend Implementation**
 
-In ReconOps, the authentication workflow is integrated using Supabase’s JavaScript SDK.
+In Flowly, the authentication workflow is integrated using Supabase’s JavaScript SDK.
 
 ### **Install Supabase Client**
 
@@ -124,7 +124,7 @@ supabase.auth.onAuthStateChange((event, session) => {
 
 ## **Securing APIs with RLS**
 
-Supabase enforces **Row-Level Security (RLS)** to ensure only authorized users can access data. ReconOps policies:
+Supabase enforces **Row-Level Security (RLS)** to ensure only authorized users can access data. Flowly policies:
 
 - Users can only access projects they belong to.
 - Comments can only be edited/deleted by their creators.  
@@ -144,6 +144,6 @@ Supabase Auth is flexible and supports additional features:
 ## **Need Help?**
 
 - [Supabase Auth Documentation](https://supabase.com/docs/guides/auth)
-- ReconOps Support: **support@reconops.com**  
+- Flowly Support: **support@Flowly.com**  
 
-Make authentication a seamless part of your ReconOps experience! 🚀
+Make authentication a seamless part of your Flowly experience! 🚀

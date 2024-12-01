@@ -10,6 +10,7 @@ export async function getProject(project_id: string): Promise<Project> {
         .from('projects')
         .select(`
         *,
+        org:organizations(name, id),
         members:project_members(
             users(id, user_name, avatar_url)
         )

@@ -51,8 +51,8 @@ export function KanbanColumn({
     }
   }
   return (
-    <Card className="bg-muted/50 relative !min-h-[48px] overflow-hidden ">
-      <div className="shadow p-1 px-3 z-50 group bg-muted/50 flex items-center gap-1 justify-between">
+    <Card className="bg-muted/50 relative !min-h-[48px] overflow-hidden rounded-xl">
+      <div className="shadow-sm border-b p-1 px-3 z-50 group bg-muted/50 flex items-center gap-1 justify-between">
         {edit ? <>
           <Input
             className="font-bold text-sm focus:outline-none !h-auto p-1"
@@ -84,6 +84,7 @@ export function KanbanColumn({
         }
       </div>
       <div
+      
         className="min-h-[10px] overflow-x-hidden z-0 p-1 overflow-y-auto max-h-[calc(100vh_-_8.5rem)]"
         ref={provided.innerRef}
         {...provided.droppableProps}

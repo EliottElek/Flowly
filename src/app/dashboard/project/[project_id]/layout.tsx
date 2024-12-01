@@ -25,14 +25,14 @@ export default async function ProjectLayout({
 
     return (
         <>
-            <header className="flex sticky top-0 h-16 shrink-0 items-center justify-between gap-2 border-b border-foreground/5 px-4">
+            <header className="flex sticky top-0 h-12 bg-muted/50 shrink-0 items-center justify-between gap-2 border-b border-foreground/5 px-4">
                 <div className="flex items-center gap-2">
                     <SidebarTrigger />
                     <Separator orientation="vertical" className="mr-2 h-4" />
                     <Breadcrumb>
                         <BreadcrumbList>
                             <BreadcrumbItem className="hidden md:block">
-                                <Link href="/dashboard">Dashboard</Link>
+                                <Link href="/dashboard">{project?.org?.name}</Link>
                             </BreadcrumbItem>
                             <BreadcrumbSeparator className="hidden md:block" />
                             <BreadcrumbItem>

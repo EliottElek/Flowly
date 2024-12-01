@@ -10,11 +10,16 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Task } from "@/types/kanban";
+import { Tag, Task } from "@/types/kanban";
 import { useUpdateTask } from "@/hooks/kanban/use-update-task";
 import { toast } from "@/hooks/use-toast";
-import { ChevronDown } from "lucide-react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 export default function PriorityBadge({ priority, className, children }: { priority: string | undefined, className?: string | undefined, children?: React.ReactNode }) {
 
@@ -78,5 +83,45 @@ export const PriorityBadgeSelect = ({ task, className, refetch }: { task: Task, 
                 </DropdownMenuContent>
             </DropdownMenu>
         </div>
+    )
+}
+
+export const Badge = ({ tag }: { tag: Tag }) => {
+    const style = {
+        backgroundColor: `${tag.color?.toUpperCase()}20`, // 20 for opacity
+        color: tag.color?.toUpperCase(),
+    };
+    return (
+
+        <span style={style}
+            className={cn("flex items-center gap-1 rounded-full px-2 py-.5 text-xs font-medium")}>
+            {tag.name}
+        </span>
+    )
+}
+
+export const Tags = ({ tags }: { tags: any[] }) => {
+    return (
+        <ul className="flex items-center gap-1 flex-wrap">
+            {tags.slice(0, 3).map(({ tags: tag }, i) => (
+                <li key={i}><Badge tag={tag} /></li>
+            ))}
+            {tags.length > 3 && (
+                <TooltipProvider>
+                    <Tooltip>
+                        <TooltipTrigger>
+                            <span className={cn("flex items-center gap-1 rounded-full px-2 py-.5 text-xs font-medium bg-gray-300/20 opacity-50")}>+{tags.length - 3} more</span>
+                        </TooltipTrigger>
+                        <TooltipContent className="bg-background border">
+                            <ul className="flex items-center flex-col gap-1 flex-wrap">
+                                {tags.map(({ tags: tag }, i) => (
+                                    <li key={i}><Badge tag={tag} /></li>
+                                ))}
+                            </ul>
+                        </TooltipContent>
+                    </Tooltip>
+                </TooltipProvider>
+            )}
+        </ul>
     )
 }

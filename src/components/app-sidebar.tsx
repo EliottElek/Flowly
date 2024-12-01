@@ -39,7 +39,7 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
     user: props.user,
     teams: [
       {
-        name: "ReconOps",
+        name: "Flowly",
         logo: GalleryVerticalEnd,
         plan: "Free",
       },

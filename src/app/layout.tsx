@@ -17,8 +17,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "ReconOps",
-  description: "ReconOps task management platform.",
+  title: "Flowly",
+  description: "Flowly task management platform.",
 };
 
 export default function RootLayout({

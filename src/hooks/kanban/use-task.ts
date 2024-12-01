@@ -18,7 +18,7 @@ export function useTask(task_id: string): UseTasksResult {
     const { data: task, count, mutate, isLoading, error } = useQuery(
         supabase
             .from("tasks")
-            .select("*, comments(id)").eq("id", task_id).single(),
+            .select("*, comments(id),user:users!user_id(id, user_name, email, avatar_url), tags:task_tags(tags(id, name, color))").eq("id", task_id).single(),
         {
             revalidateOnFocus: false,
             revalidateOnReconnect: false,
