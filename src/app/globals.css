@@ -313,7 +313,7 @@ body {
   pointer-events: none;
 }
 
-*::-webkit-scrollbar {
+/* *::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
@@ -327,7 +327,7 @@ body {
 *::-webkit-scrollbar-thumb {
   background: rgba(165, 164, 164, 0.16);
   border-radius: 20px;
-}
+} */
 
 .prose p {
   @apply mb-0

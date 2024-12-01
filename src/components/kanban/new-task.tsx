@@ -76,7 +76,7 @@ export function NewTask({ refetch, project_id, column_id }: { refetch: () => voi
 
   return (
     <>
-      <Button disabled={columns?.length === 0} className="font-bold w-full" variant={"ghost"} onClick={() => setOpen(true)}>
+      <Button disabled={columns?.length === 0} className="font-bold w-full rounded-lg" variant={"ghost"} onClick={() => setOpen(true)}>
         <PlusIcon /> New Task
       </Button>
       <Dialog

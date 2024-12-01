@@ -1,13 +1,13 @@
 import { useState, useCallback } from "react";
 import { supabase } from "@/lib/supabase/client";
 
-type UseCreateTaskResult = {
+type UseDeleteTaskResult = {
     deleteTask: (task_id: string) => Promise<{ error: any; }>;
     isLoading: boolean;
     error: string | null;
 };
 
-export function useDeleteTask(): UseCreateTaskResult {
+export function useDeleteTask(): UseDeleteTaskResult {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -23,7 +23,7 @@ export function useDeleteTask(): UseCreateTaskResult {
             }
             return { error: null };
         } catch (err: any) {
-            setError(err.message || "An error occurred while creating the task.");
+            setError(err.message || "An error occurred while deleting the task.");
             return { error: err };
         } finally {
             setIsLoading(false);

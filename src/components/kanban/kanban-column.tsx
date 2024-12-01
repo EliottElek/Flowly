@@ -12,6 +12,7 @@ import { useUpdateColumn } from "@/hooks/kanban/use-update-column"
 import { toast } from "@/hooks/use-toast"
 import SlotCounter from 'react-slot-counter';
 import { NewTask } from "./new-task"
+import ColumnContextMenu from "./column-menu"
 
 interface KanbanColumnProps {
   column: Column
@@ -51,55 +52,57 @@ export function KanbanColumn({
     }
   }
   return (
-    <Card className="bg-muted/50 relative !min-h-[48px] overflow-hidden rounded-xl">
-      <div className="shadow-sm border-b p-1 px-3 z-50 group bg-muted/50 flex items-center gap-1 justify-between">
-        {edit ? <>
-          <Input
-            className="font-bold text-sm focus:outline-none !h-auto p-1"
-            autoFocus value={name}
-            onBlur={(e) => {
-              if (!e.relatedTarget?.matches("button")) {
-                setEdit(false);
-              }
-            }} onChange={(e) => setName(e.target.value)} />
-          <div className="flex items-center gap-1">
-            <Button variant="ghost" className="text-primary hover:text-primary hover:bg-primary/20 h-6 w-6" size={"icon"} onClick={onSubmitEdit}><CheckIcon /></Button>
-            <Button variant="ghost" className="text-destructive hover:text-destructive hover:bg-destructive/20 h-6 w-6" size={"icon"} onClick={() => setEdit(false)}><XIcon /></Button>
-          </div>
-        </> :
-          <div className="flex w-full items-center justify-between">
-            <Button onClick={() => setEdit(true)} variant={"ghost"} className="flex h-7 px-0 gap-2">
-              <span className="font-bold text-sm">{column.name}</span>
-              <span className="opacity-0 group-hover:opacity-100 duration-100" ><PencilIcon className="h-3 w-3 text-xs" /></span>
-            </Button>
-            <span className="text-md h-full opacity-50">
-              <SlotCounter
-                autoAnimationStart={false}
-                value={column.tasks.length}
-                sequentialAnimationMode
-                useMonospaceWidth
-              />
-            </span>
-          </div>
-        }
-      </div>
-      <div
-      
-        className="min-h-[10px] overflow-x-hidden z-0 overflow-y-auto max-h-[calc(100vh_-_8.5rem)]"
-        ref={provided.innerRef}
-        {...provided.droppableProps}
-      >
-        {column.tasks.map((task, index) => (
-          <KanbanTask
-            key={task.id}
-            task={task}
-            index={index}
-            refetch={refetch}
-          />
-        ))}
-        {provided.placeholder}
-        <div className="p-1"> <NewTask refetch={refetch} project_id={column.project_id} column_id={column.id} /></div>
-      </div>
-    </Card>
+    <ColumnContextMenu column={column} refetch={refetch}>
+      <Card className="bg-muted/50 relative !min-h-[48px] overflow-hidden rounded-xl">
+        <div className="shadow-sm border-b p-1 px-3 z-50 group bg-muted/50 flex items-center gap-1 justify-between">
+          {edit ? <>
+            <Input
+              className="font-bold text-sm focus:outline-none !h-auto p-1"
+              autoFocus value={name}
+              onBlur={(e) => {
+                if (!e.relatedTarget?.matches("button")) {
+                  setEdit(false);
+                }
+              }} onChange={(e) => setName(e.target.value)} />
+            <div className="flex items-center gap-1">
+              <Button variant="ghost" className="text-primary hover:text-primary hover:bg-primary/20 h-6 w-6" size={"icon"} onClick={onSubmitEdit}><CheckIcon /></Button>
+              <Button variant="ghost" className="text-destructive hover:text-destructive hover:bg-destructive/20 h-6 w-6" size={"icon"} onClick={() => setEdit(false)}><XIcon /></Button>
+            </div>
+          </> :
+            <div className="flex w-full items-center justify-between">
+              <Button onClick={() => setEdit(true)} variant={"ghost"} className="flex h-7 px-0 gap-2">
+                <span className="font-bold text-sm">{column.name}</span>
+                <span className="opacity-0 group-hover:opacity-100 duration-100" ><PencilIcon className="h-3 w-3 text-xs" /></span>
+              </Button>
+              <span className="text-md h-full opacity-50">
+                <SlotCounter
+                  autoAnimationStart={false}
+                  value={column.tasks.length}
+                  sequentialAnimationMode
+                  useMonospaceWidth
+                />
+              </span>
+            </div>
+          }
+        </div>
+        <div
+
+          className="min-h-[10px] overflow-x-hidden z-0 overflow-y-auto scrollbar-hide max-h-[calc(100vh_-_8.5rem)]"
+          ref={provided.innerRef}
+          {...provided.droppableProps}
+        >
+          {column.tasks.map((task, index) => (
+            <KanbanTask
+              key={task.id}
+              task={task}
+              index={index}
+              refetch={refetch}
+            />
+          ))}
+          {provided.placeholder}
+          <div className="p-1"> <NewTask refetch={refetch} project_id={column.project_id} column_id={column.id} /></div>
+        </div>
+      </Card>
+    </ColumnContextMenu>
   )
 } 

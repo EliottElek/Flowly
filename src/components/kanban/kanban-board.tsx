@@ -17,18 +17,18 @@ export function KanbanBoard({ project_id }: { project_id: string }) {
   const { updateTask } = useUpdateTask();
   const { updateColumnsIndexes } = useUpdateColumnIndexes();
 
-  const handleInserts = () => {
+  const handleChanges = () => {
     refetch()
   }
 
   // Listen to inserts
   supabase
     .channel('tasks')
-    .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'tasks', filter: `project_id=eq.${project_id}` }, handleInserts)
+    .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'tasks', filter: `project_id=eq.${project_id}` }, handleChanges)
     .subscribe()
     supabase
     .channel('columns')
-    .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'columns', filter: `project_id=eq.${project_id}` }, handleInserts)
+    .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'columns', filter: `project_id=eq.${project_id}` }, handleChanges)
     .subscribe()
 
   useEffect(() => {
