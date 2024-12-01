@@ -59,7 +59,7 @@ export const KanbanTask = memo(function KanbanTask({ task, index, refetch }: Kan
     <Draggable draggableId={task.id} index={index}>
       {(provided) => (
         <div
-          className="m-0 p-1"
+          className="m-0 p-0.5"
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
