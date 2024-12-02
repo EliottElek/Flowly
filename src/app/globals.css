@@ -356,3 +356,6 @@ body {
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
+.tiptap h1 {
+  @apply text-4xl
+}
