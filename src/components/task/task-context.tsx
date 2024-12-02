@@ -14,6 +14,8 @@ import { Task } from "@/types/kanban";
 // @ts-ignore
 import debounce from "lodash.debounce";
 import { CircleDashedIcon, SaveIcon, SaveOffIcon } from "lucide-react";
+import { SelectSingleEventHandler } from "react-day-picker";
+import { parseISO, isEqual } from 'date-fns';
 
 
 const savingStatuses = [
@@ -32,6 +34,8 @@ interface TaskContextProps {
     handleUpdateTask: () => Promise<void>;
     handleDeleteTask: () => Promise<void>;
     setSelectedTags: Dispatch<SetStateAction<string[]>>;
+    dueOn: Date | undefined,
+    setDueOn: SelectSingleEventHandler
     savingStatus: {
         status: "unsaved" | "saving" | "saved" | string;
         className: string;
@@ -48,6 +52,7 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
     const { confirm } = useConfirm();
     const { task, refetch } = useTask(task_id);
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
+    const [dueOn, setDueOn] = React.useState<Date | undefined>(undefined)
     const { updateTask } = useUpdateTask();
     const { deleteTask } = useDeleteTask();
     const { updateTags } = useUpdateTags();
@@ -61,6 +66,7 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
             setContent(task.content ?? {});
             // @ts-ignore
             setSelectedTags(task.tags?.map(({ tags: tag }) => tag.id) ?? []);
+            task.due_on && setDueOn(new Date(task.due_on) as Date)
         }
     }, [task]);
 
@@ -74,7 +80,7 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
         if (!task) return;
         setSavingStatus(savingStatuses[2]);
         try {
-            await updateTask(task.id, { content });
+            await updateTask(task.id, { content, due_on: dueOn });
             await updateTags(task.id, selectedTags);
             setSavingStatus(savingStatuses[0])
 
@@ -89,7 +95,9 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
         const hasContentChanged = JSON.stringify(content) !== JSON.stringify(task?.content);
         // @ts-ignore
         const haveTagsChanged = JSON.stringify(selectedTags) !== JSON.stringify(task?.tags?.map(({ tags: tag }) => tag.id));
-        if (!hasContentChanged && !haveTagsChanged) {
+        const haveDueNotChanged = isEqual(parseISO(dueOn?.toDateString() ?? ""), parseISO(task?.due_on as string ?? ""));
+
+        if (!hasContentChanged && !haveTagsChanged && !haveDueNotChanged) {
             setSavingStatus(savingStatuses[0]);
         } else {
             setSavingStatus(savingStatuses[1]);
@@ -97,7 +105,7 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
         }
 
         return debouncedSaveTask.cancel; // Cleanup on unmount
-    }, [content, selectedTags, task?.content, task?.tags]);
+    }, [content, selectedTags, dueOn, task?.content, task?.tags, task?.due_on]);
 
     const handleUpdateTask = async () => {
         debouncedSaveTask();
@@ -133,6 +141,8 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
                 selectedTags,
                 setSelectedTags,
                 savingStatus,
+                dueOn,
+                setDueOn
             }}
         >
             {children}

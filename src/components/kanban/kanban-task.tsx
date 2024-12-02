@@ -5,12 +5,12 @@ import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/ca
 import { useEffect, useState } from "react"
 import { memo } from 'react'
 import Link from "next/link"
-import { MessagesSquare } from "lucide-react"
+import { Calendar1Icon, MessagesSquare } from "lucide-react"
 import { Tags } from "../task/badge"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Separator } from "../ui/separator"
-import { formatDistanceToNow } from "date-fns/formatDistanceToNow"
 import TaskContextMenu from "../task/task-menu"
+import { format } from "date-fns"
 
 
 interface KanbanTaskProps {
@@ -60,11 +60,21 @@ export const KanbanTask = memo(function KanbanTask({ task, index, refetch }: Kan
                       <AvatarImage src={task.user?.avatar_url} alt={"user?.user_name"} />
                       <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                     </Avatar>
-                    <span className="opacity-60 text-xs">{task.user?.user_name}, <span className="opacity-75">{formatDistanceToNow(task?.created_at ?? "", { addSuffix: true })}</span></span>
+                    <span className="opacity-60 text-xs">{task.user?.user_name}
+                      {/* , <span className="opacity-75">{formatDistanceToNow(task?.created_at ?? "", { addSuffix: true })}</span> */}
+                    </span>
                   </div>
-                  {task?.comments && task?.comments?.length > 0 &&
-                    <span className="flex gap-1 items-center text-sm opacity-60">{task?.comments?.length}<MessagesSquare className="h-4 w-4" /></span>
-                  }
+                  <div className="flex gap-2 items-center">
+                    {task?.due_on &&
+                      <span className="flex gap-1 items-center text-sm opacity-60">{format(task.due_on, 'dd/MM/yy')}<Calendar1Icon className="h-4 w-4" /></span>
+                    }
+                    {task?.due_on && task?.comments && task?.comments?.length > 0 &&
+                      <Separator orientation="vertical" className="h-4" />
+                    }
+                    {task?.comments && task?.comments?.length > 0 &&
+                      <span className="flex gap-1 items-center text-sm opacity-60">{task?.comments?.length}<MessagesSquare className="h-4 w-4" /></span>
+                    }
+                  </div>
                 </div>
               </Card>
             </TaskContextMenu>

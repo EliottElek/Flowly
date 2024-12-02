@@ -1,15 +1,29 @@
+"use client"
 import { Calendar } from "@/components/ui/calendar"
 import {
-  SidebarGroup,
-  SidebarGroupContent,
+    SidebarGroup,
+    SidebarGroupContent,
 } from "@/components/ui/sidebar"
+import React from "react"
+import { useTaskContext } from "../task-context"
+import { formatDistanceToNow } from "date-fns"
 
 export function DatePicker() {
-  return (
-    <SidebarGroup className="px-0">
-      <SidebarGroupContent>
-        <Calendar className="[&_[role=gridcell].bg-accent]:bg-sidebar-primary [&_[role=gridcell].bg-accent]:text-sidebar-primary-foreground [&_[role=gridcell]]:w-[33px]" />
-      </SidebarGroupContent>
-    </SidebarGroup>
-  )
+    const { dueOn, setDueOn } = useTaskContext()
+
+
+    return (
+        <SidebarGroup className="px-0">
+            <SidebarGroupContent>
+                <Calendar
+                    mode="single"
+                    selected={dueOn}
+                    onSelect={setDueOn}
+                    className="[&_[role=gridcell].bg-accent]:bg-sidebar-primary [&_[role=gridcell].bg-accent]:text-sidebar-primary-foreground [&_[role=gridcell]]:w-[33px]" />
+
+                {dueOn && <div className="px-4 italic opacity-60">Due {formatDistanceToNow(dueOn ?? "", { addSuffix: true })}</div>}
+
+            </SidebarGroupContent>
+        </SidebarGroup>
+    )
 }

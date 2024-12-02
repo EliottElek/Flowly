@@ -209,7 +209,7 @@ export const MultiSelect = React.forwardRef<
                     >
                         {selectedValues.length > 0 ? (
                             <div className="flex justify-between items-center w-full">
-                                <div className="flex flex-wrap gap-1 items-center">
+                                <div className="flex flex-nowrap gap-1 items-center truncate text-ellipsis">
                                     {selectedValues.slice(0, maxCount).map((value, i) => {
                                         const option = options.find((o) => o.value === value);
                                         return (

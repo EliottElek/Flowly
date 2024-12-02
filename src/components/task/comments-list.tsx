@@ -16,7 +16,7 @@ const CommentsList = ({ comments, handleSubmitComment }: { comments: NestedComme
         return (
             <li>
                 <div>
-                    <div className='flex p-2 flex-col bg-muted/50 border shadow-sm rounded-md'>
+                    <div className='flex p-2 flex-col'>
                         <div className='flex items-center gap-2'>
                             <Avatar className="h-7 w-7 rounded-full">
                                 <AvatarImage src={comment.user?.avatar_url ?? ""} alt={comment?.user?.username || ""} />
@@ -27,7 +27,7 @@ const CommentsList = ({ comments, handleSubmitComment }: { comments: NestedComme
                                 <p className='text-xs opacity-50 font-thin'>{formatDistanceToNow(comment?.created_at, { addSuffix: true })}</p>
                             </div>
                         </div>
-                        <div className='m-1 !text-xs'>
+                        <div className='m-1 !text-xs bg-muted/50 border p-2 shadow-sm rounded-md'>
                             <CommentContent content={comment.content} />
                         </div>
                         <div>

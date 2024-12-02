@@ -13,6 +13,7 @@ export interface Task {
   priority?: string,
   user_id?: string,
   project?: Partial<Project>,
+  due_on?: Date | string | null | undefined,
   user?: User,
   tags?: Tag[],
   comments?: Comment[] | Partial<Comment>[]

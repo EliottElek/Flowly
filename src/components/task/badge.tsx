@@ -49,7 +49,7 @@ export default function PriorityBadge({ priority, className, children }: { prior
 }
 
 
-export const PriorityBadgeSelect = ({ task, className, refetch }: { task: Task, className?: string | undefined, refetch: () => void }) => {
+export const PriorityBadgeSelect = ({ task, refetch }: { task: Task, refetch: () => void }) => {
     const [selectedPriority, setSelectedPriority] = React.useState(task.priority)
     const { updateTask } = useUpdateTask();
 
@@ -94,7 +94,7 @@ export const Badge = ({ tag }: { tag: Tag }) => {
     return (
 
         <span style={style}
-            className={cn("flex items-center gap-1 rounded-full px-2 py-.5 text-xs font-medium")}>
+            className={cn("flex items-center truncate text-ellipsis gap-1 rounded-full px-2 py-.5 text-xs font-medium")}>
             {tag?.name ?? "N/A"}
         </span>
     )

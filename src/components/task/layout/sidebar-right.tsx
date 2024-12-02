@@ -47,7 +47,7 @@ const data = {
 export function SidebarRight({
     ...props
 }: React.ComponentProps<any>) {
-    const { selectedTags, setSelectedTags, handleUpdateTask, savingStatus } = useTaskContext()
+    const { selectedTags, setSelectedTags, savingStatus } = useTaskContext()
     const { tags } = useTags(true)
     return (
         <Sidebar
@@ -57,13 +57,13 @@ export function SidebarRight({
         >
             <SidebarHeader className="h-12 border-b flex flex-row items-center">
                 <div className="flex items-center">
-                    <span className={cn("p-1 px-2 flex gap-1 items-center rounded-full text-sm", savingStatus.className)}>{savingStatus.icon}{savingStatus.status}</span>
+                    <span className={cn("p-.5 px-2 flex gap-1 items-center rounded-full text-sm", savingStatus.className)}>{savingStatus.icon}{savingStatus.status}</span>
                 </div>
             </SidebarHeader>
             <SidebarContent>
-                <div className="m-2"
+                <div className="m-2 space-y-1"
                 >
-                    <label className="text-sm">Tags</label>
+                    <label className="text-sm">Tags ({selectedTags?.length ?? 0})</label>
                     <MultiSelect
                         // @ts-ignore
                         options={tags}
