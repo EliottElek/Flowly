@@ -27,6 +27,6 @@ export function useTags(forSelect: boolean): UseTagsResult {
         }
     );
     if (forSelect)
-        tags = tags?.map((tag) => ({ label: tag.name, value: tag.id })) ?? []
+        tags = tags?.map((tag) => ({ label: tag.name, value: tag.id, color: tag.color })) ?? []
     return { tags, count, isLoading, refetch: mutate, error };
 }

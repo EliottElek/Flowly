@@ -1,6 +1,6 @@
 "use client"
 import * as React from "react"
-import { Plus } from "lucide-react"
+import { Plus, SaveIcon } from "lucide-react"
 
 import { Calendars } from "./calendars"
 import { DatePicker } from "./date-picker"
@@ -19,6 +19,7 @@ import { MultiSelect } from "@/components/ui/multi-select"
 import { useTags } from "@/hooks/kanban/use-tags"
 import { useTaskContext } from "../task-context"
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
 // This is sample data.
 const data = {
@@ -46,7 +47,7 @@ const data = {
 export function SidebarRight({
     ...props
 }: React.ComponentProps<any>) {
-    const { selectedTags, setSelectedTags, handleUpdateTask } = useTaskContext()
+    const { selectedTags, setSelectedTags, handleUpdateTask, savingStatus } = useTaskContext()
     const { tags } = useTags(true)
     return (
         <Sidebar
@@ -54,7 +55,10 @@ export function SidebarRight({
             className="sticky hidden lg:flex top-0 h-[95vh] border-l"
             {...props}
         >
-            <SidebarHeader className="h-12 border-b">
+            <SidebarHeader className="h-12 border-b flex flex-row items-center">
+                <div className="flex items-center">
+                    <span className={cn("p-1 px-2 flex gap-1 items-center rounded-full text-sm", savingStatus.className)}>{savingStatus.icon}{savingStatus.status}</span>
+                </div>
             </SidebarHeader>
             <SidebarContent>
                 <div className="m-2"
@@ -74,9 +78,6 @@ export function SidebarRight({
                 <DatePicker />
                 <SidebarSeparator className="mx-0" />
                 <Calendars calendars={data.calendars} />
-                <div className="sticky flex items-center p-2 bg-background justify-center bottom-0">
-                    <Button className="w-full" onClick={handleUpdateTask}>Update task</Button>
-                </div>
             </SidebarContent>
         </Sidebar>
     )

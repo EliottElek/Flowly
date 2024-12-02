@@ -75,11 +75,19 @@ export default function TaskContextMenu({ children, task, refetch }: { children:
                     </ContextMenuSubContent>
                 </ContextMenuSub>
                 <ContextMenuSeparator />
-                <ContextMenuCheckboxItem checked>
+                <ContextMenuCheckboxItem disabled checked>
                     Show Bookmarks Bar
                     <ContextMenuShortcut>⌘⇧B</ContextMenuShortcut>
                 </ContextMenuCheckboxItem>
-                <ContextMenuCheckboxItem>Show Full URLs</ContextMenuCheckboxItem>
+                <ContextMenuCheckboxItem disabled>Show Full URLs</ContextMenuCheckboxItem>
+                <ContextMenuSeparator />
+                <ContextMenuItem inset onClick={handleDeleteTask}>
+                    Share task
+                    <ContextMenuShortcut>⌘⇧S</ContextMenuShortcut>
+                </ContextMenuItem>
+                <ContextMenuItem inset onClick={handleDeleteTask}>
+                    Copy link to clipboard
+                </ContextMenuItem>
                 <ContextMenuSeparator />
                 <ContextMenuItem className="text-destructive" inset onClick={handleDeleteTask}>
                     Delete

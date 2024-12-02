@@ -41,7 +41,7 @@ export const KanbanTask = memo(function KanbanTask({ task, index, refetch }: Kan
         >
           <Link href={`/dashboard/task/${task.id}`}>
             <TaskContextMenu task={task} refetch={refetch}>
-              <Card className="group rounded-xl relative bg-background">
+              <Card className="group border-none dark:shadow-white/5 rounded-lg relative bg-background">
                 <CardHeader className="p-3">
                   <div className="flex items-center justify-between">
                     <Tags tags={task?.tags ?? []} />

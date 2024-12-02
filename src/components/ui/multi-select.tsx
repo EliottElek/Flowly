@@ -13,7 +13,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/components/task/badge";
 import {
     Popover,
     PopoverContent,
@@ -69,7 +69,7 @@ interface MultiSelectProps
         /** The unique value associated with the option. */
         value: string;
         /** Optional icon component to display alongside the option. */
-        icon?: React.ComponentType<{ className?: string }>;
+        color: string
     }[];
 
     /**
@@ -209,51 +209,18 @@ export const MultiSelect = React.forwardRef<
                     >
                         {selectedValues.length > 0 ? (
                             <div className="flex justify-between items-center w-full">
-                                <div className="flex flex-wrap items-center">
+                                <div className="flex flex-wrap gap-1 items-center">
                                     {selectedValues.slice(0, maxCount).map((value, i) => {
                                         const option = options.find((o) => o.value === value);
-                                        const IconComponent = option?.icon;
                                         return (
                                             <Badge
                                                 key={i}
-                                                className={cn(
-                                                    isAnimating ? "animate-bounce" : "",
-                                                    multiSelectVariants({ variant })
-                                                )}
-                                                style={{ animationDuration: `${animation}s` }}
-                                            >
-                                                {IconComponent && (
-                                                    <IconComponent className="h-4 w-4 mr-2" />
-                                                )}
-                                                {option?.label}
-                                                <XCircle
-                                                    className="ml-2 h-4 w-4 cursor-pointer"
-                                                    onClick={(event) => {
-                                                        event.stopPropagation();
-                                                        toggleOption(value);
-                                                    }}
-                                                />
-                                            </Badge>
+                                                tag={{ name: option?.label ?? "N/A", color: option?.color ?? "N/A", id: option?.value ?? "N/A" }}
+                                            />
                                         );
                                     })}
                                     {selectedValues.length > maxCount && (
-                                        <Badge
-                                            className={cn(
-                                                "bg-transparent text-foreground border-foreground/1 hover:bg-transparent",
-                                                isAnimating ? "animate-bounce" : "",
-                                                multiSelectVariants({ variant })
-                                            )}
-                                            style={{ animationDuration: `${animation}s` }}
-                                        >
-                                            {`+ ${selectedValues.length - maxCount} more`}
-                                            <XCircle
-                                                className="ml-2 h-4 w-4 cursor-pointer"
-                                                onClick={(event) => {
-                                                    event.stopPropagation();
-                                                    clearExtraOptions();
-                                                }}
-                                            />
-                                        </Badge>
+                                        <span className={cn("flex items-center gap-1 rounded-full px-2 py-.5 text-xs font-medium text-foreground bg-gray-300/20 opacity-50")}>{selectedValues.length - maxCount} more</span>
                                     )}
                                 </div>
                                 <div className="flex items-center justify-between">
@@ -329,9 +296,6 @@ export const MultiSelect = React.forwardRef<
                                             >
                                                 <CheckIcon className="h-4 w-4" />
                                             </div>
-                                            {option.icon && (
-                                                <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-                                            )}
                                             <span>{option.label}</span>
                                         </CommandItem>
                                     );

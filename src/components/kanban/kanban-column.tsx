@@ -53,8 +53,8 @@ export function KanbanColumn({
   }
   return (
     <ColumnContextMenu column={column} refetch={refetch}>
-      <Card className="bg-muted/50 relative !min-h-[48px] overflow-hidden rounded-xl">
-        <div className="shadow-sm border-b p-1 px-3 z-50 group bg-muted/50 flex items-center gap-1 justify-between">
+      <Card className="bg-muted/50 p-1 relative !min-h-[48px] overflow-hidden rounded-xl">
+        <div className="p-1 px-3 z-50 group flex items-center gap-1 justify-between">
           {edit ? <>
             <Input
               className="font-bold text-sm focus:outline-none !h-auto p-1"
@@ -86,8 +86,7 @@ export function KanbanColumn({
           }
         </div>
         <div
-
-          className="min-h-[10px] overflow-x-hidden z-0 overflow-y-auto scrollbar-hide max-h-[calc(100vh_-_8.5rem)]"
+          className="min-h-[70px] shadow-inner border border-foreground/5 rounded-xl overflow-x-hidden z-0 overflow-y-auto scrollbar-hide max-h-[calc(100vh_-_10.5rem)]"
           ref={provided.innerRef}
           {...provided.droppableProps}
         >
@@ -100,8 +99,9 @@ export function KanbanColumn({
             />
           ))}
           {provided.placeholder}
-          <div className="p-1"> <NewTask refetch={refetch} project_id={column.project_id} column_id={column.id} /></div>
         </div>
+        <div className="p-1"> <NewTask refetch={refetch} project_id={column.project_id} column_id={column.id} /></div>
+
       </Card>
     </ColumnContextMenu>
   )

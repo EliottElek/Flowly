@@ -4,7 +4,7 @@ import { Task } from "@/types/kanban";
 import { extractTitleAndDescription } from "@/lib/utils";
 
 type UseCreateTaskResult = {
-    createTask: (task: Task) => Promise<{ data: Task | null; error: Error | null }>;
+    createTask: (task: Task) => Promise<{ data: { id: string } | null; error: Error | null }>;
     isLoading: boolean;
     error: string | null;
 };
@@ -21,7 +21,7 @@ export function useCreateTask(): UseCreateTaskResult {
             const { title, description } = extractTitleAndDescription(task.content)
             const { data, error } = await supabase
                 .from("tasks")
-                .insert([{ ...task, title, description }]);
+                .insert([{ ...task, title, description }]).select("id").single();
 
             if (error) {
                 throw error;
