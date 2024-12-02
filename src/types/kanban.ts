@@ -1,5 +1,6 @@
 import { JSONContent } from "@tiptap/react"
 import { User } from "./user"
+import { Project } from "./project"
 
 export interface Task {
   id: string,
@@ -11,6 +12,7 @@ export interface Task {
   project_id?: string,
   priority?: string,
   user_id?: string,
+  project?: Partial<Project>,
   user?: User,
   tags?: Tag[],
   comments?: Comment[] | Partial<Comment>[]

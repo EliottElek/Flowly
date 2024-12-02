@@ -6,7 +6,7 @@ import { useTaskContext } from '@/components/task/task-context'
 const TaskDialog = () => {
     const { content, setContent } = useTaskContext()
     return (
-        <div className='p-8 pt-12'>
+        <div className='p-8'>
             <Editor content={content} setContent={setContent} />
         </div>
     )

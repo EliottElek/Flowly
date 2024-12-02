@@ -88,14 +88,14 @@ export const PriorityBadgeSelect = ({ task, className, refetch }: { task: Task, 
 
 export const Badge = ({ tag }: { tag: Tag }) => {
     const style = {
-        backgroundColor: `${tag.color?.toUpperCase()}20`, // 20 for opacity
-        color: tag.color?.toUpperCase(),
+        backgroundColor: `${tag?.color?.toUpperCase()}20`, // 20 for opacity
+        color: tag?.color?.toUpperCase(),
     };
     return (
 
         <span style={style}
             className={cn("flex items-center gap-1 rounded-full px-2 py-.5 text-xs font-medium")}>
-            {tag.name}
+            {tag?.name ?? "N/A"}
         </span>
     )
 }

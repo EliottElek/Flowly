@@ -24,6 +24,7 @@ interface TaskContextProps {
     setSelectedTags: Dispatch<SetStateAction<string[]>>
 }
 
+
 const TaskContext = createContext<TaskContextProps | undefined>(undefined);
 
 export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
@@ -32,7 +33,7 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
     const path = usePathname()
     const { confirm } = useConfirm()
     const { task, refetch } = useTask(task_id);
-    const [selectedTags, setSelectedTags] = useState<string[]>([]);
+    const [selectedTags, setSelectedTags] = useState<any[]>([]);
     const { updateTask } = useUpdateTask();
     const { deleteTask } = useDeleteTask();
     const { updateTags } = useUpdateTags()
@@ -44,7 +45,8 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
     useEffect(() => {
         if (task) {
             setContent(task.content ?? {});
-            setSelectedTags(task.tags?.map((tag) => tag.id) ?? []);
+            // @ts-ignore
+            setSelectedTags(task.tags?.map(({ tags: tag }) => (tag.id)) ?? []);
         }
     }, [task]);
 

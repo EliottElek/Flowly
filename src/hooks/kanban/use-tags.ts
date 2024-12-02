@@ -26,7 +26,6 @@ export function useTags(forSelect: boolean): UseTagsResult {
             revalidateOnReconnect: false,
         }
     );
-
     if (forSelect)
         tags = tags?.map((tag) => ({ label: tag.name, value: tag.id })) ?? []
     return { tags, count, isLoading, refetch: mutate, error };
