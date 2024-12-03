@@ -29,8 +29,8 @@ export function SidebarLeft({
                 icon: Home,
             },
             {
-                title: "Threads",
-                url: `/dashboard/task/${task_id}/comments`,
+                title: "Feed",
+                url: `/dashboard/task/${task_id}/feed`,
                 icon: Inbox,
                 badge: "10",
                 count: commentsCount

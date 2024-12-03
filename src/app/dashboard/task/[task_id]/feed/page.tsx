@@ -8,7 +8,7 @@ const page = () => {
   if (!task_id) return redirect("/404")
 
   return (
-    <div><CommentsSection task_id={task_id as unknown as string} /></div>
+    <div className='h-full'><CommentsSection task_id={task_id as unknown as string} /></div>
   )
 }
 

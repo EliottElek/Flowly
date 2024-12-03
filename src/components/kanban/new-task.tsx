@@ -1,17 +1,15 @@
 import { Button } from "@/components/ui/button"
 import { Task } from "@/types/kanban"
-import { useState } from "react"
 import { useCreateTask } from "@/hooks/kanban/use-create-task"
-import { useColumns } from "@/hooks/kanban/use-columns"
 import { PlusIcon } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import { ToastAction } from "@/components/ui/toast"
 import defaultContent from '@/components/editor/default-content.json'
 import { useRouter } from "next/navigation";
+import { ContextMenuItem } from "@/components/ui/context-menu"
 
-export function NewTask({ refetch, project_id, column_id }: { refetch: () => void, project_id: string, column_id: string }) {
+export function NewTask({ refetch, project_id, column_id, inContextMenu }: { refetch: () => void, project_id: string, column_id: string, inContextMenu?: boolean }) {
   const { toast } = useToast()
-  const { columns } = useColumns(project_id);
   const { createTask } = useCreateTask();
   const router = useRouter()
 
@@ -45,9 +43,15 @@ export function NewTask({ refetch, project_id, column_id }: { refetch: () => voi
       router.push(`/dashboard/task/${data.id}`)
   };
 
+  if (inContextMenu)
+    return (
+      <ContextMenuItem inset onClick={handleAddTask}>
+        New Task
+      </ContextMenuItem>
+    )
   return (
-    <Button disabled={columns?.length === 0} className="font-bold w-full rounded-lg" variant={"ghost"} onClick={handleAddTask}>
-      <PlusIcon /> New Task
+    <Button className="h-6 w-6" size={"icon"} variant={"ghost"} onClick={handleAddTask}>
+      <PlusIcon />
     </Button>
   )
 } 

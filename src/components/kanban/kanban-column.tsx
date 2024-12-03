@@ -53,7 +53,7 @@ export function KanbanColumn({
   }
   return (
     <ColumnContextMenu column={column} refetch={refetch}>
-      <Card className="bg-muted/50 p-1 relative !min-h-[48px] overflow-hidden rounded-xl">
+      <Card className="bg-muted/50 shadow-none border-none p-1 relative !min-h-[48px] overflow-hidden rounded-xl">
         <div className="p-1 px-3 z-50 group flex items-center gap-1 justify-between">
           {edit ? <>
             <Input
@@ -74,19 +74,24 @@ export function KanbanColumn({
                 <span className="font-bold text-sm">{column.name}</span>
                 <span className="opacity-0 group-hover:opacity-100 duration-100" ><PencilIcon className="h-3 w-3 text-xs" /></span>
               </Button>
-              <span className="text-md h-full opacity-50">
-                <SlotCounter
-                  autoAnimationStart={false}
-                  value={column.tasks.length}
-                  sequentialAnimationMode
-                  useMonospaceWidth
-                />
-              </span>
+              <div className="flex items-center gap-3">
+                <div className="opacity-0 group-hover:opacity-50 duration-100">
+                  <NewTask refetch={refetch} project_id={column.project_id} column_id={column.id} />
+                </div>
+                <span className="text-md h-full opacity-50">
+                  <SlotCounter
+                    autoAnimationStart={false}
+                    value={column.tasks.length}
+                    sequentialAnimationMode
+                    useMonospaceWidth
+                  />
+                </span>
+              </div>
             </div>
           }
         </div>
         <div
-          className="min-h-[70px] shadow-inner rounded-xl overflow-x-hidden z-0 overflow-y-auto scrollbar-hide max-h-[calc(100vh_-_10.5rem)]"
+          className="min-h-[70px]  z-0"
           ref={provided.innerRef}
           {...provided.droppableProps}
         >
@@ -100,8 +105,6 @@ export function KanbanColumn({
           ))}
           {provided.placeholder}
         </div>
-        <div className="p-1"> <NewTask refetch={refetch} project_id={column.project_id} column_id={column.id} /></div>
-
       </Card>
     </ColumnContextMenu>
   )

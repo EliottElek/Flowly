@@ -37,7 +37,7 @@ export type Comment = {
   user: {
     id: string;
     email: string | null;
-    username: string | null;
+    user_name: string | null;
     avatar_url: string | null;
   };
 };
@@ -51,7 +51,7 @@ export type NestedComment = {
   project_id: string;
   user: {
     id: string;
-    username: string | null;
+    user_name: string | null;
     email: string | null;
     avatar_url: string | null;
   };

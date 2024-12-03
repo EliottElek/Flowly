@@ -72,8 +72,8 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
 
     const handleClose = () => {
         if (!task) return;
-        if (path.split("/").length > 4) router.back();
         router.back();
+        router.push(`/dashboard/project/${task.project_id}`)
     };
 
     const saveTask = async () => {

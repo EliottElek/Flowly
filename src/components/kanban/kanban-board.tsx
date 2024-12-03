@@ -87,7 +87,7 @@ export function KanbanBoard({ project_id }: { project_id: string }) {
   if (isLoading) return <KanbanSkeleton />;
 
   return (
-    <div className="w-full overflow-auto snap-mandatory md:snap-none flex h-full">
+    <div className="w-full overflow-auto snap-mandatory md:snap-none flex h-[calc(100vh_-_60px)]">
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="all-columns" direction="horizontal" type="column">
           {(provided) => (

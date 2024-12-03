@@ -1,20 +1,16 @@
 "use client"
 import {
     ContextMenu,
-    ContextMenuCheckboxItem,
     ContextMenuContent,
     ContextMenuItem,
-    ContextMenuSeparator,
     ContextMenuShortcut,
-    ContextMenuSub,
-    ContextMenuSubContent,
-    ContextMenuSubTrigger,
     ContextMenuTrigger,
 } from "@/components/ui/context-menu"
 import { useDeleteColumn } from "@/hooks/kanban/use-delete-column"
 import { toast } from "@/hooks/use-toast"
 import { Column } from "@/types/kanban"
 import { useConfirm } from "../use-confirm-dialog"
+import { NewTask } from "./new-task"
 
 export default function ColumnContextMenu({ children, column, refetch }: { children: React.ReactNode, column: Partial<Column>, refetch: () => void }) {
 
@@ -34,12 +30,14 @@ export default function ColumnContextMenu({ children, column, refetch }: { child
             refetch()
         }
     };
+
     return (
         <ContextMenu>
             <ContextMenuTrigger>
                 {children}
             </ContextMenuTrigger>
             <ContextMenuContent className="w-64">
+                <NewTask refetch={refetch} project_id={column.project_id as string} column_id={column.id as string} inContextMenu={true} />
                 <ContextMenuItem className="text-destructive" inset onClick={(e) => handleDeleteColumn(e, true)}>
                     Empty column
                 </ContextMenuItem>

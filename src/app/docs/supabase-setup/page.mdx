@@ -320,6 +320,68 @@ AFTER INSERT ON project_members
 FOR EACH ROW
 EXECUTE FUNCTION add_organization_member();
 ```
+
+```sql
+CREATE POLICY "Allow read to organization members"
+ON project_members
+FOR SELECT
+TO authenticated
+USING (
+  EXISTS (
+    SELECT 1 
+    FROM organization_members 
+    WHERE organization_members.user_id = auth.uid()
+  )
+);
+
+CREATE POLICY "Allow insert to project members"
+ON project_members
+FOR INSERT
+TO authenticated
+WITH CHECK (
+  EXISTS (
+    SELECT 1
+    FROM project_members AS pm
+    WHERE pm.project_id = project_members.project_id
+    AND pm.user_id = auth.uid()
+  )
+);
+
+CREATE POLICY "Allow update to project members"
+ON project_members
+FOR UPDATE
+TO authenticated
+USING (
+  EXISTS (
+    SELECT 1
+    FROM project_members AS pm
+    WHERE pm.project_id = project_members.project_id
+    AND pm.user_id = auth.uid()
+  )
+) WITH CHECK (
+  EXISTS (
+    SELECT 1
+    FROM project_members AS pm
+    WHERE pm.project_id = project_members.project_id
+    AND pm.user_id = auth.uid()
+  )
+);
+
+CREATE POLICY "Allow delete to project members"
+ON project_members
+FOR DELETE
+TO authenticated
+USING (
+  EXISTS (
+    SELECT 1
+    FROM project_members AS pm
+    WHERE pm.project_id = project_members.project_id
+    AND pm.user_id = auth.uid()
+  )
+);
+```
+
+
 ---
 
 ## 6. Testing Policies

@@ -111,7 +111,7 @@ export const CommentContent = ({ content }: { content: JSONContent }) => {
     });
 
     return (
-        <div className='prose dark:prose-invert max-w-none'>
+        <div className='prose dark:prose-invert max-w-none !bg-background'>
             <EditorContent editor={editor} />
         </div>
     );

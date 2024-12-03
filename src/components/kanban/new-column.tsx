@@ -49,11 +49,11 @@ export default function NewColumn({ refetch, project_id }: { refetch: () => void
 
     return (
         <div className="p-2">{!open ?
-            <Button variant="secondary" className="!w-72 bg-muted/50 rounded border" onClick={() => setOpen(true)}>
+            <Button variant="secondary" className="!w-72 bg-muted/50 rounded-lg" onClick={() => setOpen(true)}>
                 <PlusIcon /> New Column
             </Button>
             :
-            <Card className="!w-72 p-2 bg-muted/50 flex flex-col h-fit rounded">
+            <Card className="!w-72 p-2 bg-muted/50 flex flex-col h-fit shadow-none border-none rounded-xl">
                 <form className="flex flex-col gap-2">
                     <Input
                         required

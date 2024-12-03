@@ -30,7 +30,7 @@ const CommentsSection = ({ task_id }: { task_id: string }) => {
     }, [content, task?.id, task?.project_id, refetch])
 
     return (
-        <div className='flex flex-col w-full h-[95vh]'>
+        <div className='flex flex-col w-full h-full'>
             <div className='grow p-4'>
                 {Array.isArray(comments) && comments.length > 0 ? <CommentsList comments={comments} handleSubmitComment={handleSubmitComment as any} /> :
                     <EmptyCommentState />}
@@ -49,7 +49,6 @@ const CommentsSection = ({ task_id }: { task_id: string }) => {
 
 const EmptyCommentState = () => (
     <div className='grow flex items-center opacity-30 dark:opacity-60 flex-col h-full justify-center'>
-        <MessagesSquare className='h-24 w-24 stroke-[.6px]' />
         <p className='italic'>There are no comments on this task yet.</p>
     </div>
 )
