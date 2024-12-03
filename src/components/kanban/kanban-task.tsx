@@ -72,7 +72,7 @@ export const KanbanTask = memo(function KanbanTask({ task, index, refetch }: Kan
                       <Separator orientation="vertical" className="h-4" />
                     }
                     {task?.comments && task?.comments?.length > 0 &&
-                      <span className="flex gap-1 items-center text-sm opacity-60">{task?.comments?.length}<MessagesSquare className="h-4 w-4" /></span>
+                      <span className="flex gap-1 items-center text-sm opacity-60 mr-1">{task?.comments?.length}<MessagesSquare className="h-4 w-4" /></span>
                     }
                   </div>
                 </div>

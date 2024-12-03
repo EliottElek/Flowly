@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/sidebar"
 import { useMemo } from "react"
 import { useParams } from 'next/navigation'
+import Logs from "./logs"
 
 export function SidebarLeft({
     commentsCount, ...props
@@ -41,6 +42,7 @@ export function SidebarLeft({
         <Sidebar className="border-r-0 h-[95vh]" {...props}>
             <SidebarHeader>
                 <NavMain items={data.navMain} />
+                <Logs task_id={task_id as string} />
             </SidebarHeader>
             <SidebarRail />
         </Sidebar>

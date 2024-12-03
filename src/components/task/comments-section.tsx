@@ -8,12 +8,21 @@ import { toast } from '@/hooks/use-toast'
 import { submitComment } from '@/lib/actions/comments'
 import { useTask } from '@/hooks/kanban/use-task'
 import CommentsList from './comments-list'
-import { MessagesSquare } from 'lucide-react'
+import { supabase } from "@/lib/supabase/client";
 
 const CommentsSection = ({ task_id }: { task_id: string }) => {
     const [content, setContent] = useState<JSONContent>({})
     const { task } = useTask(task_id)
     const { comments, refetch } = useComments(task_id)
+
+    const handleChanges = () => {
+        refetch()
+    }
+    // Listen to comments changes
+    supabase
+        .channel('comments')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'comments', filter: `project_id=eq.${task?.project_id}` }, handleChanges)
+        .subscribe()
 
     const handleSubmitComment = useCallback(async (content: JSONContent, parent_id?: string | null) => {
         const error = await submitComment({ content: content, task_id: task?.id, project_id: task?.project_id, parent_id: parent_id });

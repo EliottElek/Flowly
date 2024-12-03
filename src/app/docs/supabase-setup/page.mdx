@@ -381,6 +381,74 @@ USING (
 );
 ```
 
+```sql
+CREATE OR REPLACE FUNCTION log_significant_task_update()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF (OLD.title IS DISTINCT FROM NEW.title OR OLD.description IS DISTINCT FROM NEW.description) THEN
+        INSERT INTO task_logs (user_id, action, details, task_id)
+        VALUES (
+            auth.id(),
+            'updated task',
+            jsonb_build_object(
+                'changed_fields', jsonb_build_object(
+                    'title', CASE WHEN OLD.title IS DISTINCT FROM NEW.title THEN jsonb_build_object('old', OLD.title, 'new', NEW.title) ELSE NULL END,
+                    'description', CASE WHEN OLD.description IS DISTINCT FROM NEW.description THEN jsonb_build_object('old', OLD.description, 'new', NEW.description) ELSE NULL END
+                )
+            ),
+            NEW.id
+        );
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER after_significant_task_update
+AFTER UPDATE ON tasks
+FOR EACH ROW
+EXECUTE FUNCTION log_significant_task_update();
+
+CREATE OR REPLACE FUNCTION consolidate_logs()
+RETURNS VOID AS $$
+BEGIN
+    INSERT INTO task_logs (user_id, action, details, task_id, timestamp)
+    SELECT DISTINCT ON (task_id) user_id, action, details, task_id, created_at
+    FROM pending_task_logs
+    ORDER BY task_id, created_at DESC;
+
+    DELETE FROM pending_task_logs; -- Clear the staging table
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION log_task_update_with_delay()
+RETURNS TRIGGER AS $$
+DECLARE
+    last_log TIMESTAMPTZ;
+BEGIN
+    SELECT timestamp INTO last_log
+    FROM task_logs
+    WHERE task_id = NEW.id
+    ORDER BY timestamp DESC
+    LIMIT 1;
+
+    IF last_log IS NULL OR (EXTRACT(EPOCH FROM (now() - last_log)) > 2) THEN
+        INSERT INTO task_logs (user_id, action, details, task_id)
+        VALUES (
+            auth.id(),
+            'updated task',
+            jsonb_build_object(
+                'old_values', row_to_json(OLD),
+                'new_values', row_to_json(NEW)
+            ),
+            NEW.id
+        );
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+```
 
 ---
 
