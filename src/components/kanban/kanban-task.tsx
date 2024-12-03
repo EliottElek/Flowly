@@ -66,7 +66,7 @@ export const KanbanTask = memo(function KanbanTask({ task, index, refetch }: Kan
                   </div>
                   <div className="flex gap-2 items-center">
                     {task?.due_on &&
-                      <span className="flex gap-1 items-center text-sm opacity-60">{format(task.due_on, 'dd/MM/yy')}<Calendar1Icon className="h-4 w-4" /></span>
+                      <span className="flex gap-1 items-center text-xs opacity-60">{format(task.due_on, 'dd/MM/yy')}<Calendar1Icon className="h-4 w-4" /></span>
                     }
                     {task?.due_on && task?.comments && task?.comments?.length > 0 &&
                       <Separator orientation="vertical" className="h-4" />
