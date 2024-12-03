@@ -3,7 +3,6 @@ import { useQuery } from "@supabase-cache-helpers/postgrest-swr";
 import { Project } from "@/types/project";
 import { redirect } from "next/navigation";
 
-
 type UseProjectResult = {
     project: Project;
     isLoading: boolean;

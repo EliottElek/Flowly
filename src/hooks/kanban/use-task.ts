@@ -12,7 +12,6 @@ type UseTasksResult = {
     refetch: any;
 };
 
-
 export function useTask(task_id: string): UseTasksResult {
 
     const { data: task, count, mutate, isLoading, error } = useQuery(
@@ -24,7 +23,7 @@ export function useTask(task_id: string): UseTasksResult {
             revalidateOnReconnect: false,
         }
     );
-    if (error) return redirect("/404")
+    if (error) return redirect("/error")
 
     return { task, count, isLoading, refetch: mutate, error };
 }

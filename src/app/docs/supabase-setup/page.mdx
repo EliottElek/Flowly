@@ -297,6 +297,29 @@ ON DELETE CASCADE;
 
 ```
 
+```sql
+-- Step 1: Create the trigger function
+CREATE OR REPLACE FUNCTION add_organization_member()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Insert into organization_members with the org_id of the project
+    INSERT INTO organization_members (member_id, org_id)
+    SELECT 
+        NEW.member_id, 
+        projects.org_id
+    FROM projects
+    WHERE projects.id = NEW.project_id;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Step 2: Create the trigger
+CREATE TRIGGER project_members_trigger
+AFTER INSERT ON project_members
+FOR EACH ROW
+EXECUTE FUNCTION add_organization_member();
+```
 ---
 
 ## 6. Testing Policies

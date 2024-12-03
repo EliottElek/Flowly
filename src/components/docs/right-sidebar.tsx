@@ -90,7 +90,7 @@ const data = {
 export function SidebarRight({ ...props }: React.ComponentProps<typeof Sidebar>) {
     return (
         <Sidebar {...props} collapsible="none"
-            className="sticky hidden lg:flex top-0 h-screen mt-16 pt-4"
+            className="sticky bg-transparent hidden lg:flex top-0 h-screen mt-16 pt-4"
             {...props}>
             <SidebarContent>
                 <SidebarGroup>

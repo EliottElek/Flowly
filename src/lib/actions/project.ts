@@ -18,12 +18,12 @@ export async function getProject(project_id: string): Promise<Project> {
         .eq('id', project_id)
         .single();
 
-    project.members = project.members.map(({ users }: any) => users)
-
     if (error) {
-        console.log(error)
         return redirect("/404")
     }
+    project.members = project.members.map(({ users }: any) => users)
+
+
     return project as Project
 }
 

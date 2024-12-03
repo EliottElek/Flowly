@@ -7,9 +7,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbS
 import Link from 'next/link';
 import AvatarList from '@/components/ui/avatar-list';
 import { NavActions } from '@/components/project/nav-actions';
-
-
-
+import { ProjectProvider } from '@/components/project/project-context';
 export default async function ProjectLayout({
     params,
     children
@@ -24,7 +22,7 @@ export default async function ProjectLayout({
     }
 
     return (
-        <>
+        <ProjectProvider project_id={project.id}>
             <header className="flex sticky top-0 h-12 bg-muted/50 shrink-0 items-center justify-between gap-2 border-b border-foreground/5 px-4">
                 <div className="flex items-center gap-2">
                     <SidebarTrigger />
@@ -49,7 +47,7 @@ export default async function ProjectLayout({
             <div className="flex grow flex-col grow-1 w-full h-full overflow-hidden pt-2">
                 {children}
             </div>
-        </>
+        </ProjectProvider>
     );
 };
 

@@ -20,15 +20,15 @@ export function KanbanBoard({ project_id }: { project_id: string }) {
   const handleChanges = () => {
     refetch()
   }
-
-  // Listen to inserts
+  // Listen to task changes
   supabase
     .channel('tasks')
-    .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'tasks', filter: `project_id=eq.${project_id}` }, handleChanges)
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'tasks', filter: `project_id=eq.${project_id}` }, handleChanges)
     .subscribe()
-    supabase
+  // Listen to task updates
+  supabase
     .channel('columns')
-    .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'columns', filter: `project_id=eq.${project_id}` }, handleChanges)
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'columns', filter: `project_id=eq.${project_id}` }, handleChanges)
     .subscribe()
 
   useEffect(() => {
@@ -97,28 +97,28 @@ export function KanbanBoard({ project_id }: { project_id: string }) {
               {...provided.droppableProps}
             >
               {// @ts-ignore
-              columns.map((column: Column, i: number) => (
-                <Draggable draggableId={column.id} index={i} key={column.id}>
-                  {(draggableProvided) => (
-                    <div
-                      className="w-[90vw] md:w-[350px] p-2"
-                      ref={draggableProvided.innerRef}
-                      {...draggableProvided.draggableProps}
-                      {...draggableProvided.dragHandleProps}
-                    >
-                      <Droppable droppableId={column.id} type="task">
-                        {(taskProvided) => (
-                          <KanbanColumn
-                            column={column}
-                            provided={taskProvided}
-                            refetch={refetch}
-                          />
-                        )}
-                      </Droppable>
-                    </div>
-                  )}
-                </Draggable>
-              ))}
+                columns.map((column: Column, i: number) => (
+                  <Draggable draggableId={column.id} index={i} key={column.id}>
+                    {(draggableProvided) => (
+                      <div
+                        className="w-[90vw] md:w-[350px] p-2"
+                        ref={draggableProvided.innerRef}
+                        {...draggableProvided.draggableProps}
+                        {...draggableProvided.dragHandleProps}
+                      >
+                        <Droppable droppableId={column.id} type="task">
+                          {(taskProvided) => (
+                            <KanbanColumn
+                              column={column}
+                              provided={taskProvided}
+                              refetch={refetch}
+                            />
+                          )}
+                        </Droppable>
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
               {provided.placeholder}
               <NewColumn project_id={project_id} refetch={refetch} />
             </div>

@@ -9,14 +9,14 @@ import { Avatar, AvatarFallback, AvatarImage } from './avatar'
 const AvatarList = ({ users }: { users: User[] }) => {
     return (
         <div className='flex items-center'>
-            <ul>
+            <ul className='flex items-center mr-2'>
                 {users.map((user: User) => (
-                    <li key={user.id}>
+                    <li key={user.id} className='-mr-2'>
                         {/* <Tooltip>
                             <TooltipTrigger> */}
-                        <Avatar className="h-8 w-8 rounded-full">
+                        <Avatar className="h-7 w-7 rounded-full">
                             <AvatarImage src={user?.avatar_url} alt={"user?.user_name"} />
-                            <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                            <AvatarFallback className="rounded-lg text-md">R</AvatarFallback>
                         </Avatar>
                         {/* <TooltipContent>
                                     {user.user_name ?? "Anonymous"}
