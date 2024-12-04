@@ -1,15 +1,17 @@
 "use client"
 
 import { Table } from "@tanstack/react-table"
-import { X } from "lucide-react"
+import { KanbanIcon, X } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { DataTableViewOptions } from "./data-table-view-options"
 
-import { priorities, statuses } from "./data"
+import { statuses } from "./data"
 import { DataTableFacetedFilter } from "./data-table-faceted-filter"
 import { NewTask } from "@/components/kanban/new-task"
+import Link from "next/link"
+import { useParams } from "next/navigation"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -19,6 +21,8 @@ export function DataTableToolbar<TData>({
   table,
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0
+
+  const { project_id } = useParams()
 
   return (
     <div className="flex items-center gap-2 justify-between">
@@ -48,6 +52,11 @@ export function DataTableToolbar<TData>({
             <X />
           </Button>
         )}
+        <Link href={`/dashboard/project/${project_id}`}>
+          <Button variant="outline" size="sm" className="h-8 border-dashed">
+            <KanbanIcon /> Kanban view
+          </Button>
+        </Link>
       </div>
       {//@ts-ignore 
         <NewTask inTableView />
