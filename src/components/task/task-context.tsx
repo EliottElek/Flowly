@@ -16,6 +16,7 @@ import debounce from "lodash.debounce";
 import { CircleDashedIcon, SaveIcon, SaveOffIcon } from "lucide-react";
 import { SelectSingleEventHandler } from "react-day-picker";
 import { parseISO, isEqual } from 'date-fns';
+import { supabase } from "@/lib/supabase/client";
 
 
 const savingStatuses = [
@@ -48,7 +49,6 @@ const TaskContext = createContext<TaskContextProps | undefined>(undefined);
 export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
     const { task_id }: { task_id: string } = useParams();
     const router = useRouter();
-    const path = usePathname();
     const { confirm } = useConfirm();
     const { task, refetch } = useTask(task_id);
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -60,6 +60,17 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
 
     const [content, setContent] = useState<JSONContent>({});
     const [savingStatus, setSavingStatus] = useState(savingStatuses[0]);
+
+    const handleChanges = () => {
+        setSavingStatus(savingStatuses[2]);
+        refetch()
+        setSavingStatus(savingStatuses[0]);
+    }
+    // Listen to task changes
+    supabase
+        .channel('task')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'tasks', filter: `id=eq.${task_id}` }, handleChanges)
+        .subscribe()
 
     useEffect(() => {
         if (task) {
