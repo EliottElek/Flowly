@@ -37,6 +37,13 @@ export function DataTableToolbar<TData>({
         />
         {table.getColumn("tags") && (
           <DataTableFacetedFilter
+            column={table.getColumn("status")}
+            title="Status"
+            options={statuses}
+          />
+        )}
+        {table.getColumn("tags") && (
+          <DataTableFacetedFilter
             column={table.getColumn("tags")}
             title="Tags"
             options={statuses}

@@ -42,13 +42,16 @@ export async function getProjects(): Promise<Project[]> {
 
 export async function getTasks(project_id: string): Promise<Task[]> {
     const supabase = await createClient()
-    let { data: tasks, error } = await supabase
+    let tasks = await supabase
         .from('tasks')
-        .select('*, project:projects!project_id(id, name), comments(id), user:users!user_id(id, user_name, email, avatar_url), tags:task_tags(tags(id, name, color))').eq("project_id", project_id)
-
-    if (error) {
-        throw error
-    }
+        .select('*, column:columns!column_id(id, name), project:projects!project_id(id, name), comments(id), user:users!user_id(id, user_name, email, avatar_url), tags:task_tags(tags(id, name, color))')
+        .eq("project_id", project_id)
+        .then(({ data, error }) => {
+            if (error) {
+                throw error
+            }
+            return data.map((task => ({ ...task, status: task.column.name })))
+        })
     return tasks as Task[]
 }
 

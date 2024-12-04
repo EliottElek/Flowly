@@ -3,6 +3,7 @@ import { User } from "./user"
 import { Project } from "./project"
 
 export interface Task {
+  status?: string,
   id: string,
   content: JSONContent,
   title: string,

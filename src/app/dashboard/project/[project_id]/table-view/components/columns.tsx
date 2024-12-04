@@ -66,6 +66,23 @@ export const columns: ColumnDef<Task>[] = [
     },
   },
   {
+    accessorKey: "status",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Status" />
+    ),
+    cell: ({ row }) => {
+
+      return (
+        <div className="flex truncate text-ellipsis items-center">
+          {row.original?.status}
+        </div>
+      )
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id))
+    },
+  },
+  {
     accessorKey: "tags",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Tags" />

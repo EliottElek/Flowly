@@ -32,13 +32,13 @@ export const statuses = [
         icon: HelpCircle,
     },
     {
-        value: "todo",
-        label: "Todo",
+        value: "to do",
+        label: "To do",
         icon: Circle,
     },
     {
-        value: "in progress",
-        label: "In Progress",
+        value: "pending",
+        label: "Pending",
         icon: Timer,
     },
     {
@@ -47,8 +47,8 @@ export const statuses = [
         icon: CheckCircle,
     },
     {
-        value: "canceled",
-        label: "Canceled",
+        value: "to abort",
+        label: "To abort",
         icon: CircleOff,
     },
 ]
@@ -79,6 +79,7 @@ export const taskSchema = z.object({
     title: z.string(),
     description: z.string(),
     priority: z.string(),
+    status: z.string()
 })
 
 export type Task = z.infer<typeof taskSchema>
