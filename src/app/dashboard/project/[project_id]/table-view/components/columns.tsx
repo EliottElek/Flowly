@@ -45,7 +45,7 @@ export const columns: ColumnDef<Task>[] = [
       <DataTableColumnHeader column={column} title="Title" />
     ),
     cell: ({ row }) => <div className="max-w-[300px] truncate">
-      <Link className="font-medium hover:underline" href={`/dashboard/task/${row.original.id}`}>{row.original.title}</Link></div>,
+      <Link className="font-bold hover:underline" href={`/dashboard/task/${row.original.id}`}>{row.original.title}</Link></div>,
   },
   {
     accessorKey: "description",
