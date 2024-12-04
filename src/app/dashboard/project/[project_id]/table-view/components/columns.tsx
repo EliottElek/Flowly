@@ -24,7 +24,7 @@ export const columns: ColumnDef<Task>[] = [
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         onClick={(e) => e.stopPropagation()}
         aria-label="Select all"
-        className="translate-y-[2px]"
+        className=""
       />
     ),
     cell: ({ row }) => (
@@ -33,7 +33,7 @@ export const columns: ColumnDef<Task>[] = [
         onCheckedChange={(value: any) => row.toggleSelected(!!value)}
         onClick={(e) => e.stopPropagation()}
         aria-label="Select row"
-        className="translate-y-[2px]"
+        className=""
       />
     ),
     enableSorting: false,
