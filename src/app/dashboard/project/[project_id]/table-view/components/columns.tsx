@@ -44,8 +44,8 @@ export const columns: ColumnDef<Task>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Title" />
     ),
-    cell: ({ row }) => <div className="font-medium max-w-[400px] truncate">
-      <Link className="text-primary underline" href={`/dashboard/task/${row.original.id}`}>{row.original.title}</Link></div>,
+    cell: ({ row }) => <div className="max-w-[300px] truncate">
+      <Link className="font-medium hover:underline" href={`/dashboard/task/${row.original.id}`}>{row.original.title}</Link></div>,
   },
   {
     accessorKey: "description",
@@ -73,8 +73,8 @@ export const columns: ColumnDef<Task>[] = [
     cell: ({ row }) => {
 
       return (
-        <div className="flex w-[100px] items-center">
-          <Tags tags={row.original?.tags ?? []} />
+        <div className="flex w-[140px] truncate text-ellipsis items-center">
+          <Tags limit={1} tags={row.original?.tags ?? []} />
         </div>
       )
     },
@@ -82,33 +82,33 @@ export const columns: ColumnDef<Task>[] = [
       return value.includes(row.getValue(id))
     },
   },
-  {
-    accessorKey: "priority",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Priority" />
-    ),
-    cell: ({ row }) => {
-      const priority = priorities.find(
-        (priority) => priority.value === row.getValue("priority")
-      )
+  // {
+  //   accessorKey: "priority",
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title="Priority" />
+  //   ),
+  //   cell: ({ row }) => {
+  //     const priority = priorities.find(
+  //       (priority) => priority.value === row.getValue("priority")
+  //     )
 
-      if (!priority) {
-        return null
-      }
+  //     if (!priority) {
+  //       return null
+  //     }
 
-      return (
-        <div className="flex items-center">
-          {priority.icon && (
-            <priority.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-          )}
-          <span>{priority.label}</span>
-        </div>
-      )
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
-    },
-  },
+  //     return (
+  //       <div className="flex items-center">
+  //         {priority.icon && (
+  //           <priority.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+  //         )}
+  //         <span>{priority.label}</span>
+  //       </div>
+  //     )
+  //   },
+  //   filterFn: (row, id, value) => {
+  //     return value.includes(row.getValue(id))
+  //   },
+  // },
   {
     id: "actions",
     cell: ({ row }) => <DataTableRowActions row={row} />,

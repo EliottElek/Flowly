@@ -8,7 +8,7 @@ import defaultContent from '@/components/editor/default-content.json'
 import { useRouter } from "next/navigation";
 import { ContextMenuItem } from "@/components/ui/context-menu"
 
-export function NewTask({ refetch, project_id, column_id, inContextMenu }: { refetch: () => void, project_id: string, column_id: string, inContextMenu?: boolean }) {
+export function NewTask({ refetch, project_id, column_id, inContextMenu, inTableView }: { refetch: () => void, project_id: string, column_id: string, inContextMenu?: boolean, inTableView?: boolean }) {
   const { toast } = useToast()
   const { createTask } = useCreateTask();
   const router = useRouter()
@@ -48,6 +48,13 @@ export function NewTask({ refetch, project_id, column_id, inContextMenu }: { ref
       <ContextMenuItem inset onClick={handleAddTask}>
         New Task
       </ContextMenuItem>
+    )
+  if (inTableView)
+    return (
+      <Button
+        size="sm" disabled onClick={handleAddTask}>
+        <PlusIcon /> New task
+      </Button>
     )
   return (
     <Button className="h-6 w-6" size={"icon"} variant={"ghost"} onClick={handleAddTask}>

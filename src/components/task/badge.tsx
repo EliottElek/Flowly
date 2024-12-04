@@ -100,17 +100,17 @@ export const Badge = ({ tag }: { tag: Tag }) => {
     )
 }
 
-export const Tags = ({ tags }: { tags: any[] }) => {
+export const Tags = ({ tags, limit = 3 }: { tags: any[], limit?: number }) => {
     return (
-        <ul className="flex items-center gap-1 flex-wrap">
-            {tags.slice(0, 3).map(({ tags: tag }, i) => (
+        <ul className="flex items-center gap-1">
+            {tags.slice(0, limit).map(({ tags: tag }, i) => (
                 <li key={i}><Badge tag={tag} /></li>
             ))}
-            {tags.length > 3 && (
+            {tags.length > limit && (
                 <TooltipProvider>
                     <Tooltip>
                         <TooltipTrigger>
-                            <span className={cn("flex items-center gap-1 rounded-full px-2 py-.5 text-xs font-medium bg-gray-300/20 opacity-50")}>+{tags.length - 3} more</span>
+                            <span className={cn("flex items-center gap-1 rounded-full px-2 py-.5 text-xs font-medium bg-gray-300/20 opacity-50")}>+{tags.length - limit} more</span>
                         </TooltipTrigger>
                         <TooltipContent className="bg-background border">
                             <ul className="flex items-center flex-col gap-1 flex-wrap">
