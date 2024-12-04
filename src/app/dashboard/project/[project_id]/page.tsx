@@ -49,7 +49,7 @@ const page = async ({ params }: { params: Params }) => {
             <div className='px-4 sticky right-0 left-0 py-2 flex justify-between gap-4 mt-3'>
                 <div className='flex gap-4 items-center'>
                     <Tabs defaultValue="board">
-                        <TabsList className='h-8'>
+                        <TabsList className='h-8 p-0.5'>
                             <Link href={`/dashboard/project/${project.id}`}><TabsTrigger className='h-7' value="board">Board</TabsTrigger></Link>
                             <Link href={`/dashboard/project/${project.id}/table-view`}><TabsTrigger className='h-6' value="table">Table</TabsTrigger></Link>
                         </TabsList>
