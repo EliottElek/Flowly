@@ -1,5 +1,18 @@
+import Image from 'next/image'
+import { PlusIcon } from 'lucide-react'
 
-# **Flowly**  
+<div className="flex items-center gap-4">
+<Image alt="reconurge" className={"hidden h-24 dark:block"} height={200} width={200} src='/supabase-logo-wordmark--dark.svg' />
+<Image alt="reconurge" className={"block h-24 dark:hidden"} height={200} width={200} src='/supabase-logo-wordmark--light.svg' />
+<PlusIcon  />
+<Image alt="reconurge" className={"h-12 w-12"} height={350} width={350} src='/logo-next.svg' />
+<PlusIcon  />
+<Image alt="reconurge" className={"h-12 w-12"} height={350} width={350} src='/logo-shadcn.svg' />
+</div>
+
+# **Flowly** 
+
+
 
 **Flowly** is a lightweight, modern Kanban app designed to streamline task organization and team productivity.  
 Built with **Supabase** and **Next.js 15**, it provides an intuitive interface and robust backend features to manage your projects efficiently.  

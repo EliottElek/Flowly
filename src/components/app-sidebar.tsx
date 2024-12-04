@@ -85,6 +85,10 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
             title: "Authentication",
             url: "/docs/authentication",
           },
+          {
+            title: "Supabase default setup",
+            url: "/docs/supabase-default-setup",
+          },
         ],
       },
       {
