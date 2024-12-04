@@ -54,7 +54,7 @@ export default async function Home() {
                 <div className="flex items-center w-full justify-between">
                     <SidebarTrigger />
                     <div className="flex items-center gap-3">
-                        <Link href="/dashboard/new-project"><Button className="h-8 font-bold bg-emerald-500 hover:bg-emerald-400 text-white">New project</Button></Link>
+                        <Link href="/dashboard/new-project"><Button className="h-8 font-bold">New project</Button></Link>
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <Button disabled={!orgAbled} className="h-8 font-bold" variant={"secondary"}>New organization</Button>

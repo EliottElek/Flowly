@@ -11,6 +11,7 @@ import {
     Sidebar,
     SidebarHeader,
     SidebarRail,
+    SidebarSeparator,
 } from "@/components/ui/sidebar"
 import { useMemo } from "react"
 import { useParams } from 'next/navigation'
@@ -42,7 +43,9 @@ export function SidebarLeft({
         <Sidebar className="border-r-0 h-[95vh]" {...props}>
             <SidebarHeader>
                 <NavMain items={data.navMain} />
+                <SidebarSeparator className="mx-0" />
                 <Logs task_id={task_id as string} />
+                <SidebarSeparator className="mx-0" />
             </SidebarHeader>
             <SidebarRail />
         </Sidebar>

@@ -16,7 +16,7 @@ export function useLogs(task_id: string): UseLogsResult {
         supabase
             .from("task_logs")
             .select("*, user:users!user_id(id, user_name, avatar_url)").eq("task_id", task_id)
-            .limit(8).order("timestamp", { ascending: false }),
+            .limit(25).order("timestamp", { ascending: false }),
         {
             revalidateOnFocus: false,
             revalidateOnReconnect: false,

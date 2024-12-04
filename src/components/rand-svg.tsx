@@ -36,7 +36,7 @@ const KanbanPlaceholder = ({ kanbanData }: { kanbanData: Partial<Column>[] | und
                             <g key={cardIndex}
                             >
                                 <rect
-                                    className="rounded-md group-hover:fill-emerald-200/20 duration-100"
+                                    className="rounded-md group-hover:fill-primary/20 duration-100"
                                     x="2%" // Slight padding inside the column
                                     y={`${2 + cardIndex * (cardHeightPercent + cardSpacingPercent)}%`} // Card position
                                     width={`${columnWidthPercent - 4}%`} // Card width with padding
@@ -46,32 +46,29 @@ const KanbanPlaceholder = ({ kanbanData }: { kanbanData: Partial<Column>[] | und
                                     ry="1"
                                 />
                                 <rect
-                                    className="rounded-md opacity-0 -translate-y-1 group-hover:translate-y-0 duration-300 group-hover:opacity-100 group-hover:fill-emerald-500/80 duration-100"
+                                    className="rounded-md opacity-0 -translate-y-1 group-hover:translate-y-0 duration-300 group-hover:opacity-100 group-hover:fill-primary/50 duration-100"
                                     x="3%" // Slight padding inside the column
                                     y={`${4 + cardIndex * (cardHeightPercent + cardSpacingPercent)}%`} // Card position
                                     width={`${columnWidthPercent - 10}%`} // Card width with padding
                                     height={`3`} // Card height
-                                    fill="rgba(165, 164, 164, 0.20)"
                                     rx=".5"
                                     ry=".5"
                                 />
                                 <rect
-                                    className="rounded-md opacity-0 translate-y-2 group-hover:translate-y-0 duration-300 group-hover:opacity-100 group-hover:fill-emerald-500/20 duration-100"
+                                    className="rounded-md opacity-0 translate-y-2 group-hover:translate-y-0 duration-300 group-hover:opacity-100 group-hover:fill-primary/10 duration-100"
                                     x="3%" // Slight padding inside the column
                                     y={`${9 + cardIndex * (cardHeightPercent + cardSpacingPercent)}%`} // Card position
                                     width={`${columnWidthPercent - 6}%`} // Card width with padding
                                     height={`1`} // Card height
-                                    fill="rgba(165, 164, 164, 0.20)"
                                     rx=".5"
                                     ry=".5"
                                 />
                                 <rect
-                                    className="rounded-md opacity-0 translate-y-2 group-hover:translate-y-0 duration-300 group-hover:opacity-100 group-hover:fill-emerald-500/20 duration-100"
+                                    className="rounded-md opacity-0 translate-y-2 group-hover:translate-y-0 duration-300 group-hover:opacity-100 group-hover:fill-primary/10 duration-100"
                                     x="3%" // Slight padding inside the column
                                     y={`${12 + cardIndex * (cardHeightPercent + cardSpacingPercent)}%`} // Card position
                                     width={`${columnWidthPercent - 6}%`} // Card width with padding
                                     height={`1`} // Card height
-                                    fill="rgba(165, 164, 164, 0.20)"
                                     rx=".5"
                                     ry=".5"
                                 />

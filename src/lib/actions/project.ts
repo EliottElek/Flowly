@@ -3,6 +3,7 @@ import { Project } from "@/types/project"
 import { createClient } from "../supabase/server"
 import { redirect } from "next/navigation"
 import { Organization } from "@/types/organization"
+import { Task } from "@/types/kanban"
 
 export async function getProject(project_id: string): Promise<Project> {
     const supabase = await createClient()
@@ -37,6 +38,18 @@ export async function getProjects(): Promise<Project[]> {
         throw error
     }
     return projects as Project[]
+}
+
+export async function getTasks(project_id: string): Promise<Task[]> {
+    const supabase = await createClient()
+    let { data: tasks, error } = await supabase
+        .from('tasks')
+        .select('*, project:projects!project_id(id, name), comments(id), user:users!user_id(id, user_name, email, avatar_url), tags:task_tags(tags(id, name, color))').eq("project_id", project_id)
+
+    if (error) {
+        throw error
+    }
+    return tasks as Task[]
 }
 
 export async function getOrgsAndProjects(): Promise<Organization[]> {

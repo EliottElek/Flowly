@@ -53,7 +53,7 @@ export const KanbanTask = memo(function KanbanTask({ task, index, refetch }: Kan
                     {task.description}
                   </CardDescription>
                 </CardHeader>
-                <Separator />
+                {/* <Separator /> */}
                 <div className="flex items-center justify-between p-2">
                   <div className="flex items-center gap-2">
                     <Avatar className="h-6 w-6 rounded-full">

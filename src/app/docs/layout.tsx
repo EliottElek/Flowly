@@ -51,7 +51,7 @@ export default async function Layout({ children }: { children: ReactNode }) {
                         </Breadcrumb>
                     </div>
                 </header>
-                <div className="flex grow flex-col grow-1 w-full h-full overflow-hidden">
+                <div className="flex grow flex-col grow-1 w-full h-full">
                     {children}
                     <HeroPattern />
                 </div>

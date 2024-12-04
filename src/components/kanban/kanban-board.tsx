@@ -10,6 +10,8 @@ import { Column } from "@/types/kanban"
 import { useUpdateColumnIndexes } from "@/hooks/kanban/use-update-columns-indexes"
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase/client";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import Link from "next/link";
 
 export function KanbanBoard({ project_id }: { project_id: string }) {
   const { columns: initialColumns, isLoading, refetch } = useKanban(project_id);
@@ -87,7 +89,7 @@ export function KanbanBoard({ project_id }: { project_id: string }) {
   if (isLoading) return <KanbanSkeleton />;
 
   return (
-    <div className="w-full overflow-auto snap-mandatory md:snap-none flex h-[calc(100vh_-_60px)]">
+    <>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="all-columns" direction="horizontal" type="column">
           {(provided) => (
@@ -125,6 +127,6 @@ export function KanbanBoard({ project_id }: { project_id: string }) {
           )}
         </Droppable>
       </DragDropContext>
-    </div>
+    </>
   );
 }

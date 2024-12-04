@@ -27,7 +27,7 @@ const TaskDialog = ({ children }: { children: React.ReactNode }) => {
             <DialogContent className="p-0 h-[95vh] max-w-[90vw] w-full overflow-hidden outline-none">
                 <DialogTitle className="sr-only">Settings</DialogTitle>
                 <DialogDescription className="sr-only">
-                    Customize your settings here.
+                   Task control panel.
                 </DialogDescription>
                 <SidebarProvider>
                     <SidebarLeft commentsCount={task?.comments?.length ?? 0} />

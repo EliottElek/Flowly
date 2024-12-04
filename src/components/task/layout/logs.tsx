@@ -12,7 +12,7 @@ import { ChevronRight } from 'lucide-react'
 
 const Logs = ({ task_id }: { task_id: string }) => {
 
-    const { logs, isLoading, refetch } = useLogs(task_id)
+    const { logs, isLoading, error, refetch } = useLogs(task_id)
 
     const handleChanges = () => {
         refetch()
@@ -22,7 +22,7 @@ const Logs = ({ task_id }: { task_id: string }) => {
         .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'task_logs', filter: `task_id=eq.${task_id}` }, handleChanges)
         .subscribe()
 
-
+    console.log(error)
     if (isLoading) return <div>Loading...</div>
     return (
         <Collapsible
@@ -43,14 +43,15 @@ const Logs = ({ task_id }: { task_id: string }) => {
                     <SidebarMenu className='px-3'>
                         {Array.isArray(logs) &&
                             logs.map((log: any) => (
-                                <SidebarMenuItem key={log.id}>                                       <div className="overflow-hidden w-full">
-                                    <div className="w-full flex justify-between gap-x-4">
-                                        <span className="flex w-full justify-between py-0.5 text-xs truncate text-ellipsis whitespace-nowrap">
-                                            <span className="font-semibold">{log.user?.user_name ?? "User"}</span> - <span className='opacity-60'>{log.action}</span>-
-                                            <span className='opacity-60'>{formatDistanceToNow(log?.timestamp)}{" "}</span>
-                                        </span>
+                                <SidebarMenuItem key={log.id}>
+                                    <div className="overflow-hidden w-full">
+                                        <div className="w-full flex justify-between gap-x-4">
+                                            <span className="flex w-full justify-between py-0.5 text-xs truncate text-ellipsis whitespace-nowrap">
+                                                <span className="font-semibold">{log.user?.user_name ?? "User"}</span> - <span className='opacity-60'>{log.action}</span>-
+                                                <span className='opacity-60'>{formatDistanceToNow(log?.timestamp)}{" "}</span>
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
                                 </SidebarMenuItem>
                             ))}
                     </SidebarMenu>
