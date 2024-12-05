@@ -53,6 +53,7 @@
     "@types/mdx": "^2.0.13",
     "@types/uuid": "^10.0.0",
     "@vercel/analytics": "^1.4.1",
+    "@vercel/speed-insights": "^1.1.0",
     "acron": "^1.0.5",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
