@@ -359,3 +359,11 @@ body {
 .tiptap h1 {
   @apply text-4xl
 }
+@keyframes move-x {
+  0% {
+    transform: translateX(var(--move-x-from));
+  }
+  100% {
+    transform: translateX(var(--move-x-to));
+  }
+}

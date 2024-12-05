@@ -1,11 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-
-import { Badge } from "@/components/ui/badge"
 import { Checkbox } from "@/components/ui/checkbox"
-
-import { labels, priorities, statuses } from "./data"
 import { Task } from "@/types/kanban"
 import { DataTableColumnHeader } from "./data-table-column-header"
 import { DataTableRowActions } from "./data-table-row-actions"
@@ -44,27 +40,28 @@ export const columns: ColumnDef<Task>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Title" />
     ),
-    cell: ({ row }) => <div className="max-w-[300px] truncate">
-      <Link className="font-bold hover:underline" href={`/dashboard/task/${row.original.id}`}>{row.original.title}</Link></div>,
+    cell: ({ row }) => <div className="ml-2">
+      <div className="max-w-[40vw] truncate"><Link className="font-bold truncate text-ellipsis hover:underline" href={`/dashboard/task/${row.original.id}`}>{row.original.title}</Link></div>
+      <p className="opacity-60 truncate text-ellipsis max-w-[50vw]">{row.original.description}</p></div>,
   },
-  {
-    accessorKey: "description",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Description" />
-    ),
-    cell: ({ row }) => {
-      const label = labels.find((label) => label.value === row.original.description)
+  // {
+  //   accessorKey: "description",
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title="Description" />
+  //   ),
+  //   cell: ({ row }) => {
+  //     const label = labels.find((label) => label.value === row.original.description)
 
-      return (
-        <div className="flex space-x-2">
-          {label && <Badge variant="outline">{label.label}</Badge>}
-          <span className="max-w-[500px] truncate">
-            {row.getValue("description")}
-          </span>
-        </div>
-      )
-    },
-  },
+  //     return (
+  //       <div className="flex space-x-2">
+  //         {label && <Badge variant="outline">{label.label}</Badge>}
+  //         <span className="max-w-[500px] truncate">
+  //           {row.getValue("description")}
+  //         </span>
+  //       </div>
+  //     )
+  //   },
+  // },
   {
     accessorKey: "status",
     header: ({ column }) => (
@@ -79,7 +76,8 @@ export const columns: ColumnDef<Task>[] = [
       )
     },
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
+      console.log(row.original.status, value)
+      return value.includes(row.original.status?.toLowerCase())
     },
   },
   {

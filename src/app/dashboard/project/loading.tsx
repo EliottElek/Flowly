@@ -10,6 +10,7 @@ const DialogDemo = () => (
                 <Skeleton className="h-5 w-6 rounded-md" />
             </div>
         </header>
+        <div className="h-14" />
         <div className="pt-2"><KanbanSkeleton /></div>
     </div>
 )

@@ -17,7 +17,7 @@ const CommentsList = ({ comments, handleSubmitComment }: { comments: NestedComme
             <li key={comment.id}>
                 <div className="relative pb-3">
                     {index !== comments.length - 1 ? (
-                        <span aria-hidden="true" className="absolute left-3.5 top-8 -ml-px bottom-0 w-0.5 bg-muted/50" />
+                        <span aria-hidden="true" className="absolute -z-1 left-3.5 top-8 -ml-px bottom-0 w-0.5 bg-muted/50" />
                     ) : null}
                     <div className="relative flex items-start space-x-3">
                         <>
@@ -46,7 +46,7 @@ const CommentsList = ({ comments, handleSubmitComment }: { comments: NestedComme
                         <Button onClick={() => setReply(!reply)} className='h-3 px-1 text-xs opacity-50' variant={"ghost"}>{reply ? "Cancel" : "Reply"}</Button>
                     </div>
                     {reply &&
-                        <div className='border rounded-md p-2 bg-background'>
+                        <div className='border z-1 rounded-md p-2 bg-background'>
                             <Editor content={content} setContent={setContent} />
                             <form className='flex justify-end'>
                                 <Button disabled={JSON.stringify(content) === JSON.stringify({})} formAction={() => handleSubmitComment(content, comment.id)} className='font-bold'>Reply</Button>

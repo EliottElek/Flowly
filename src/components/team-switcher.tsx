@@ -37,7 +37,7 @@ export function TeamSwitcher({
       <SidebarMenuItem className="flex items-center">
         <DropdownMenu>
           <div className="flex aspect-square size-9 items-center justify-center rounded-lg">
-            <Logo />
+            <Logo className = "h-9"/>
           </div>
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton

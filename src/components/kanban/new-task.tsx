@@ -52,12 +52,12 @@ export function NewTask({ refetch, project_id, column_id, inContextMenu, inTable
   if (inTableView)
     return (
       <Button
-        size="sm" disabled onClick={handleAddTask}>
+        size="sm" className="h-8 border-dash" variant={"secondary"} onClick={handleAddTask}>
         <PlusIcon /> New task
       </Button>
     )
   return (
-    <Button className="h-6 w-6" size={"icon"} variant={"ghost"} onClick={handleAddTask}>
+    <Button className="h-7 w-7" size={"icon"} variant={"ghost"} onClick={handleAddTask}>
       <PlusIcon />
     </Button>
   )
