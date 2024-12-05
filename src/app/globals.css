@@ -9,6 +9,9 @@ body {
 
 .editor-view {
   scroll-behavior: smooth;
+  scroll-margin-top: 15rem;
+  scroll-margin-top: 4rem;
+
   /* See https://rsms.me/inter/#features */
   font-feature-settings: 'tnum', 'ss01', 'ss02', 'ss03', 'zero', 'cv11';
 }

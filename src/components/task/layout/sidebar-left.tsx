@@ -43,13 +43,13 @@ export function SidebarLeft({
         ]
     }), [])
     return (
-        <Sidebar className="border-r-0 h-[95vh]" {...props}>
+        <Sidebar className="border-r-0 !h-[95vh]" {...props}>
             <SidebarHeader>
                 <NavMain items={data.navMain} />
                 <Logs task_id={task_id as string} />
                 <SidebarSeparator className="mx-0" />
             </SidebarHeader>
-            {task.content && <TOC doc={task.content} />}
+            {task?.content && <TOC doc={task.content} />}
             <SidebarRail />
         </Sidebar>
     )

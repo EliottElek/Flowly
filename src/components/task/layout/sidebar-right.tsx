@@ -76,8 +76,8 @@ export function SidebarRight({
                     />
                 </div>
                 <DatePicker />
-                <SidebarSeparator className="mx-0" />
-                <Calendars calendars={data.calendars} />
+                {/* <SidebarSeparator className="mx-0" />
+                <Calendars calendars={data.calendars} /> */}
             </SidebarContent>
         </Sidebar>
     )

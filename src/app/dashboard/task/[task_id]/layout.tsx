@@ -31,7 +31,7 @@ const TaskDialog = ({ children }: { children: React.ReactNode }) => {
                 </DialogDescription>
                 <SidebarProvider>
                     <SidebarLeft commentsCount={task?.comments?.length ?? 0} />
-                    <SidebarInset className='overflow-auto editor-view h-[95vh] min-h-none'>
+                    <SidebarInset className='overflow-auto h-[95vh] editor-view'>
                         <div className="flex flex-1 flex-col gap-4 p-4">
                             {children}
                         </div>
