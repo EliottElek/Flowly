@@ -40,19 +40,21 @@ export async function getProjects(): Promise<Project[]> {
     return projects as Project[]
 }
 
-export async function getTasks(project_id: string): Promise<Task[]> {
+export async function getTasks(project_id: string): Promise<Partial<Task>[]> {
     const supabase = await createClient()
     let tasks = await supabase
         .from('tasks')
-        .select('*, column:columns!column_id(id, name), project:projects!project_id(id, name), comments(id), user:users!user_id(id, user_name, email, avatar_url), tags:task_tags(tags(id, name, color))')
+        .select('id, title, description, priority,column_id, column:columns!column_id(id, name), project:projects!project_id(id, name), comments(id), user:users!user_id(id, user_name, email, avatar_url), tags:task_tags(tags(id, name, color))')
         .eq("project_id", project_id)
         .then(({ data, error }) => {
             if (error) {
                 throw error
             }
+            //@ts-ignore
             return data.map((task => ({ ...task, status: task.column.name })))
         })
-    return tasks as Task[]
+        //@ts-ignore
+    return tasks as Partial<Task>[]
 }
 
 export async function getOrgsAndProjects(): Promise<Organization[]> {

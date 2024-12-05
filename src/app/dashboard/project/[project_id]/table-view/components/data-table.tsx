@@ -27,7 +27,6 @@ import {
 
 import { DataTablePagination } from "./data-table-pagination"
 import { DataTableToolbar } from "./data-table-toolbar"
-import { useRouter } from "next/navigation"
 import { Card } from "@/components/ui/card"
 
 interface DataTableProps<TData, TValue> {

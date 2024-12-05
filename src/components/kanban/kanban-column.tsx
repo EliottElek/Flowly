@@ -13,6 +13,7 @@ import { toast } from "@/hooks/use-toast"
 import SlotCounter from 'react-slot-counter';
 import { NewTask } from "./new-task"
 import ColumnContextMenu from "./column-menu"
+import { cn } from "@/lib/utils"
 
 interface KanbanColumnProps {
   column: Column
@@ -53,7 +54,7 @@ export function KanbanColumn({
   }
   return (
     <ColumnContextMenu column={column} refetch={refetch}>
-      <Card className="bg-muted/50 shadow-xs border-none p-1 relative !min-h-[48px] overflow-hidden rounded-xl">
+      <Card className={cn("bg-muted/50 shadow-xs border-none p-1 relative !min-h-[48px] overflow-hidden rounded-xl")}>
         <div className="p-1 px-3 z-50 group flex items-center gap-1 justify-between">
           {edit ? <>
             <Input
@@ -91,7 +92,7 @@ export function KanbanColumn({
           }
         </div>
         <div
-          className="min-h-[70px]  z-0"
+          className={cn("min-h-[70px] rounded-lg z-0", column?.tasks?.length === 0 && "border border-sidebar-border border-dashed")}
           ref={provided.innerRef}
           {...provided.droppableProps}
         >
@@ -106,6 +107,6 @@ export function KanbanColumn({
           {provided.placeholder}
         </div>
       </Card>
-    </ColumnContextMenu>
+    </ColumnContextMenu >
   )
 } 

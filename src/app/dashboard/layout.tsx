@@ -1,23 +1,12 @@
 import { AppSidebar } from "@/components/app-sidebar"
 import { HeroPattern } from "@/components/hero-pattern";
-// import {
-//   Breadcrumb,
-//   BreadcrumbItem,
-//   BreadcrumbList,
-//   BreadcrumbPage,
-//   BreadcrumbSeparator,
-// } from "@/components/ui/breadcrumb"
-// import { Separator } from "@/components/ui/separator"
 import {
   SidebarInset,
   SidebarProvider,
-  SidebarTrigger,
 } from "@/components/ui/sidebar"
 import { getProjects } from "@/lib/actions/project";
 import { createClient } from "@/lib/supabase/server";
-// import Link from "next/link";
 import { redirect } from "next/navigation";
-
 import { ReactNode } from "react";
 
 export default async function Layout({ children }: { children: ReactNode }) {

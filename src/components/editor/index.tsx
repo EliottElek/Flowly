@@ -15,7 +15,9 @@ import html from 'highlight.js/lib/languages/xml'
 import { all, createLowlight } from 'lowlight'
 import StarterKit from '@tiptap/starter-kit'
 import React, { useEffect } from 'react'
-import { Bold, Italic, Underline, ImagePlus } from "lucide-react"
+import { Bold, Italic, Underline } from "lucide-react"
+//@ts-ignore
+import UniqueId from "tiptap-unique-id";
 
 import {
     ToggleGroup,
@@ -61,7 +63,12 @@ export default ({ content, setContent }: EditorProps) => {
             Image,
             Link.configure({
                 defaultProtocol: 'https',
-            })
+            }),
+            UniqueId.configure({
+                attributeName: "id",
+                types: ["paragraph", "heading", "orderedList", "bulletList", "listItem"],
+                createId: () => window.crypto.randomUUID(),
+            }),
         ],
         content,
         onUpdate: ({ editor }) => {

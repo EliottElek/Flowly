@@ -83,7 +83,7 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
 
     const handleClose = () => {
         if (!task) return;
-        router.back();
+        // router.back();
         router.push(`/dashboard/project/${task.project_id}`)
     };
 

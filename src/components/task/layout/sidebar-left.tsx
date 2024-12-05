@@ -16,12 +16,15 @@ import {
 import { useMemo } from "react"
 import { useParams } from 'next/navigation'
 import Logs from "./logs"
+import TOC from "../toc"
+import { useTaskContext } from "../task-context"
 
 export function SidebarLeft({
     commentsCount, ...props
 }: { props?: React.ComponentProps<typeof Sidebar>, commentsCount?: number }) {
 
     const { task_id } = useParams()
+    const { task } = useTaskContext()
 
     const data = useMemo(() => ({
         navMain: [
@@ -43,10 +46,10 @@ export function SidebarLeft({
         <Sidebar className="border-r-0 h-[95vh]" {...props}>
             <SidebarHeader>
                 <NavMain items={data.navMain} />
-                <SidebarSeparator className="mx-0" />
                 <Logs task_id={task_id as string} />
                 <SidebarSeparator className="mx-0" />
             </SidebarHeader>
+            {task.content && <TOC doc={task.content} />}
             <SidebarRail />
         </Sidebar>
     )

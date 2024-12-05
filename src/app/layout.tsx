@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster"
 import { ConfirmContextProvider } from "@/components/use-confirm-dialog";
+import { Analytics } from '@vercel/analytics/next';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -40,6 +41,7 @@ export default function RootLayout({
           </ConfirmContextProvider>
           <Toaster />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );

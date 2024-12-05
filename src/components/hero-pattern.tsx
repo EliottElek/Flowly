@@ -2,7 +2,7 @@
 
 // export function HeroPattern() {
 //     return (
-//         <div className="absolute -z-[500] inset-0 mx-0 max-w-none opacity-50 dark:opacity-100 overflow-hidden">
+//         <div className="absolute -z-50 inset-0 mx-0 max-w-none opacity-50 dark:opacity-100 overflow-hidden">
 //             <div className="absolute left-1/2 top-0 ml-[-38rem] h-[25rem] w-[81.25rem] dark:[mask-image:linear-gradient(white,transparent)]">
 //                 <div className="absolute inset-0 bg-gradient-to-r from-gray-200/80 to-gray-200/30 opacity-40 [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] dark:opacity-100">
 //                     <GridPattern
@@ -84,7 +84,7 @@ import { useId } from 'react'
 
 export function HeroPattern() {
     return (
-        <div className="fixed -z-[500] inset-0 mx-0 max-w-none opacity-50 overflow-hidden">
+        <div className="fixed -z-50 inset-0 mx-0 max-w-none opacity-50 overflow-hidden">
             <div className="absolute left-1/2 top-0 ml-[-38rem] h-[25rem] w-[81.25rem] ">
                 <div className="absolute inset-0 bg-gradient-to-r from-gray-200/80 to-gray-200/30 opacity-40 [mask-image:radial-gradient(farthest-side_at_top,white,transparent)]">
                     <GridPattern

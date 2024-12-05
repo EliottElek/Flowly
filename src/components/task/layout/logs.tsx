@@ -26,7 +26,7 @@ const Logs = ({ task_id }: { task_id: string }) => {
     if (isLoading) return <div>Loading...</div>
     return (
         <Collapsible
-            defaultOpen={true}
+            defaultOpen={false}
             className="group/collapsible"
         >
             <SidebarGroupLabel
