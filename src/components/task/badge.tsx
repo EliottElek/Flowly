@@ -88,8 +88,10 @@ export const PriorityBadgeSelect = ({ task, refetch }: { task: Task, refetch: ()
 
 export const Badge = ({ tag }: { tag: Tag }) => {
     const style = {
-        backgroundColor: `${tag?.color?.toUpperCase()}20`, // 20 for opacity
-        color: tag?.color?.toUpperCase(),
+        // backgroundColor: `${tag?.color?.toUpperCase()}20`, // 20 for opacity
+        backgroundColor: `#49b68b20`,
+        color: "#49b68b"
+        // color: tag?.color?.toUpperCase(),
     };
     return (
 
