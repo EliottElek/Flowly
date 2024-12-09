@@ -52,7 +52,7 @@ export function SidebarRight({
     return (
         <Sidebar
             collapsible="none"
-            className="sticky hidden lg:flex top-0 h-[95vh] border-l"
+            className="sticky hidden lg:flex top-0 h-[100vh] border-l"
             {...props}
         >
             <SidebarHeader className="h-12 border-b flex flex-row items-center">

@@ -24,14 +24,14 @@ const TaskDialog = ({ children }: { children: React.ReactNode }) => {
     const { handleClose, task } = useTaskContext()
     return (
         <Dialog onOpenChange={handleClose} open={Boolean(task)}>
-            <DialogContent className="p-0 h-[95vh] max-w-[90vw] w-full overflow-hidden outline-none">
+            <DialogContent className="p-0 h-[100vh] max-w-[100vw] w-full overflow-hidden outline-none">
                 <DialogTitle className="sr-only">Settings</DialogTitle>
                 <DialogDescription className="sr-only">
                    Task control panel.
                 </DialogDescription>
                 <SidebarProvider>
                     <SidebarLeft commentsCount={task?.comments?.length ?? 0} />
-                    <SidebarInset className='overflow-auto h-[95vh] editor-view'>
+                    <SidebarInset className='overflow-auto h-[100vh] editor-view'>
                         <div className="flex flex-1 flex-col gap-4 p-4">
                             {children}
                         </div>
