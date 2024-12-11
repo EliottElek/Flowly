@@ -43,7 +43,7 @@ export function SidebarLeft({
         ]
     }), [])
     return (
-        <Sidebar className="border-r-0 !h-screen" {...props}>
+        <Sidebar className="border-r-0 !h-[100vh]" {...props}>
             <SidebarHeader>
                 <NavMain items={data.navMain} />
                 <Logs task_id={task_id as string} />

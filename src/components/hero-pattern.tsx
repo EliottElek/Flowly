@@ -1,3 +1,7 @@
+import gridBg from '@/images/grid-bg.svg'
+import grainBg from '@/images/grain-bg.svg'
+import grainBgBlur from '@/images/grain-blur.svg'
+
 // import { useId } from 'react'
 
 // export function HeroPattern() {
@@ -80,9 +84,10 @@
 //     )
 // }
 
+import Image from 'next/image';
 import { useId } from 'react'
 
-export function HeroPattern() {
+export function Hero2Pattern() {
     return (
         <div className="fixed -z-50 inset-0 mx-0 max-w-none opacity-50 overflow-hidden">
             <div className="absolute left-1/2 top-0 ml-[-38rem] h-[25rem] w-[81.25rem] ">
@@ -163,3 +168,12 @@ export function GridPattern({
         </svg>
     )
 }
+
+
+export const HeroPattern = () => (
+    <div className='fixed inset-0 -translate-y-[6px] w-screen opacity-50 h-screen -z-[500]'>
+        <Image className='fixed inset-0 w-screen h-screen' src={gridBg} height={500} width={500} alt="" />
+        {/* <Image className='fixed inset-0 w-screen h-screen' src={grainBg} height={500} width={500} alt="" /> */}
+        <Image className='fixed md:block hidden -translate-y-2/3 top-0 left-0 right-0 w-screen h-screen opacity-20' src={grainBgBlur} height={500} width={500} alt="" />
+    </div>
+)
