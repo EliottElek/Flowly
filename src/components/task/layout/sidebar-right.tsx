@@ -1,48 +1,15 @@
 "use client"
 import * as React from "react"
-import { Plus, SaveIcon } from "lucide-react"
-
-import { Calendars } from "./calendars"
 import { DatePicker } from "./date-picker"
-import { NavUser } from "./nav-users"
 import {
     Sidebar,
     SidebarContent,
-    SidebarFooter,
-    SidebarGroup,
     SidebarHeader,
-    SidebarMenu,
-    SidebarMenuItem,
-    SidebarSeparator,
 } from "@/components/ui/sidebar"
 import { MultiSelect } from "@/components/ui/multi-select"
 import { useTags } from "@/hooks/kanban/use-tags"
 import { useTaskContext } from "../task-context"
-import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-
-// This is sample data.
-const data = {
-    user: {
-        name: "shadcn",
-        email: "m@example.com",
-        avatar: "/avatars/shadcn.jpg",
-    },
-    calendars: [
-        {
-            name: "My Calendars",
-            items: ["Personal", "Work", "Family"],
-        },
-        {
-            name: "Favorites",
-            items: ["Holidays", "Birthdays"],
-        },
-        {
-            name: "Other",
-            items: ["Travel", "Reminders", "Deadlines"],
-        },
-    ],
-}
 
 export function SidebarRight({
     ...props

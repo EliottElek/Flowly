@@ -25,7 +25,7 @@ const page = async ({ params }: { params: Params }) => {
     }
     return (
         <div className="w-full flex flex-col grow overflow-auto snap-mandatory md:snap-none h-[calc(100vh_-_60px)]">
-            <header className="flex z-50 sticky top-0 right-0 left-0 h-12 shrink-0 items-center justify-between gap-2 bg-background/10 backdrop-blur px-4">
+            <header className="flex z-50 sticky top-0 right-0 border-b border-foreground/5 left-0 h-12 shrink-0 items-center justify-between gap-2 bg-background/10 backdrop-blur px-4">
                 <div className="flex items-center gap-2">
                     <SidebarTrigger />
                     <Separator orientation="vertical" className="mr-2 h-4" />
@@ -62,7 +62,7 @@ const page = async ({ params }: { params: Params }) => {
                     <Button disabled className='rounded-md h-8' variant={"outline"}>
                         <ArrowDownToLineIcon className='opacity-60' /> Export
                     </Button>
-                    <Input type="text" className='h-8' placeholder="Search..." />
+                    <Input disabled type="text" className='h-8' placeholder="Search..." />
                 </div>
             </div>
             <div className='flex'>

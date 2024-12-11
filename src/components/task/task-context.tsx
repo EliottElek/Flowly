@@ -20,7 +20,7 @@ import { supabase } from "@/lib/supabase/client";
 
 
 const savingStatuses = [
-    { status: "saved", className: "bg-green-500/10 border border-green-500/30 text-green-500", icon: <SaveIcon className="h-3.5 w-3.5" /> },
+    { status: "saved", className: "bg-emerald-500/10 border border-emerald-500/30 text-emerald-500", icon: <SaveIcon className="h-3.5 w-3.5" /> },
     { status: "unsaved", className: "bg-red-500/10 border border-red-500/30 text-red-500", icon: <SaveOffIcon className="h-3.5 w-3.5" /> },
     { status: "saving", className: "bg-orange-500/10 border border-orange-500/30 text-orange-500", icon: <CircleDashedIcon className="h-3.5 w-3.5 animate-spin" /> }
 ]
