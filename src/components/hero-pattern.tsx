@@ -174,6 +174,6 @@ export const HeroPattern = () => (
     <div className='fixed inset-0 -translate-y-[6px] w-screen opacity-50 h-screen -z-[500]'>
         <Image className='fixed inset-0 w-screen h-screen' src={gridBg} height={500} width={500} alt="" />
         {/* <Image className='fixed inset-0 w-screen h-screen' src={grainBg} height={500} width={500} alt="" /> */}
-        <Image className='fixed md:block hidden -translate-y-2/3 top-0 left-0 right-0 w-screen h-screen opacity-20' src={grainBgBlur} height={500} width={500} alt="" />
+        <Image className='fixed md:block hidden -translate-y-2/3 top-0 left-0 right-0 w-screen h-screen opacity-50' src={grainBgBlur} height={500} width={500} alt="" />
     </div>
 )
