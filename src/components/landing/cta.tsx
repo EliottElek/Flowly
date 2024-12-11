@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 export default function Cta() {
     return (
-        <div className="mx-auto grid md:grid-cols-2  max-w-7xl py-24 sm:px-6 sm:py-32 lg:px-8">
+        <div className="mx-auto grid md:grid-cols-2 max-w-7xl py-24 sm:px-6 sm:py-32 lg:px-8">
             <div className="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left">
                 <h2 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
                     Boost your productivity. Start using our app today.

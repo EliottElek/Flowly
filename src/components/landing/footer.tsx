@@ -1,4 +1,5 @@
 import Logo from "../logo"
+import { ThemeToggle } from "../theme-toggle"
 
 const navigation = {
     solutions: [
