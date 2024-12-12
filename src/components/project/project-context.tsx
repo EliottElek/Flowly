@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect } from "react";
 import { toast } from "@/hooks/use-toast";
 import { useConfirm } from "../use-confirm-dialog";
 import { Project } from "@/types/project";

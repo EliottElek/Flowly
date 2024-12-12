@@ -41,7 +41,7 @@ export const columns: ColumnDef<Task>[] = [
       <DataTableColumnHeader column={column} title="Title" />
     ),
     cell: ({ row }) => <div className="ml-2">
-      <div className="max-w-[40vw] truncate"><Link className="font-bold truncate text-ellipsis hover:underline" href={`/dashboard/task/${row.original.id}`}>{row.original.title}</Link></div>
+      <div className="max-w-[40vw] truncate"><Link className="font-bold truncate text-ellipsis hover:underline" href={`/dashboard/document/${row.original.id}`}>{row.original.title}</Link></div>
       <p className="opacity-60 truncate text-ellipsis max-w-[50vw]">{row.original.description}</p></div>,
   },
   // {

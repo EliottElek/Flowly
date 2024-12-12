@@ -9,14 +9,13 @@ import { useUpdateTags } from "@/hooks/kanban/use-update-tags";
 import { JSONContent } from "@tiptap/react";
 import { toast } from "@/hooks/use-toast";
 import { useConfirm } from "../use-confirm-dialog";
-import { usePathname } from "next/navigation";
 import { Task } from "@/types/kanban";
+import { supabase } from "@/lib/supabase/client";
 // @ts-ignore
 import debounce from "lodash.debounce";
 import { CircleDashedIcon, SaveIcon, SaveOffIcon } from "lucide-react";
 import { SelectSingleEventHandler } from "react-day-picker";
 import { parseISO, isEqual } from 'date-fns';
-import { supabase } from "@/lib/supabase/client";
 
 
 const savingStatuses = [
@@ -29,6 +28,8 @@ interface TaskContextProps {
     content: JSONContent;
     currentPath: string;
     selectedTags: string[];
+    editable: boolean,
+    setEditable: Dispatch<SetStateAction<boolean>>,
     setContent: (content: JSONContent) => void;
     refetch: () => void;
     handleClose: () => void;
@@ -52,6 +53,7 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
     const { confirm } = useConfirm();
     const { task, refetch } = useTask(task_id);
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
+    const [editable, setEditable] = useState(true)
     const [dueOn, setDueOn] = React.useState<Date | undefined>(undefined)
     const { updateTask } = useUpdateTask();
     const { deleteTask } = useDeleteTask();
@@ -75,6 +77,7 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
     useEffect(() => {
         if (task) {
             setContent(task.content ?? {});
+
             // @ts-ignore
             setSelectedTags(task.tags?.map(({ tags: tag }) => tag.id) ?? []);
             task.due_on && setDueOn(new Date(task.due_on) as Date)
@@ -153,7 +156,9 @@ export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
                 setSelectedTags,
                 savingStatus,
                 dueOn,
-                setDueOn
+                setDueOn,
+                editable,
+                setEditable
             }}
         >
             {children}

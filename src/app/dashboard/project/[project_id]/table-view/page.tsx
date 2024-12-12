@@ -39,7 +39,7 @@ const page = async ({ params }: { params: Params }) => {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
-                  <Link href="/dashboard">{project?.org?.name}</Link>
+                  <Link className="underline" href="/dashboard">{project?.org?.name}</Link>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>

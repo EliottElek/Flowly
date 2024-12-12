@@ -39,13 +39,14 @@ lowlight.register('ts', ts)
 interface EditorProps {
     content: JSONContent;
     setContent: (content: JSONContent) => void;
+    editable?: boolean
 }
 
-export default ({ content, setContent }: EditorProps) => {
+export default ({ content, setContent, editable = true }: EditorProps) => {
 
     const editor = useEditor({
         immediatelyRender: false,
-
+        editable: editable,
         extensions: [
             CustomDocument,
             StarterKit.configure({
@@ -93,6 +94,11 @@ export default ({ content, setContent }: EditorProps) => {
             editor.commands.setContent(content);
         }
     }, [content, editor]);
+
+    useEffect(() => {
+        if (!editor) return;
+        editor.setEditable(editable)
+    }, [editable, editor]);
 
     return (
         <div className='prose dark:prose-invert max-w-none'>
