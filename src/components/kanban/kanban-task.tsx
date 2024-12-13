@@ -39,7 +39,7 @@ export const KanbanTask = memo(function KanbanTask({ task, index, refetch }: Kan
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <Link href={`/dashboard/document/${task.id}`}>
+          <Link href={`/dashboard/task/${task.id}`}>
             <TaskContextMenu task={task} refetch={refetch}>
               <Card className="group border-none dark:shadow-white/5 rounded-lg relative bg-background">
                 <CardHeader className="p-3">

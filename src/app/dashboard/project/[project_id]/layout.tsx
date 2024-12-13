@@ -17,7 +17,7 @@ export default async function ProjectLayout({
 
     return (
         <ProjectProvider project_id={project.id}>
-            <div className="flex grow flex-col grow-1 w-full h-full">
+            <div id={"board-bg"} className="flex grow flex-col grow-1 w-full h-full">
                 {children}
             </div>
         </ProjectProvider>

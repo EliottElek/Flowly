@@ -1,29 +1,44 @@
 "use client";
 
-import React, { createContext, useContext, useEffect } from "react";
+import React, { createContext, Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { toast } from "@/hooks/use-toast";
 import { useConfirm } from "../use-confirm-dialog";
 import { Project } from "@/types/project";
 import { useProject } from "@/hooks/project/use-project";
 import { useDeleteProject } from "@/hooks/project/use-delete-project";
 import { useRouter } from "next/navigation";
+import { ThemeDrawer } from "./theme-drawer";
+import { supabase } from "@/lib/supabase/client";
 
 interface ProjectContextProps {
     project: Partial<Project>;
     handleDeleteProject: () => Promise<void>;
-    refetch: () => void
+    refetch: () => void;
+    themeDrawerOpen: boolean;
+    setThemeDrawerOpen: Dispatch<SetStateAction<boolean>>,
+    handleChangeBackground: any
 }
 const ProjectContext = createContext<ProjectContextProps | undefined>(undefined);
 
 export const ProjectProvider = ({ children, project_id }: { children: React.ReactNode, project_id: string }) => {
     const { confirm } = useConfirm();
     const { project, refetch } = useProject(project_id);
+    const [themeDrawerOpen, setThemeDrawerOpen] = useState(false)
     const { deleteProject } = useDeleteProject();
     const router = useRouter()
 
     useEffect(() => {
         refetch()
     }, [project_id])
+
+    useEffect(() => {
+        const boardBg = document.getElementById("board-bg") as HTMLElement | null;
+        if (boardBg && project?.image_url) {
+            boardBg.style.backgroundImage = `url(${project.image_url})`;
+            boardBg.style.backgroundSize = "cover";
+            boardBg.style.backgroundPosition = "center";
+        }
+    }, [project]);
 
     const handleDeleteProject = async () => {
         if (!project_id) return;
@@ -38,15 +53,30 @@ export const ProjectProvider = ({ children, project_id }: { children: React.Reac
         }
     };
 
+    const handleChangeBackground = async (img: string) => {
+        const boardBg = document.getElementById("board-bg") as HTMLElement | null;
+        console.log(boardBg)
+        if (boardBg) {
+            boardBg.style.backgroundImage = `url(${img})`;
+            boardBg.style.backgroundSize = "cover";
+            boardBg.style.backgroundPosition = "center";
+        }
+        await supabase.from("projects").update({ image_url: img }).eq("id", project_id)
+    };
+
     return (
         <ProjectContext.Provider
             value={{
                 project,
                 refetch,
-                handleDeleteProject
+                handleDeleteProject,
+                themeDrawerOpen,
+                setThemeDrawerOpen,
+                handleChangeBackground
             }}
         >
             {children}
+            <ThemeDrawer />
         </ProjectContext.Provider>
     );
 };

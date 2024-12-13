@@ -40,7 +40,7 @@ import { useMemo } from "react"
 
 export function NavActions() {
     const [isOpen, setIsOpen] = React.useState(false)
-    const { handleDeleteProject } = useProjectContext()
+    const { handleDeleteProject, setThemeDrawerOpen } = useProjectContext()
 
     const data = useMemo(() => [
         [
@@ -69,8 +69,9 @@ export function NavActions() {
         ],
         [
             {
-                label: "Undo",
+                label: "Theme",
                 icon: CornerUpLeft,
+                action: () => setThemeDrawerOpen(true)
             },
             {
                 label: "View analytics",

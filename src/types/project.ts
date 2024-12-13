@@ -8,5 +8,6 @@ export interface Project {
     org_id: string
     description: string,
     columns?: Partial<Column>[]
-    members: User[]
+    members: User[], 
+    image_url?:string
 } 

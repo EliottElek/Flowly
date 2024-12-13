@@ -21,7 +21,7 @@ export default async function Home() {
 
     return (
         <>
-            <header className="absolute h-14 sticky top-0 bg-background/10 backdrop-blur inset-x-0 top-0 z-50">
+            <header className="absolute h-14 sticky top-0 bg-backgroundinset-x-0 top-0 z-50">
                 <nav aria-label="Global" className="flex h-full items-center justify-between p-6 lg:px-8">
                     <div className="flex lg:flex-1">
                         <Logo />
