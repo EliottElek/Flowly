@@ -12,6 +12,8 @@ import { DataTableFacetedFilter } from "./data-table-faceted-filter"
 import { NewTask } from "@/components/kanban/new-task"
 import Link from "next/link"
 import { useParams } from "next/navigation"
+import ExportCalendar from "@/components/project/export"
+import Export from "@/components/project/export"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -68,6 +70,7 @@ export function DataTableToolbar<TData>({
       {//@ts-ignore 
         <NewTask inTableView />
       }
+      <Export project_id={project_id as string} />
       <DataTableViewOptions table={table} />
     </div>
   )

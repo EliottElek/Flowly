@@ -97,7 +97,7 @@ export const Badge = ({ tag }: { tag: Tag }) => {
 
         <span
             // style={style}
-            className={cn("flex items-center truncate text-ellipsis gap-1 bg-emarald rounded-full px-2 py-.5 text-xs font-medium")}>
+            className={cn("flex items-center truncate text-ellipsis gap-1 bg-emerald-400/10 border border-emerald-400/10 text-emerald-500 rounded-full px-2 py-.5 text-xs font-medium")}>
             {tag?.name ?? "N/A"}
         </span>
     )

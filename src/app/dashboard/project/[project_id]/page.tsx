@@ -12,6 +12,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from '@/components/ui/button';
 import { ListFilterIcon, ArrowDownToLineIcon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import Export from '@/components/project/export';
 type Params = Promise<{
     project_id: string;
 }>
@@ -59,9 +60,7 @@ const page = async ({ params }: { params: Params }) => {
                     </Button>
                 </div>
                 <div className='flex gap-2 items-center'>
-                    <Button disabled className='rounded-md h-8' variant={"outline"}>
-                        <ArrowDownToLineIcon className='opacity-60' /> Export
-                    </Button>
+                    <Export project_id={project_id} />
                     <Input disabled type="text" className='h-8' placeholder="Search..." />
                 </div>
             </div>

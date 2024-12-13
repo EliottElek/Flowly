@@ -18,7 +18,6 @@ import {
     Trash,
     Trash2,
 } from "lucide-react"
-
 import { Button } from "@/components/ui/button"
 import {
     Popover,
@@ -96,7 +95,7 @@ export function NavActions() {
                 icon: ArrowUp,
             },
             {
-                label: "Export",
+                label: "Export Icalendar",
                 icon: ArrowDown,
             },
         ],
